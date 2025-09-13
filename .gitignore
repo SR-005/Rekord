@@ -1,1 +1,4 @@
 rekord/
+__pycache__/
+*.pyc
+*.pyo

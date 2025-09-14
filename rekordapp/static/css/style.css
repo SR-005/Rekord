@@ -1,0 +1,32 @@
+@font-face {
+  font-family: "Grozen";
+  src: url("../fonts/GROZEN-MEDICAL-DEMO-Medium.otf") format("opentype");
+}
+@font-face {
+  font-family: "BaseNeueBold";
+  src: url("../fonts/BaseNeueTrial-ExpExtBd.ttf") format("truetype");
+}
+@font-face {
+  font-family: "BaseNeueThin";
+  src: url("../fonts/BaseNeueTrial-ExpExtLt.ttf") format("truetype");
+}
+@font-face {
+  font-family: "BaseNeueRegular";
+  src: url("../fonts/BaseNeueTrial-WideMedium.ttf") format("truetype");
+}
+
+.rekord{
+  font-size: 120px;
+  font-family: "Grozen", sans-serif;
+  margin-top: 180px;
+  margin-bottom: 0px;
+}
+.caption{
+  font-size: 25px;
+  font-family: "Grozen", sans-serif;
+  margin-top: -20px;
+}
+.signin-text{
+  font-size: 22px;
+  font-family: "BaseNeueRegular";
+}

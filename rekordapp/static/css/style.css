@@ -20,7 +20,7 @@
 .rekord{
   font-size: 120px;
   font-family: "Grozen", sans-serif;
-  margin-top: 110px;
+  margin-top: 90px;
   margin-bottom: 0px;
 }
 .caption{
@@ -42,7 +42,7 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .login-tile:hover {
-  transform: translateY(-5px);   /* small lift effect */
+  transform: translateY(-5px); 
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
 }
 .login-tile-heading{
@@ -61,6 +61,20 @@
   margin-right: 20px;
 }
 
+.btn-purple {
+  background-color: #7d41ed;
+  border-color: #6f42c1;
+  color: #fff;
+  width: 110px;
+}
+
+.btn-purple:hover,
+.btn-purple:focus {
+  background-color: #5a32a3;
+  border-color: #5a32a3;
+  color: #fff;
+}
+
 
 .signup-div{
   margin-left: 500px;
@@ -72,4 +86,5 @@
 .signup-button{
   transform: scale(0.9); 
   margin-left: 0px;
+  
 }

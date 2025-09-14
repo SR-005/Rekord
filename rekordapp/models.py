@@ -8,5 +8,5 @@ class organization(models.Model):
     email=models.EmailField(unique=True)   #email of the organization
     password=models.CharField(max_length=30)    #passoword
 
-def __str__(self):
-    return self.name
+    def __str__(self):
+        return self.name

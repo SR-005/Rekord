@@ -12,6 +12,6 @@ def login(request):
             return render(request,"login.html")
         else:
             return render(request,"login.html")
-
+    return render(request,"login.html")
 def signup(request):
     return render(request,"signup.html")

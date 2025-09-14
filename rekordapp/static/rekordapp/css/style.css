@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "Grozen";
+  src: url("../fonts/GROZEN-MEDICAL-DEMO-Medium.otf") format("OpenType");
+}
+
+.heading{
+  font-family: "Grozen", sans-serif;
+}

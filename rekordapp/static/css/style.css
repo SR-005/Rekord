@@ -15,10 +15,12 @@
   src: url("../fonts/BaseNeueTrial-WideMedium.ttf") format("truetype");
 }
 
+
+/* --------------------------------------------------------HEADING SECTION-------------------------------------------------------- */
 .rekord{
   font-size: 120px;
   font-family: "Grozen", sans-serif;
-  margin-top: 180px;
+  margin-top: 110px;
   margin-bottom: 0px;
 }
 .caption{
@@ -26,7 +28,48 @@
   font-family: "Grozen", sans-serif;
   margin-top: -20px;
 }
-.signin-text{
-  font-size: 22px;
+
+/* --------------------------------------------------------LOGIN TILE-------------------------------------------------------- */
+.login-tile{
   font-family: "BaseNeueRegular";
+  width: 650px;
+  margin: 50px auto;            
+  padding: 20px 20px;
+  background: #ffffff;          
+  border-radius: 15px;         
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+  text-align: center;           
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.login-tile:hover {
+  transform: translateY(-5px);   /* small lift effect */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+.login-tile-heading{
+  font-size: 40px;
+
+}
+.login-email{
+  margin-top: 10px;
+  margin-right: 5px;
+}
+.login-email-caption{
+  margin-left: 90px;
+}
+.password-div{
+  margin-left: 35px;
+  margin-right: 20px;
+}
+
+
+.signup-div{
+  margin-left: 500px;
+  font-family: "BaseNeueRegular";
+}
+.signup-text{
+    font-size: 18px;
+}
+.signup-button{
+  transform: scale(0.9); 
+  margin-left: 0px;
 }

@@ -13,8 +13,36 @@
 <body>
     <h1 class="rekord text-center">rekord</h1>
     <h3 class="caption text-center">your presence on-chain</h3>
-    <p class="signin-text mt-5">New to rekord?</p>
-    <button type="button" class="btn btn-success">Sign Up</button>
-    <button type="button" class="btn btn-primary">Login</button>
+    
+    <!-- LOGIN TILE -->
+    <div class="login-tile">
+        <p class="login-tile-heading mb-4">Login</p>
+        <form>
+            <!-- email field -->
+            <div class="mb-3">
+                <div class="d-flex align-items-center">
+                    <label for="exampleInputEmail1" class="form-label login-email">Email address</label>
+                    <div class="w-75">
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                </div>
+                <div class="form-text login-email-caption w-75">We'll never share your email with anyone else.</div>
+            </div>
+            <!-- password field -->
+            <div class="mb-3 d-flex align-items-center password-div">
+                <label for="exampleInputPassword1" class="form-label login-email">Password</label>
+                <div class="w-100">
+                    <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary">Login</button>
+        </form>
+        
+        <!-- signup section -->
+        <p class="signup-text mt-4 mb-0">New to rekord?</p>
+        <button type="button" class="btn btn-success signup-button">Sign Up</button>
+    </div>
+
+
 </body>
 </html> 

@@ -20,7 +20,7 @@
 .rekord{
   font-size: 120px;
   font-family: "Grozen", sans-serif;
-  margin-top: 90px;
+  margin-top: 60px;
   margin-bottom: 0px;
 }
 .caption{
@@ -29,7 +29,9 @@
   margin-top: -20px;
 }
 
-/* --------------------------------------------------------LOGIN TILE-------------------------------------------------------- */
+/* --------------------------------------------------------LOGIN PAGE-------------------------------------------------------- */
+
+/* -----------------------------LOGIN TILE------------------------------ */
 .login-tile{
   font-family: "BaseNeueRegular";
   width: 650px;
@@ -47,8 +49,8 @@
 }
 .login-tile-heading{
   font-size: 40px;
-
 }
+/* -----------------------------LOGIN FORMS------------------------------ */
 .login-email{
   margin-top: 10px;
   margin-right: 5px;
@@ -60,31 +62,74 @@
   margin-left: 35px;
   margin-right: 20px;
 }
-
-.btn-purple {
+/* -----------------------------LOGIN BUTTON------------------------------ */
+.login-btn-purple {
   background-color: #7d41ed;
   border-color: #6f42c1;
   color: #fff;
   width: 110px;
 }
-
-.btn-purple:hover,
-.btn-purple:focus {
+.login-btn-purple:hover,
+.login-btn-purple:focus {
   background-color: #5a32a3;
   border-color: #5a32a3;
   color: #fff;
 }
+/* -----------------------------LOGIN PAGE SIGNUP SECTION------------------------------ */
 
-
-.signup-div{
-  margin-left: 500px;
-  font-family: "BaseNeueRegular";
-}
-.signup-text{
+.login-signup-text{
     font-size: 18px;
 }
-.signup-button{
+.login-signup-button{
   transform: scale(0.9); 
   margin-left: 0px;
-  
+}
+
+
+/* --------------------------------------------------------SIGNUP PAGE-------------------------------------------------------- */
+
+/* -----------------------------SIGNUP TILE------------------------------ */
+.signup-tile{
+  font-family: "BaseNeueRegular";
+  width: 650px;
+  margin: 50px auto;            
+  padding: 20px 20px;
+  background: #ffffff;          
+  border-radius: 15px;         
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+  text-align: center;           
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.signup-tile:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+.signup-tile-heading{
+  font-size: 40px;
+}
+
+
+
+
+
+/* -----------------------------SIGNUP BUTTON------------------------------ */
+.signup-button{
+  width: 110px;
+}
+
+/* -----------------------------SIGNUP PAGE LOGIN SECTION------------------------------ */
+
+.signup-login-text{
+    font-size: 18px;
+}
+.signup-login-btn-purple {
+  background-color: #7d41ed;
+  border-color: #6f42c1;
+  color: #fff;
+}
+.signup-login-btn-purple:hover,
+.signup-login-btn-purple:focus {
+  background-color: #5a32a3;
+  border-color: #5a32a3;
+  color: #fff;
 }

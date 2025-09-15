@@ -108,10 +108,20 @@
   font-size: 40px;
 }
 
-
-
-
-
+/* -----------------------------LOGIN FORMS------------------------------ */
+.signup-name{
+  margin-left: 75px;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+.signup-email{
+  margin-top: 10px;
+  margin-right: 5px;
+}
+.password-div{
+  margin-left: 35px;
+  margin-right: 20px;
+}
 /* -----------------------------SIGNUP BUTTON------------------------------ */
 .signup-button{
   width: 110px;

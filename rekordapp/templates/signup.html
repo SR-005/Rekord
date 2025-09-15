@@ -18,30 +18,38 @@
     <div class="signup-tile">
         <p class="signup-tile-heading mb-4">Sign Up</p>
         <!-- signup form -->
-        <form method="POST" action="{% url 'login' %}">
+        <form method="POST" action="{% url 'signup' %}">
             {% csrf_token %}
+            <!-- name field -->
+            <div class="mb-3">
+                <div class="d-flex align-items-center">
+                    <label for="exampleInputEmail1" class="form-label signup-name">Name</label>
+                    <div class="w-75">
+                        <input type="text" class="form-control" name="signupname" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                </div>
+            </div>
             <!-- email field -->
             <div class="mb-3">
                 <div class="d-flex align-items-center">
-                    <label for="exampleInputEmail1" class="form-label login-email">Email address</label>
+                    <label for="exampleInputEmail1" class="form-label signup-email">Email address</label>
                     <div class="w-75">
-                        <input type="email" class="form-control" name="loginemail" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" name="signupemail" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                 </div>
-                <div class="form-text login-email-caption w-75">We'll never share your email with anyone else.</div>
             </div>
             <!-- password field -->
             <div class="mb-3 d-flex align-items-center password-div">
                 <label for="exampleInputPassword1" class="form-label login-email">Password</label>
                 <div class="w-100">
-                    <input type="password" class="form-control" name="loginpassword" id="exampleInputPassword1">
+                    <input type="text" class="form-control" name="loginpassword" id="exampleInputPassword1">
                 </div>
             </div>
             <button type="submit" class="btn btn-success signup-button">Sign Up</button>
         </form>
 
         <!-- login section -->
-        <p class="signup-login-text mt-4 mb-0">New to rekord?</p>
+        <p class="signup-login-text mt-4 mb-0">Already Registered?</p>
         <a href="{% url 'login' %}" class="btn signup-login-btn-purple">Login</a>
     </div>
 </body>

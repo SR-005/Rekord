@@ -146,6 +146,7 @@
   background-color: #7d41ed;
   border-color: #6f42c1;
   color: #fff;
+  transform: scale(0.95); 
 }
 .signup-login-btn-purple:hover,
 .signup-login-btn-purple:focus {

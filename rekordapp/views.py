@@ -17,9 +17,11 @@ def login(request):
                 currentorganization=organization.objects.get(email=loginemail,password=loginpassword) #checks if user exists in database
                 request.session["currentorganizationid"]=currentorganization.id     #store the organization id in a session
                 print(currentorganization)
+                messages.success(request, "Login successful!")
                 print("Login Successfull")
             except:
                  print("Invalid Credentials")
+                 messages.error(request, "Invalid Credentials!")
     return render(request,"login.html")
 
 
@@ -30,6 +32,8 @@ def signup(request):
         print(form)
         if form.is_valid():
             form.save()
-            print("Signup Successfull")
+            messages.success(request, "Signup successful!")
+        else:
+            messages.error(request, "An error occured while creating your account.This could be due to any faulty data provided. Please verify and re-enter your data")
 
     return render(request,"signup.html")

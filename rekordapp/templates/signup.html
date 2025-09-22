@@ -53,5 +53,13 @@
         <p class="signup-login-text mt-4 mb-0">Already Registered?</p>
         <a href="{% url 'login' %}" class="btn signup-login-btn-purple">Login</a>
     </div>
+
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                alert("{{ message }}");
+            {% endfor %}
+        </script>
+    {% endif %}
 </body>
 </html>

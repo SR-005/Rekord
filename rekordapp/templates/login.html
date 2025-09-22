@@ -44,7 +44,15 @@
         <p class="login-signup-text mt-4 mb-0">New to rekord?</p>
         <a href="/signup" class="btn btn-success login-signup-button">Sign Up</a>
     </div>
-
+    
+    <!-- Login Success or Fail Popup -->
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                alert("{{ message }}");
+            {% endfor %}
+        </script>
+    {% endif %}
 
 </body>
 </html> 

@@ -19,14 +19,16 @@
     font-family: "BaseNeueRegular", sans-serif;
     font-size: 70px;
     margin-bottom: 0px;
+    
 }
 .orgname{
-    /* font-family: "BaseNeueBold", sans-serif; */
-    font-size: 120px;
+    font-family: "BaseNeueBold", sans-serif;
+    font-size: 116px;
+    color: #7d41ed;
 }
 
 .caption{
-    font-size: 20px;
+    font-size: 20px;    
     font-family: "BaseNeueRegular";
     margin-top: -10px;
 }
@@ -45,8 +47,22 @@
 }
 .eventcreation-tile:hover {
   transform: translateY(-5px); 
-  box-shadow: 0 8px 20px rgba(223, 17, 255, 0.15); 
+  box-shadow: 0 8px 20px rgba(215, 27, 244, 0.233); 
 }
 .eventcreation-tile-heading{
   font-size: 30px;
+}
+
+
+.create-btn-purple {
+  background-color: #7d41ed;
+  border-color: #6f42c1;
+  color: #fff;
+  width: 110px;
+}
+.create-btn-purple:hover,
+.create-btn-purple:focus {
+  background-color: #5a32a3;
+  border-color: #5a32a3;
+  color: #fff;
 }

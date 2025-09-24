@@ -50,8 +50,12 @@
         <script>
             {% for message in messages %}
                 alert("{{ message }}");
-                {% comment %} redirect to homepage {% endcomment %}
-                window.location.href = "{% url 'homepage' %}"; 
+                {% if message.tags == "success" %}
+                    {% comment %} redirect to homepage {% endcomment %}
+                    window.location.href = "{% url 'homepage' %}"; 
+                {% else %}
+                    window.location.href = "{% url 'login' %}";
+                {% endif %}
             {% endfor %}
         </script>
     {% endif %}

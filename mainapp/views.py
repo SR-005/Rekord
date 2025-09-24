@@ -7,5 +7,5 @@ from rekordapp.models import organization
 def homepage(request):
     organizationid=request.session.get("currentorganizationid")
     organizationdetails=organization.objects.get(id=organizationid)
-    print(organizationdetails.id,organizationdetails.name)
-    return render(request,"homepage.html",{"organizationname":organizationdetails.name})
+    print(organizationdetails.email)
+    return render(request,"homepage.html",{"organizationname":organizationdetails.name, "organizationemail":organizationdetails.email})

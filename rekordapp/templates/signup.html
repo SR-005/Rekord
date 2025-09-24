@@ -54,10 +54,17 @@
         <a href="{% url 'login' %}" class="btn signup-login-btn-purple">Login</a>
     </div>
 
+    
     {% if messages %}
         <script>
             {% for message in messages %}
                 alert("{{ message }}");
+                {% if message.tags == "success" %}
+                    {% comment %} redirect to homepage {% endcomment %}
+                    window.location.href = "{% url 'login' %}"; 
+                {% else %}
+                    window.location.href = "{% url 'signup' %}";
+                {% endif %}
             {% endfor %}
         </script>
     {% endif %}

@@ -30,3 +30,23 @@
     font-family: "BaseNeueRegular";
     margin-top: -10px;
 }
+
+
+.eventcreation-tile{
+  font-family: "BaseNeueRegular";
+  width: 800px;
+  margin: 50px auto;            
+  padding: 20px 20px;
+  background: #ffffff;          
+  border-radius: 15px;         
+  box-shadow: 0 8px 20px rgba(223, 17, 255, 0.15); 
+  text-align: center;           
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.eventcreation-tile:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 8px 20px rgba(223, 17, 255, 0.15); 
+}
+.eventcreation-tile-heading{
+  font-size: 30px;
+}

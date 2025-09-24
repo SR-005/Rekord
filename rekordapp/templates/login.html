@@ -50,10 +50,10 @@
         <script>
             {% for message in messages %}
                 alert("{{ message }}");
+                {% comment %} redirect to homepage {% endcomment %}
+                window.location.href = "{% url 'homepage' %}"; 
             {% endfor %}
         </script>
     {% endif %}
-
-    <a href="{% url 'homepage' %}">Go to Profile</a>
 </body>
 </html> 

@@ -1,4 +1,24 @@
-.dashboard-title{
-    font-size: 60px;
-    margin-top: 50px;
+@font-face {
+  font-family: "Grozen";
+  src: url("../fonts/GROZEN-MEDICAL-DEMO-Medium.otf") format("opentype");
+}
+@font-face {
+  font-family: "BaseNeueBold";
+  src: url("../fonts/BaseNeueTrial-ExpExtBd.ttf") format("truetype");
+}
+@font-face {
+  font-family: "BaseNeueThin";
+  src: url("../fonts/BaseNeueTrial-ExpExtLt.ttf") format("truetype");
+}
+@font-face {
+  font-family: "BaseNeueRegular";
+  src: url("../fonts/BaseNeueTrial-WideMedium.ttf") format("truetype");
+}
+
+.homepage-title{
+    font-family: "BaseNeueRegular", sans-serif;
+    font-size: 70px;
+}
+.orgname{
+    font-size: 120px;
 }

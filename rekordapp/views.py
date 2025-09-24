@@ -17,10 +17,9 @@ def login(request):
                 currentorganization=organization.objects.get(email=loginemail,password=loginpassword) #checks if user exists in database
                 request.session["currentorganizationid"]=currentorganization.id     #store the organization id in a session
                 print(currentorganization)
+                request.session["currentorganizationid"]=currentorganization.id     #saving organization id in session
                 messages.success(request, "Login successful!")
-                print("Login Successfull")
             except:
-                 print("Invalid Credentials")
                  messages.error(request, "Invalid Credentials!")
     return render(request,"login.html")
 

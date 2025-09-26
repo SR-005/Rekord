@@ -8,6 +8,7 @@ class events(models.Model):
     organizationid=models.ForeignKey(organization, on_delete=models.CASCADE,related_name="events") #use event.organization.fieldname to access foreign table data
     eventname=models.CharField(max_length=100)
     eventdescription=models.CharField(max_length=200)
+    city=models.CharField(max_length=20)
     eventdate=models.CharField(max_length=12)
     #for saving icons. it doesnt save icon as img, it will automatically save it to /media/icons and only save it path in db.
     #use 'event.eventicon.url' to access it

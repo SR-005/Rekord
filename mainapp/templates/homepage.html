@@ -16,6 +16,7 @@
 
     <div class="eventcreation-tile">
     <p class="eventcreation-tile-heading mb-4">Create an Event</p>
+
     <!-- event creaton form -->
         <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
@@ -30,7 +31,7 @@
             <div class="mb-3 w-100 mx-auto">
                 <label for="exampleFormControlInput1" class="form-label d-flex justify-content-start">Description</label>
                 <div class="input-group">
-                    <textarea class="form-control" name="description" aria-label="With textarea"></textarea>
+                    <textarea class="form-control" name="eventdescription" aria-label="With textarea"></textarea>
                 </div>
             </div>
 
@@ -39,12 +40,12 @@
                 <!-- city div -->
                 <div class="w-50">
                     <label for="cityFormControlInput" class="form-label d-flex justify-content-start">City</label>
-                    <input type="text" class="form-control" name="cityname" id="cityFormControlInput" placeholder="Host City">
+                    <input type="text" class="form-control" name="city" id="cityFormControlInput" placeholder="Host City">
                 </div>
                 <!-- event date div -->
                 <div class="w-50">
                     <label for="enddateFormControlInput" class="form-label d-flex justify-content-start">End Date</label>
-                    <input type="date" class="form-control" name="enddate" id="enddateFormControlInput" placeholder="MM-DD-YYYY">
+                    <input type="date" class="form-control" name="eventdate" id="enddateFormControlInput" placeholder="MM-DD-YYYY">
                 </div>  
             </div>
 
@@ -61,7 +62,7 @@
             </div>
 
             <!-- submit button -->
-            <button type="submit" class="btn create-btn-purple">Create</button>
+            <button type="submit" class="btn create-btn-purple" name="action" value="create-event">Create</button>
         </form>
     </div>
     

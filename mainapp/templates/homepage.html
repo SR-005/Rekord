@@ -18,7 +18,7 @@
     <p class="eventcreation-tile-heading mb-4">Create an Event</p>
 
     <!-- event creaton form -->
-        <form method="POST" action="{% url 'login' %}">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'homepage' %}">
             {% csrf_token %}
 
             <!-- event name -->
@@ -58,7 +58,7 @@
             <!-- icon upload -->
             <div class="mb-3">
                 <label for="formFile" class="form-label d-flex justify-content-start">Icon</label>
-                <input class="form-control" type="file" id="formFile">
+                <input class="form-control" name="eventicon" type="file" id="formFile">
             </div>
 
             <!-- submit button -->

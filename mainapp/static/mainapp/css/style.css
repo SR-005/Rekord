@@ -16,28 +16,29 @@
 }
 
 .homepage-title{
-    font-family: "BaseNeueRegular", sans-serif;
-    font-size: 70px;
-    margin-bottom: 0px;
-    
+  font-family: "BaseNeueRegular", sans-serif;
+  font-size: 90px;
+  margin-bottom: 0px;
+  margin-top: 210px;
 }
 .orgname{
     font-family: "BaseNeueBold", sans-serif;
-    font-size: 116px;
+    font-size: 166px;
     color: #7d41ed;
 }
 
 .caption{
-    font-size: 20px;    
+    font-size: 25px;    
     font-family: "BaseNeueRegular";
-    margin-top: -10px;
+    margin-top: -18px;
 }
 
 
 .eventcreation-tile{
   font-family: "BaseNeueRegular";
   width: 800px;
-  margin: 50px auto;            
+  margin: 50px auto;     
+  margin-top: 310px;       
   padding: 20px 20px;
   background: #ffffff;          
   border-radius: 15px;         

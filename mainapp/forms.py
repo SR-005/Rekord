@@ -1,7 +1,7 @@
 from django import forms
-from .models import events
+from .models import event
 
 class createeventForm(forms.ModelForm):
     class Meta:
-        model=events
-        fields=["eventname", "eventdescription", "city","eventdate","eventicon"]
+        model=event
+        fields=["organizationid","eventname", "eventdescription", "city","eventdate","eventicon"]

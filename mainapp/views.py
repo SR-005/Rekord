@@ -13,10 +13,12 @@ def homepage(request):
         action=request.POST.get("action") #for pinpointing which button was clicked
         if action=="create-event":
             form=createeventForm(request.POST, request.FILES)
-            '''print(form)'''
+            print(form)
             if form.is_valid():
                 print("DATA:",form.cleaned_data)
+                form.save()
+                messages.success(request, "Data Added successfully!")
             else:
                 print("BUTTON WORKS BUT SOME FORM ERROR")
 
-    return render(request,"homepage.html",{"orgname":organizationdetails.name, "orgemail":organizationdetails.email})
+    return render(request,"homepage.html",{"orgid":organizationdetails.id,"orgname":organizationdetails.name, "orgemail":organizationdetails.email})

@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 from rekordapp.models import organization
 
 # Create your models here.
-class events(models.Model):
+class event(models.Model):
     eventid=models.AutoField(primary_key=True)
-    organizationid=models.ForeignKey(organization, on_delete=models.CASCADE,related_name="events") #use event.organization.fieldname to access foreign table data
+    organizationid=models.ForeignKey(organization, on_delete=models.CASCADE,related_name="event") #use event.organization.fieldname to access foreign table data
     eventname=models.CharField(max_length=100)
     eventdescription=models.CharField(max_length=200)
     city=models.CharField(max_length=20)

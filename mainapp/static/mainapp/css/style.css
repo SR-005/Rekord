@@ -15,6 +15,10 @@
   src: url("../fonts/BaseNeueTrial-WideMedium.ttf") format("truetype");
 }
 
+.navbar-brand{
+  font-family: "Grozen", sans-serif;
+}
+
 .homepage-title{
   font-family: "BaseNeueRegular", sans-serif;
   font-size: 90px;
@@ -66,4 +70,9 @@
   background-color: #5a32a3;
   border-color: #5a32a3;
   color: #fff;
+}
+
+.history-heading{
+  margin-top: 110px;
+  font-family: "BaseNeueRegular";
 }

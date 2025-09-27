@@ -18,4 +18,5 @@ def homepage(request):
                 print("DATA:",form.cleaned_data)
             else:
                 print("BUTTON WORKS BUT SOME FORM ERROR")
-    return render(request,"homepage.html",{"organizationname":organizationdetails.name, "organizationemail":organizationdetails.email})
+
+    return render(request,"homepage.html",{"orgname":organizationdetails.name, "orgemail":organizationdetails.email})

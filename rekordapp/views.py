@@ -11,7 +11,7 @@ def login(request):
     if request.method=="POST":
         form=loginForm(request.POST or None) #takes all the values submitted and makes it into a form
         if form.is_valid():   #checks if all fields are filled out 
-            loginemail=form.cleaned_data["loginemail"]
+            loginemail=form.cleaned_data["loginemail"]      #cleaned_data is used to get only the data and remove the entire form structure
             loginpassword=form.cleaned_data["loginpassword"]
             try:
                 currentorganization=organization.objects.get(email=loginemail,password=loginpassword) #checks if user exists in database

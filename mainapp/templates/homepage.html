@@ -92,7 +92,7 @@
             </div>
 
             <!-- submit button -->
-            <button type="submit" class="btn create-btn-purple" name="action" value="create-event">Create</button>
+            <button type="submit" class="btn create-btn-purple w-50" name="action" value="create-event">Create and generate links</button>
         </form>
     </div>
 
@@ -109,7 +109,8 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ event.eventname }}</h5>
                     <p class="card-text">{{ event.eventdescription }}</p>
-                    <a href="#" class="btn btn-primary">View Details</a>
+                    <p class="card-text">{{ event.city }}</p>
+                    <a href="#" class="btn btn-primary">Generate Links</a>
                 </div>
             </div>
         {% endfor %}

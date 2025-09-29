@@ -13,6 +13,8 @@ def homepage(request):
 
     #fetching event details
     eventdetails=event.objects.filter(organizationid=organizationid)
+    for i in eventdetails:
+        print(i.eventicon.url)
 
     if request.method=="POST":
         action=request.POST.get("action") #for pinpointing which button was clicked

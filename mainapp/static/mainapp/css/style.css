@@ -17,6 +17,10 @@
 
 .navbar-brand{
   font-family: "Grozen", sans-serif;
+  transform: scale(1.4);
+  margin-left: 15px;
+  margin-right: 35px;
+  padding-top: 10px;
 }
 
 .homepage-title{
@@ -77,3 +81,13 @@
   font-family: "BaseNeueRegular";
 }
 
+.card-div{
+  margin-right: 20px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* This is the state when you hover over the card */
+.card-div:hover {
+  transform: scale(1.03); /* Makes the card 3% larger */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds a soft shadow */
+}

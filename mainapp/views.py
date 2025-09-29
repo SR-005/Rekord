@@ -2,13 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import messages
 from rekordapp.models import organization
+from .models import event
 from .forms import createeventForm
 # Create your views here.
 
 def homepage(request):
+    #fetching organization details
     organizationid=request.session.get("currentorganizationid")
-    organizationdetails=organization.objects.get(id=organizationid)
-    orgdetails={"orgdetails":organizationdetails}
+    organizationdetails=organization.objects.get(id=organizationid)     #use .get if you want to get only 1 result
+
+    #fetching event details
+    eventdetails=event.objects.filter(organizationid=organizationid)
 
     if request.method=="POST":
         action=request.POST.get("action") #for pinpointing which button was clicked
@@ -22,4 +26,4 @@ def homepage(request):
             else:
                 print("BUTTON WORKS BUT SOME FORM ERROR")
 
-    return render(request,"homepage.html",orgdetails)
+    return render(request,"homepage.html",{"orgdetails":organizationdetails,"events":eventdetails})

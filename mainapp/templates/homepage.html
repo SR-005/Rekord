@@ -39,7 +39,7 @@
     </nav>
 
     <!--Heading-->
-    <h1 class="homepage-title text-center">hello<span class="orgname">{{ orgname }}!! </span> </h1>
+    <h1 class="homepage-title text-center">hello<span class="orgname">{{ orgdetails.name }}!! </span> </h1>
     <h4 class="caption text-center">--let's mint some badges on chain--</h4>
 
     <div class="eventcreation-tile">
@@ -82,7 +82,7 @@
             <!-- disabled email field -->
             <div class="mb-3 w-100 mx-auto">
                 <label for="exampleFormControlInput1" class="form-label d-flex justify-content-start">Email</label>
-                <input class="form-control" type="text" placeholder="{{ orgemail }}" aria-label="Disabled input example" disabled>
+                <input class="form-control" type="text" placeholder="{{ orgdetails.email }}" aria-label="Disabled input example" disabled>
             </div>
 
             <!-- icon upload -->
@@ -97,13 +97,13 @@
     </div>
 
     <!-- Previous Events Section -->
-    <h3 class="history-heading text-center">Previous Events from {{ orgname }}</h3>
+    <h3 class="history-heading text-center">Previous Events from {{ orgdetails.name }}</h3>
 
     <!-- Previous Events Card div -->
     <div class="mt-5 d-flex justify-content-center">
         {% comment %} db condition here {% endcomment %}
         <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+            <img src="media\icons" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>

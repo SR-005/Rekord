@@ -8,6 +8,7 @@ from .forms import createeventForm
 def homepage(request):
     organizationid=request.session.get("currentorganizationid")
     organizationdetails=organization.objects.get(id=organizationid)
+    orgdetails={"orgdetails":organizationdetails}
 
     if request.method=="POST":
         action=request.POST.get("action") #for pinpointing which button was clicked
@@ -21,4 +22,4 @@ def homepage(request):
             else:
                 print("BUTTON WORKS BUT SOME FORM ERROR")
 
-    return render(request,"homepage.html",{"orgid":organizationdetails.id,"orgname":organizationdetails.name, "orgemail":organizationdetails.email})
+    return render(request,"homepage.html",orgdetails)

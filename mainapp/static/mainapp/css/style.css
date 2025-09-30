@@ -63,16 +63,21 @@
 }
 
 .event-type-div{
-  margin-left: -215px;
+  margin-left: -20px;
 }
 .event-type-heading{
   margin-left: -60px;
+  margin-bottom: 5px;
 }
 .event-type-buttons-div{
  margin-left: 30px;
 }
 .event-type-label{
   font-size: 16 px;
+}
+
+.file-upload-div{
+  margin-left: 200px;
 }
 
 

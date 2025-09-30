@@ -14,119 +14,122 @@
 
     <!--NAVBAR-->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">REKORD</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Create an Event</a>
-            </li>
+        <div class="container-fluid">
+            <a class="navbar-brand">REKORD</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#create-event">Create an Event</a>
+                    </li>
 
-            <li class="nav-item">
-            <a class="nav-link" href="#">History</a>
-            </li>
+                    <li class="nav-item ">
+                        <a class="nav-link active" href="#history">History</a>
+                    </li>
 
-            <li class="nav-item">
-            <a class="nav-link" href="#">Know More</a>
-            </li>
-        </ul>
-        <a href="/" class="btn btn-outline-danger">Log Out</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Know More</a>
+                    </li>
+                </ul>
+                <a href="/" class="btn btn-outline-danger">Log Out</a>
+            </div>
         </div>
-    </div>
     </nav>
 
     <!--Heading-->
-    <h1 class="homepage-title text-center">hello<span class="orgname">{{ orgdetails.name }}!! </span> </h1>
-    <h4 class="caption text-center">--let's mint some badges on chain--</h4>
+    <section id="header">
+        <h1 class="homepage-title text-center">hello<span class="orgname">{{ orgdetails.name }}!! </span> </h1>
+        <h4 class="caption text-center">--let's mint some badges on chain--</h4>
+    </section>
 
-    <div class="eventcreation-tile">
-    <p class="eventcreation-tile-heading mb-4">Create an Event</p>
+    <section id="create-event">
+        <div class="eventcreation-tile">
+        <p class="eventcreation-tile-heading mb-4">Create an Event</p>
 
-    <!-- event creaton form -->
-        <form method="POST" enctype="multipart/form-data" action="{% url 'homepage' %}">
-            {% csrf_token %}
+        <!-- event creaton form -->
+            <form method="POST" enctype="multipart/form-data" action="{% url 'homepage' %}">
+                {% csrf_token %}
 
-            <input type="hidden" name="organizationid" value="{{ orgdetails.id }}">
+                <input type="hidden" name="organizationid" value="{{ orgdetails.id }}">
 
-            <!-- event name -->
-            <div class="mb-3 w-100 mx-auto">
-                <label for="exampleFormControlInput1" class="form-label d-flex justify-content-start">Event Name</label>
-                <input type="text" class="form-control" name="eventname" id="exampleFormControlInput1" placeholder="Name of your Event">
-            </div>
-
-            <!-- event description -->
-            <div class="mb-3 w-100 mx-auto">
-                <label for="exampleFormControlInput1" class="form-label d-flex justify-content-start">Description</label>
-                <div class="input-group">
-                    <textarea class="form-control" name="eventdescription" aria-label="With textarea"></textarea>
+                <!-- event name -->
+                <div class="mb-3 w-100 mx-auto">
+                    <label for="exampleFormControlInput1" class="form-label d-flex justify-content-start">Event Name</label>
+                    <input type="text" class="form-control" name="eventname" id="exampleFormControlInput1" placeholder="Name of your Event">
                 </div>
-            </div>
 
-            <!-- city and date div -->
-            <div class="datediv d-flex justify-content-center gap-1 mb-2">
-                <!-- city div -->
-                <div class="w-50">
-                    <label for="cityFormControlInput" class="form-label d-flex justify-content-start">City</label>
-                    <input type="text" class="form-control" name="city" id="cityFormControlInput" placeholder="Host City">
-                </div>
-                <!-- event date div -->
-                <div class="w-50">
-                    <label for="enddateFormControlInput" class="form-label d-flex justify-content-start">Event Date</label>
-                    <input type="date" class="form-control" name="eventdate" id="enddateFormControlInput" placeholder="MM-DD-YYYY">
-                </div>  
-            </div>
-
-            <!-- event type and file upload div -->
-            <div class="mb-3 mt-3 d-flex justify-content-center">
-                <!-- event type div -->
-                <div class="w-25 event-type-div">
-                    <p class="event-type-heading">Event Type</p>
-                    <div class="event-type-buttons-div">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="eventType" id="physicalEvent" value="physical">
-                            <label class="form-check-label event-type-label" for="physicalEvent">Physical Event</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="eventType" id="virtualEvent" value="virtual" checked>
-                            <label class="form-check-label event-type-label" for="virtualEvent">Virtual Event</label>
-                        </div>
+                <!-- event description -->
+                <div class="mb-3 w-100 mx-auto">
+                    <label for="exampleFormControlInput1" class="form-label d-flex justify-content-start">Description</label>
+                    <div class="input-group">
+                        <textarea class="form-control" name="eventdescription" aria-label="With textarea"></textarea>
                     </div>
                 </div>
 
-                <!-- dynamic input div -->
-                <div class="file-upload-div w-50" id="dynamicField">
-                    <!-- default will be file upload -->
-                    <label for="formFile" class="form-label d-flex justify-content-start">Upload Event Report</label>
-                    <input class="form-control" type="file" id="formFile">
+                <!-- city and date div -->
+                <div class="datediv d-flex justify-content-center gap-1 mb-2">
+                    <!-- city div -->
+                    <div class="w-50">
+                        <label for="cityFormControlInput" class="form-label d-flex justify-content-start">City</label>
+                        <input type="text" class="form-control" name="city" id="cityFormControlInput" placeholder="Host City">
+                    </div>
+                    <!-- event date div -->
+                    <div class="w-50">
+                        <label for="enddateFormControlInput" class="form-label d-flex justify-content-start">Event Date</label>
+                        <input type="date" class="form-control" name="eventdate" id="enddateFormControlInput" placeholder="MM-DD-YYYY">
+                    </div>  
                 </div>
-            </div>
 
-            <!-- disabled email field -->
-            <div class="mb-3 w-100 mx-auto">
-                <label for="exampleFormControlInput1" class="form-label d-flex justify-content-start">Email</label>
-                <input class="form-control" type="text" placeholder="{{ orgdetails.email }}" aria-label="Disabled input example" disabled>
-            </div>
+                <!-- event type and file upload div -->
+                <div class="mb-3 mt-3 d-flex justify-content-center">
+                    <!-- event type div -->
+                    <div class="w-25 event-type-div">
+                        <p class="event-type-heading">Event Type</p>
+                        <div class="event-type-buttons-div">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="eventType" id="physicalEvent" value="physical">
+                                <label class="form-check-label event-type-label" for="physicalEvent">Physical Event</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="eventType" id="virtualEvent" value="virtual" checked>
+                                <label class="form-check-label event-type-label" for="virtualEvent">Virtual Event</label>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- icon upload -->
-            <div class="mb-3">
-                <label for="formFile" class="form-label d-flex justify-content-start">Icon</label>
-                <input class="form-control" name="eventicon" type="file" id="formFile">
-            </div>
+                    <!-- dynamic input div -->
+                    <div class="file-upload-div w-50" id="dynamicField">
+                        <!-- default will be file upload -->
+                        <label for="formFile" class="form-label d-flex justify-content-start">Upload Event Report</label>
+                        <input class="form-control" type="file" id="formFile">
+                    </div>
+                </div>
 
-            <!-- submit button -->
-            <button type="submit" class="btn create-btn-purple w-50" name="action" value="create-event">Create and generate links</button>
-        </form>
-    </div>
+                <!-- disabled email field -->
+                <div class="mb-3 w-100 mx-auto">
+                    <label for="exampleFormControlInput1" class="form-label d-flex justify-content-start">Email</label>
+                    <input class="form-control" type="text" placeholder="{{ orgdetails.email }}" aria-label="Disabled input example" disabled>
+                </div>
 
+                <!-- icon upload -->
+                <div class="mb-3">
+                    <label for="formFile" class="form-label d-flex justify-content-start">Icon</label>
+                    <input class="form-control" name="eventicon" type="file" id="formFile">
+                </div>
+
+                <!-- submit button -->
+                <button type="submit" class="btn create-btn-purple w-50" name="action" value="create-event">Create and generate links</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="history">
     <!-- Previous Events Section -->
     <h3 class="history-heading text-center">Previous Events from {{ orgdetails.name }}</h3>
-
     <!-- Previous Events Card div -->
      <div class="mt-5 d-flex justify-content-center">
-
         {% for event in events %}
             {% comment %} db condition here {% endcomment %}
             <div class="card card-div" style="width: 18rem;">
@@ -140,6 +143,7 @@
             </div>
         {% endfor %}
     </div>
+</section>
 
 
 

@@ -126,30 +126,50 @@
     </section>
 
     <section id="history">
-    <!-- Previous Events Section -->
-    <h3 class="history-heading text-center">Previous Events from {{ orgdetails.name }}</h3>
-    <!-- Previous Events Card div -->
-     <div class="mt-5 d-flex justify-content-center">
-        {% for event in events %}
-            {% comment %} db condition here {% endcomment %}
-            <div class="card card-div" style="width: 18rem;">
-                <img src="{{ event.eventicon.url }}" class="card-img-top" alt="event.eventname">
-                <div class="card-body">
-                    <h5 class="card-title">{{ event.eventname }}</h5>
-                    <p class="card-text">{{ event.eventdescription }}</p>
-                    <p class="card-text">{{ event.city }}</p>
-                    <a href="#" class="btn btn-primary">Generate Links</a>
+        <!-- Previous Events Section -->
+        <h3 class="history-heading text-center">Previous Events from {{ orgdetails.name }}</h3>
+        <!-- Previous Events Card div -->
+        <div class="mt-5 d-flex justify-content-center">
+            {% for event in events %}
+                {% comment %} db condition here {% endcomment %}
+                <div class="card card-div" style="width: 18rem;">
+                    <img src="{{ event.eventicon.url }}" class="card-img-top" alt="event.eventname">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.eventname }}</h5>
+                        <p class="card-text">{{ event.eventdescription }}</p>
+                        <p class="card-text">{{ event.city }}</p>
+                        <a href="#" class="btn btn-primary">Generate Links</a>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
-</section>
+            {% endfor %}
+        </div>
+    </section>
 
 
 
 
 
 
+
+
+    
+    <!-- MESSAGE SECTION -->
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                alert("{{ message }}");
+                {% if message.tags == "success" %}
+                    {% comment %} redirect to homepage {% endcomment %}
+                    window.location.href = "{% url 'login' %}"; 
+                {% else %}
+                    window.location.href = "{% url 'signup' %}";
+                {% endif %}
+            {% endfor %}
+        </script>
+    {% endif %}
+
+
+    <!-- JS SECTION -->
     <script>
         const physicalRadio = document.getElementById("physicalEvent");
         const virtualRadio = document.getElementById("virtualEvent");
@@ -169,11 +189,8 @@
             }
         }
 
-        // attach event listeners
         physicalRadio.addEventListener("change", updateField);
         virtualRadio.addEventListener("change", updateField);
-
-        // initialize
         updateField();
     </script>
 </body>

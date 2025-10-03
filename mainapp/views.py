@@ -24,7 +24,7 @@ def homepage(request):
             if form.is_valid():
                 print("DATA:",form.cleaned_data)
                 form.save()
-                messages.success(request, "Data Added successfully!")
+                messages.success(request, "Event Added successfully!")
             else:
                 print("BUTTON WORKS BUT SOME FORM ERROR")
 

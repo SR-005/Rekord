@@ -7,6 +7,8 @@ from .forms import createeventForm
 # Create your views here.
 
 def homepage(request):
+    formnumber = None
+    
     #fetching organization details
     organizationid=request.session.get("currentorganizationid")
     organizationdetails=organization.objects.get(id=organizationid)     #use .get if you want to get only 1 result
@@ -27,5 +29,10 @@ def homepage(request):
                 messages.success(request, "Event Added successfully!")
             else:
                 print("BUTTON WORKS BUT SOME FORM ERROR")
+            
+            lasteventdetails=event.objects.last()   #used for fetching last created row
+            print("Event Type: ",lasteventdetails.eventtype)
+            if lasteventdetails.eventtype=="physical":
+                formnumber=lasteventdetails.eventparticipants
 
-    return render(request,"homepage.html",{"orgdetails":organizationdetails,"events":eventdetails})
+    return render(request,"homepage.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})

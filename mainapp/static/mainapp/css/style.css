@@ -80,6 +80,60 @@
   margin-left: 205px;
 }
 
+.participant-tile {
+  font-family: "BaseNeueRegular";
+  width: 700px;
+  margin: 40px auto;
+  padding: 25px 30px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.participant-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
+}
+
+.participant-tile-heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.participant-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.participant-input:focus {
+  border-color: #8a2be2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(138, 43, 226, 0.2);
+}
+
+.participant-submit {
+  width: 100%;
+  padding: 12px;
+  background: #8a2be2;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.participant-submit:hover {
+  background: #7326b8;
+}
 
 
 

@@ -39,3 +39,6 @@ def homepage(request):
             print("Generate Tokens")
 
     return render(request,"homepage.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
+
+def claim(request):
+    return render(request,"homepage.html")

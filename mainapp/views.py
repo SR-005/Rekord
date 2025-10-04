@@ -60,5 +60,5 @@ def homepage(request):
 
     return render(request,"homepage.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
 
-def claim(request):
+def claim(request,code):
     return HttpResponse(f"Connected Successfully")

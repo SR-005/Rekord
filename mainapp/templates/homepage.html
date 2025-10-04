@@ -128,17 +128,17 @@
     {% if formnumber %}
     <div class="participant-tile">
         <h2 class="participant-tile-heading">Enter Participant Emails ({{ formnumber }})</h2>
-        <form method="POST">
+        <form method="POST" action="{% url 'homepage' %}">
             {% csrf_token %}
             <input type="hidden" name="action" value="submit-emails">
 
             {% for i in ""|center:formnumber %}
                 <div class="mb-3">
-                    <input type="email" name="emails" class="participant-input" placeholder="Participant {{ forloop.counter }} Email" required>
+                    <input type="email" name="emails" class="participant-input" placeholder="Participant" {{ forloop.counter }} Email required>
                 </div>
             {% endfor %}
 
-            <button type="submit" class="participant-submit">Submit All</button>
+            <button type="submit" class="participant-submit" name="action" value="generate-tokens">Submit All</button>
         </form>
     </div>
     {% endif %}

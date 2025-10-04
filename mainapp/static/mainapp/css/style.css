@@ -125,9 +125,7 @@
   border: none;
   border-radius: 8px;
   font-size: 18px;
-  font-weight: bold;
   color: white;
-  cursor: pointer;
   transition: background 0.2s ease;
 }
 

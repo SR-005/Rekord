@@ -35,4 +35,7 @@ def homepage(request):
             if lasteventdetails.eventtype=="physical":
                 formnumber=lasteventdetails.eventparticipants
 
+        elif action=="generate-tokens":
+            print("Generate Tokens")
+
     return render(request,"homepage.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})

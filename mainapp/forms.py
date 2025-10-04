@@ -1,5 +1,5 @@
 from django import forms
-from .models import event
+from .models import event,eventtoken
 
 class createeventForm(forms.ModelForm):
     class Meta:
@@ -25,3 +25,8 @@ class createeventForm(forms.ModelForm):
             cleaned_data["eventreport"]=None  
 
         return cleaned_data
+    
+class generatelinksForm(forms.ModelForm):
+    class Meta:
+        model = eventtoken
+        fields=["eventid","email","token"]

@@ -27,4 +27,4 @@ class eventtoken(models.Model):
     status=models.BooleanField(default=False)
     
     def __str__(self):
-        return self.tokenid
+        return self.token

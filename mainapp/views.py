@@ -1,13 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from rekordapp.models import organization
-from .models import event
-from .forms import createeventForm
+from .models import event,eventtoken
+from .forms import createeventForm,generatelinksForm
+import uuid
+
 # Create your views here.
 
 def homepage(request):
     formnumber = None
+    lasteventid=None
     
     #fetching organization details
     organizationid=request.session.get("currentorganizationid")
@@ -22,6 +25,7 @@ def homepage(request):
         action=request.POST.get("action") #for pinpointing which button was clicked
         if action=="create-event":
             form=createeventForm(request.POST, request.FILES)
+            print("----EVENT FORM----")
             print(form)
             if form.is_valid():
                 print("DATA:",form.cleaned_data)
@@ -34,9 +38,23 @@ def homepage(request):
             print("Event Type: ",lasteventdetails.eventtype)
             if lasteventdetails.eventtype=="physical":
                 formnumber=lasteventdetails.eventparticipants
+                lasteventid=lasteventdetails.eventid
+
+            request.session["lasteventid"]=lasteventid  #saving latest event id in session
 
         elif action=="generate-tokens":
-            print("Generate Tokens")
+            lasteventid=request.session.get("lasteventid")
+            lasteventobject = event.objects.get(eventid=lasteventid)
+            participantemails=request.POST.getlist("emails")
+            
+            print(lasteventid)
+
+            for email in participantemails:
+                uniquetoken=str(uuid.uuid4())
+                eventtoken.objects.create(eventid=lasteventobject,email=email,token=uniquetoken)
+            messages.success(request, "Tokens generated successfully!")
+            return redirect("homepage")
+
 
     return render(request,"homepage.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
 

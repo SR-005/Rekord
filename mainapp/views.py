@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib import messages
+from django.urls import reverse
 from rekordapp.models import organization
 from .models import event,eventtoken
 from .forms import createeventForm,generatelinksForm
@@ -51,7 +52,8 @@ def homepage(request):
 
             for email in participantemails:
                 uniquetoken=str(uuid.uuid4())
-                eventtoken.objects.create(eventid=lasteventobject,email=email,token=uniquetoken)
+                claimurl = request.build_absolute_uri(reverse("claim", kwargs={"code": uniquetoken}))
+                eventtoken.objects.create(eventid=lasteventobject,email=email,claimurl=claimurl)
             messages.success(request, "Tokens generated successfully!")
             return redirect("homepage")
 
@@ -59,4 +61,4 @@ def homepage(request):
     return render(request,"homepage.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
 
 def claim(request):
-    return render(request,"homepage.html")
+    return HttpResponse(f"Connected Successfully")

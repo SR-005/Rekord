@@ -23,8 +23,8 @@ class eventtoken(models.Model):
     tokenid=models.AutoField(primary_key=True)
     eventid=models.ForeignKey(event, on_delete=models.CASCADE,related_name="eventtoken")
     email=models.EmailField()
-    token=models.CharField(max_length=100)
+    claimurl=models.CharField(max_length=100)
     status=models.BooleanField(default=False)
     
     def __str__(self):
-        return self.token
+        return self.claimurl

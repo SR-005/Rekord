@@ -15,5 +15,5 @@ top=(height-mindimention)//2
 bottom=top+mindimention
 
 croppedimage=img.crop((left,top,right,bottom))      #cropping the image
-nftimage=croppedimage.resize((nftsize,nftsize),Image.LANCZOS)
+nftimage=croppedimage.resize((nftsize,nftsize),Image.LANCZOS)   #resizing the cropped img to fit as nft
 nftimage.save("nftimage.png")

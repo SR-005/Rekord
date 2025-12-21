@@ -72,7 +72,10 @@ def homepage(request):
                 lasteventid=lasteventdetails.eventid        #event id of the previous event(+1 for the current event id)
                 print("Last Event ID: ",lasteventid)
 
-                
+                try: 
+                    formnumber=request.form.get("eventparticipants")
+                except:
+                    print("No Event Participants Found: Not a Physical Event")
 
                 #csv and img fetching: from create event form
                 file=request.FILES.get("eventreport")
@@ -90,12 +93,7 @@ def homepage(request):
             else:
                 print("BUTTON WORKS BUT SOME FORM ERROR")
             
-            lasteventdetails=event.objects.last()   #used for fetching last created row
-            print("Event Type: ",lasteventdetails.eventtype)
-            if lasteventdetails.eventtype=="physical":
-                formnumber=lasteventdetails.eventparticipants
-                lasteventid=lasteventdetails.eventid
-
+            lasteventid=lasteventid+1           #increment: added current event
             request.session["lasteventid"]=lasteventid  #saving latest event id in session
 
         elif action=="generate-tokens":

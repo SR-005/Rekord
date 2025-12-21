@@ -1,4 +1,19 @@
 from PIL import Image
 
-img=Image.open("testimg.png")
-print(img.size)
+img=Image.open("testimg.png")                   #load the image
+nftsize=1024
+
+
+width,height=img.size                           #get the current dimentions
+mindimention=min(width,height)            #to get the minimum w and h without loosing quality and aspect ratio
+
+#aspects for cropping as a square
+left=(width-mindimention)//2
+right=left+mindimention
+
+top=(height-mindimention)//2
+bottom=top+mindimention
+
+croppedimage=img.crop((left,top,right,bottom))      #cropping the image
+nftimage=croppedimage.resize((nftsize,nftsize),Image.LANCZOS)
+nftimage.save("nftimage.png")

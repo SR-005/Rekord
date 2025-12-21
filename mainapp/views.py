@@ -7,18 +7,25 @@ from django.core.files.base import ContentFile
 from rekordapp.models import organization
 from .models import event,eventtoken
 from .forms import createeventForm,generatelinksForm
+from .imagemal import imagemanipulation
 import uuid
-import os
+import io
 
 # Create your views here.
 def saveimage(image,organizationname,lasteventid):
-    currenteventid=lasteventid+1
-    extention=image.name.split('.')[-1]
-    imagename=str(organizationname)+str(currenteventid)+"."+extention
-    print("Image Name: ",imagename)
+    
 
-    path=os.path.join("icons/",imagename)
-    savedpath=default_storage.save(path,ContentFile(image.read()))
+    currenteventid=lasteventid+1
+    imagename=str(organizationname)+str(currenteventid)+".png"
+    print("Image Name: ",imagename)
+    path="icons"+imagename
+
+    image=imagemanipulation(image)
+    buffer=io.BytesIO()
+    image.save(buffer, format="PNG")
+    buffer.seek(0)
+
+    savedpath=default_storage.save(path,ContentFile(buffer.read()))
     return savedpath
 
 

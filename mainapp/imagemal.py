@@ -1,10 +1,7 @@
 from PIL import Image
 
-def imagemanipulation(imgname):
-    defaultinpath="media/icons/"
-    inputpath=defaultinpath+imgname         #generating input path
-
-    img=Image.open(inputpath)                   #load the image
+def imagemanipulation(image):
+    img=Image.open(image)                   #load the image
     nftsize=1024
 
     width,height=img.size                           #get the current dimentions
@@ -19,7 +16,7 @@ def imagemanipulation(imgname):
 
     croppedimage=img.crop((left,top,right,bottom))      #cropping the image
     nftimage=croppedimage.resize((nftsize,nftsize),Image.LANCZOS)   #resizing the cropped img to fit as nft
+    return nftimage
 
-    defaultoutpath="media/nft_badge/"
-    outputpath=defaultoutpath+imgname           #generating output path
-    nftimage.save(outputpath)
+if __name__ == "__main__":
+    imagemanipulation(None)

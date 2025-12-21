@@ -12,20 +12,22 @@ import uuid
 import io
 
 # Create your views here.
+
+
 def saveimage(image,organizationname,lasteventid):
-    
-
-    currenteventid=lasteventid+1
-    imagename=str(organizationname)+str(currenteventid)+".png"
+    currenteventid=lasteventid+1                    #match name with eventid
+    imagename=str(organizationname)+str(currenteventid)+".png"      #generate custom img name: orgname+eventid
     print("Image Name: ",imagename)
-    path="icons"+imagename
+    path="icons/"+imagename                      #generate path
 
-    image=imagemanipulation(image)
-    buffer=io.BytesIO()
+    image=imagemanipulation(image)              #function call for image manipulation
+
+    #getting img from pil return type
+    buffer=io.BytesIO()         
     image.save(buffer, format="PNG")
     buffer.seek(0)
 
-    savedpath=default_storage.save(path,ContentFile(buffer.read()))
+    savedpath=default_storage.save(path,ContentFile(buffer.read()))         #saving img to actual output path: media/icons/..
     return savedpath
 
 
@@ -36,8 +38,6 @@ def homepage(request):
     #fetching organization details
     organizationid=request.session.get("currentorganizationid")
     organizationdetails=organization.objects.get(id=organizationid)     #use .get if you want to get only 1 result
-    eventcount=organization.objects.filter(id=organizationid).count()
-    print("Event Count: ",eventcount)
     
 
     #fetching event details
@@ -54,6 +54,7 @@ def homepage(request):
             if form.is_valid():
                 print("DATA:",form.cleaned_data)
                 eventobject=form.save(commit=False)         #commit=Flase: means data will not be saved to db
+
                 lasteventdetails=event.objects.last()   #used for fetching last created row(in order to get the eventid)
                 lasteventid=lasteventdetails.eventid        #event id of the previous event(+1 for the current event id)
                 print("Last Event ID: ",lasteventid)

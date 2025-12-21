@@ -11,7 +11,7 @@ class event(models.Model):
     city=models.CharField(max_length=20)
     eventdate=models.CharField(max_length=12)
     eventtype=models.CharField(max_length=20)
-    eventreport = models.FileField(upload_to="reports/", null=True, blank=True)  # goes to media/reports/
+    eventreport = models.FileField(upload_to="", null=True, blank=True)  #file will be send to backend for furthur renameing
     eventparticipants = models.IntegerField(null=True, blank=True) 
     eventicon = models.ImageField(upload_to="", null=True, blank=True)          #image will be send to backend for furthur processing
                                                                                 #use 'event.eventicon.url' to access it

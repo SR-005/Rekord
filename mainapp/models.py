@@ -13,9 +13,8 @@ class event(models.Model):
     eventtype=models.CharField(max_length=20)
     eventreport = models.FileField(upload_to="reports/", null=True, blank=True)  # goes to media/reports/
     eventparticipants = models.IntegerField(null=True, blank=True) 
-    #for saving icons. it doesnt save icon as img, it will automatically save it to /media/icons and only save it path in db.
-    #use 'event.eventicon.url' to access it
-    eventicon = models.ImageField(upload_to="icons/")
+    eventicon = models.ImageField(upload_to="", null=True, blank=True)          #image will be send to backend for furthur processing
+                                                                                #use 'event.eventicon.url' to access it
     def __str__(self):
         return self.eventname
     

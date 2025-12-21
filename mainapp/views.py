@@ -96,6 +96,9 @@ def homepage(request):
             lasteventid=lasteventid+1           #increment: added current event
             request.session["lasteventid"]=lasteventid  #saving latest event id in session
 
+
+
+
         elif action=="generate-tokens":
             lasteventid=request.session.get("lasteventid")
             lasteventobject = event.objects.get(eventid=lasteventid)

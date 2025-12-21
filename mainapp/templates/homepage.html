@@ -103,7 +103,7 @@
                     <div class="file-upload-div w-50" id="dynamicField">
                         <!-- default will be file upload -->
                         <label for="formFile" class="form-label d-flex justify-content-start">Upload Event Report</label>
-                        <input class="form-control" type="file" id="formFile">
+                        <input class="form-control" name="eventreport" type="file" id="formFile">
                     </div>
                 </div>
 
@@ -166,15 +166,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
     <!-- JS SECTION -->
     <script>
         const physicalRadio = document.getElementById("physicalEvent");
@@ -194,7 +185,7 @@
             {
                 dynamicField.innerHTML = `
                     <label for="formFile" class="form-label d-flex justify-content-start">Upload Event Report</label>
-                    <input class="form-control" type="file" id="formFile" name="eventreport">
+                    <input class="form-control" name="eventreport" type="file" id="formFile" >
                 `;
             }
         }

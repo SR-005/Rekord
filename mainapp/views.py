@@ -11,25 +11,40 @@ from .imagemal import imagemanipulation
 import uuid
 import io
 
-# Create your views here.
+#---------------------------------------------------------------USER DEFINED----------------------------------------------------------------
 
+def filemanipulate(file,trigger,organizationname,lasteventid):
 
-def saveimage(image,organizationname,lasteventid):
+    if trigger==0:
+        defaultpath="reports/"
+        extension=".csv"
+    else:
+        defaultpath="icons"
+        extension=".png"
+
     currenteventid=lasteventid+1                    #match name with eventid
-    imagename=str(organizationname)+str(currenteventid)+".png"      #generate custom img name: orgname+eventid
-    print("Image Name: ",imagename)
-    path="icons/"+imagename                      #generate path
+    filename=str(organizationname)+str(currenteventid)+extension      #generate custom img name: orgname+eventid
+    print("Image Name: ",filename)
+    path=defaultpath+filename                      #generate path
 
-    image=imagemanipulation(image)              #function call for image manipulation
+    if trigger==0:          #save csv to path
+        filesavedpath=default_storage.save(path,ContentFile(file.read()))
+        return filesavedpath
 
-    #getting img from pil return type
-    buffer=io.BytesIO()         
-    image.save(buffer, format="PNG")
-    buffer.seek(0)
+    else:                   #save image to path
+        image=imagemanipulation(file)              #function call for image manipulation
 
-    savedpath=default_storage.save(path,ContentFile(buffer.read()))         #saving img to actual output path: media/icons/..
-    return savedpath
+        #getting img from pil return type
+        buffer=io.BytesIO()         
+        image.save(buffer, format="PNG")
+        buffer.seek(0)
 
+        imgsavedpath=default_storage.save(path,ContentFile(buffer.read()))         #saving img to actual output path: media/icons/..
+        return imgsavedpath
+
+
+
+#---------------------------------------------------------------HTML FUNCTIONS----------------------------------------------------------------
 
 def homepage(request):
     formnumber = None
@@ -42,8 +57,6 @@ def homepage(request):
 
     #fetching event details
     eventdetails=event.objects.filter(organizationid=organizationid)
-    for i in eventdetails:
-        print(i.eventicon.url)
 
     if request.method=="POST":
         action=request.POST.get("action") #for pinpointing which button was clicked
@@ -59,12 +72,21 @@ def homepage(request):
                 lasteventid=lasteventdetails.eventid        #event id of the previous event(+1 for the current event id)
                 print("Last Event ID: ",lasteventid)
 
+                
+
+                #csv and img fetching: from create event form
+                file=request.FILES.get("eventreport")
                 image=request.FILES.get("eventicon")
+
                 if image:
-                    imagepath=saveimage(image,organizationdetails.name,lasteventid)
+                    filepath=filemanipulate(file,0,organizationdetails.name,lasteventid)       #if trigger=0: file
+                    eventobject.eventreport=filepath
+
+                    imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid)      #if trigger=1: image
                     eventobject.eventicon=imagepath
                     eventobject.save()
                 messages.success(request, "Event Added successfully!")
+
             else:
                 print("BUTTON WORKS BUT SOME FORM ERROR")
             

@@ -15,10 +15,10 @@ import io
 
 def filemanipulate(file,trigger,organizationname,lasteventid):
 
-    if trigger==0:
+    if trigger==0:                          #trigger=0: csv, rename file and specify path accordingly
         defaultpath="reports/"
         extension=".csv"
-    else:
+    else:                                   #trigger=1: image, rename file and specify path accordingly
         defaultpath="icons"
         extension=".png"
 
@@ -46,9 +46,9 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
 #---------------------------------------------------------------HTML FUNCTIONS----------------------------------------------------------------
 
 def homepage(request):
-    formnumber = None
-    lasteventid=None
-    eventtype=None
+    formnumber = None           #number of participants in a physical event
+    lasteventid=None            
+    eventtype=None              #virtual or physical
     
     #fetching organization details
     organizationid=request.session.get("currentorganizationid")
@@ -70,6 +70,7 @@ def homepage(request):
                 print("DATA:",form.cleaned_data)
                 eventobject=form.save(commit=False)         #commit=Flase: means data will not be saved to db
                 
+                #fetching last event id
                 try:
                     lasteventdetails=event.objects.last()   #used for fetching last created row(in order to get the eventid)
                     lasteventid=lasteventdetails.eventid        #event id of the previous event(+1 for the current event id)
@@ -90,6 +91,7 @@ def homepage(request):
                 image=request.FILES.get("eventicon")
 
                 if image:
+                    #file renaming: if virtual (if not physical)
                     if eventtype!="physical":
                         filepath=filemanipulate(file,0,organizationdetails.name,lasteventid)       #if trigger=0: file
                         eventobject.eventreport=filepath
@@ -110,16 +112,19 @@ def homepage(request):
 
         elif action=="generate-tokens":             #Button Click: To Generate Tokens
             print("ENTERED THE GENERATE TOKENS FUNCTION")
+
             lasteventid=request.session.get("lasteventid")          
             print("Current Event ID: ",lasteventid)
             lasteventobject=event.objects.get(eventid=lasteventid)
 
-            participantemails=request.POST.getlist("emails")
+            participantemails=request.POST.getlist("emails")        #fetching entered email from form
+            print("List of Emails: ", participantemails)
 
             for email in participantemails:
-                uniquetoken=str(uuid.uuid4())
-                claimurl = request.build_absolute_uri(reverse("claim", kwargs={"code": uniquetoken}))
-                eventtoken.objects.create(eventid=lasteventobject,email=email,claimurl=claimurl)
+                uniquetoken=str(uuid.uuid4())               #generate unique tokens for each participants
+                claimurl = request.build_absolute_uri(reverse("claim", kwargs={"code": uniquetoken}))   #building claim urls with tokens
+                eventtoken.objects.create(eventid=lasteventobject,email=email,claimurl=claimurl)        #adding tokens in association with emails and event
+
             messages.success(request, "Tokens generated successfully!")
             return redirect("homepage")
 

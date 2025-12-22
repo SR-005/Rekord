@@ -110,7 +110,7 @@ def homepage(request):
             request.session["lasteventid"]=lasteventid  #saving latest event id in session
 
 
-        elif action=="generate-tokens":             #Button Click: To Generate Tokens
+        if action=="autogenerate-tokens":             #Generates Token: (as next step if event is physical event)
             print("ENTERED THE GENERATE TOKENS FUNCTION")
 
             lasteventid=request.session.get("lasteventid")          

@@ -161,10 +161,13 @@
 
 .card-div{
   margin-right: 20px;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, filter 0.5s ease;
+  filter: grayscale(100%);
 }
 
 .card-div:hover {
   transform: scale(1.03); 
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  filter: grayscale(0);
 }
+

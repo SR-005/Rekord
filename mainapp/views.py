@@ -49,6 +49,7 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
 def homepage(request):
     formnumber = None
     lasteventid=None
+    eventtype=None
     
     #fetching organization details
     organizationid=request.session.get("currentorganizationid")
@@ -67,23 +68,30 @@ def homepage(request):
             if form.is_valid():
                 print("DATA:",form.cleaned_data)
                 eventobject=form.save(commit=False)         #commit=Flase: means data will not be saved to db
-
-                lasteventdetails=event.objects.last()   #used for fetching last created row(in order to get the eventid)
-                lasteventid=lasteventdetails.eventid        #event id of the previous event(+1 for the current event id)
-                print("Last Event ID: ",lasteventid)
+                
+                try:
+                    lasteventdetails=event.objects.last()   #used for fetching last created row(in order to get the eventid)
+                    lasteventid=lasteventdetails.eventid        #event id of the previous event(+1 for the current event id)
+                    print("Last Event ID: ",lasteventid)
+                except:
+                    lasteventid=0
+                    print("This is the First Event")
 
                 try: 
-                    formnumber=request.form.get("eventparticipants")
+                    formnumber=request.POST.get("eventparticipants")
                 except:
                     print("No Event Participants Found: Not a Physical Event")
 
                 #csv and img fetching: from create event form
+                eventtype=request.POST.get("eventtype")
+                print("Current Event Type: ", eventtype)
                 file=request.FILES.get("eventreport")
                 image=request.FILES.get("eventicon")
 
                 if image:
-                    filepath=filemanipulate(file,0,organizationdetails.name,lasteventid)       #if trigger=0: file
-                    eventobject.eventreport=filepath
+                    if eventtype!="physical":
+                        filepath=filemanipulate(file,0,organizationdetails.name,lasteventid)       #if trigger=0: file
+                        eventobject.eventreport=filepath
 
                     imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid)      #if trigger=1: image
                     eventobject.eventicon=imagepath
@@ -93,15 +101,17 @@ def homepage(request):
             else:
                 print("BUTTON WORKS BUT SOME FORM ERROR")
             
-            lasteventid=lasteventid+1           #increment: added current event
+            lasteventdetails=event.objects.last()   #used for fetching last created row(in order to get the eventid)
+            lasteventid=lasteventdetails.eventid        #event id of the previous event(+1 for the current event id)
+            #lasteventid=lasteventid+1           #increment: added current event
             request.session["lasteventid"]=lasteventid  #saving latest event id in session
 
 
+        elif action=="generate-tokens":             #Button Click: To Generate Tokens
+            lasteventid=request.session.get("lasteventid")          
+            print("Current Event ID: ",lasteventid)
+            lasteventobject=event.objects.get(eventid=lasteventid)
 
-
-        elif action=="generate-tokens":
-            lasteventid=request.session.get("lasteventid")
-            lasteventobject = event.objects.get(eventid=lasteventid)
             participantemails=request.POST.getlist("emails")
             
             print(lasteventid)

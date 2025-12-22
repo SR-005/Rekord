@@ -24,7 +24,6 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
 
     currenteventid=lasteventid+1                    #match name with eventid
     filename=str(organizationname)+str(currenteventid)+extension      #generate custom img name: orgname+eventid
-    print("Image Name: ",filename)
     path=defaultpath+filename                      #generate path
 
     if trigger==0:          #save csv to path
@@ -63,8 +62,10 @@ def homepage(request):
         action=request.POST.get("action") #for pinpointing which button was clicked
         if action=="create-event":
             form=createeventForm(request.POST, request.FILES)
-            print("----EVENT FORM----")
-            print(form)
+
+            '''print("----EVENT FORM----")
+            print(form)'''
+
             if form.is_valid():
                 print("DATA:",form.cleaned_data)
                 eventobject=form.save(commit=False)         #commit=Flase: means data will not be saved to db
@@ -108,13 +109,12 @@ def homepage(request):
 
 
         elif action=="generate-tokens":             #Button Click: To Generate Tokens
+            print("ENTERED THE GENERATE TOKENS FUNCTION")
             lasteventid=request.session.get("lasteventid")          
             print("Current Event ID: ",lasteventid)
             lasteventobject=event.objects.get(eventid=lasteventid)
 
             participantemails=request.POST.getlist("emails")
-            
-            print(lasteventid)
 
             for email in participantemails:
                 uniquetoken=str(uuid.uuid4())

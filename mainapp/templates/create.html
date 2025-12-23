@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- import css file -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'mainapp/css/style.css'%}?v=4">
+    <link rel="stylesheet" href="{% static 'mainapp/css/style.css'%}?v=5">
     <title>Rekord-Create Event</title>
 </head>
 <body>
@@ -52,7 +52,7 @@
                     <div class="">
                         <img class="imagepreview mb-4 " id="image-preview" src="#" alt="Image Preview">
                         <div>
-                            <label for="formFile" class="form-label d-flex justify-content-start">Icon</label>
+                            <label for="formFile" class="form-label mb-2 d-flex justify-content-start">Icon</label>
                             <input class="form-control" name="eventicon" type="file" id="formFile" accept"/image*">
                         </div>
                     </div>
@@ -87,9 +87,9 @@
                         </div>
 
                         <!-- event type and file upload div -->
-                        <div class="mb-3 mt-3 d-flex justify-content-center">
+                        <div class="eventandtype-div mb-3 mt-3 d-flex justify-content-center">
                             <!-- event type div -->
-                            <div class="w-25 event-type-div">
+                            <div class="event-type-div">
                                 <p class="event-type-heading">Event Type</p>
                                 <div class="event-type-buttons-div">
                                     <div class="form-check">
@@ -104,7 +104,7 @@
                             </div>
 
                             <!-- dynamic input div -->
-                            <div class="file-upload-div w-50" id="dynamicField">
+                            <div class="w-50" id="dynamicField">
                                 <!-- default will be file upload -->
                                 <label for="formFile" class="form-label d-flex justify-content-start">Upload Event Report</label>
                                 <input class="form-control" name="eventreport" type="file" id="formFile">
@@ -149,6 +149,7 @@
     
 
     <script>
+        //----------------------------------------------------------IMAGE PREVIEW----------------------------------------------------------
         // Get references to the elements
         const fileInput = document.getElementById('formFile');
         const imagePreview = document.getElementById('image-preview');
@@ -181,6 +182,34 @@
                 }
             }
         });
+
+        //----------------------------------------------------------EVENT TYPE----------------------------------------------------------
+        const physicalRadio = document.getElementById("physicalEvent");
+        const virtualRadio = document.getElementById("virtualEvent");
+        const dynamicField = document.getElementById("dynamicField");
+
+        function updateField()
+        {
+            if (physicalRadio.checked) 
+            {
+                dynamicField.innerHTML = `
+                    <label for="venue" class="form-label d-flex justify-content-start">Participant Count</label>
+                    <input type="number" class="form-control" id="venue" name="eventparticipants" placeholder="Number of Participants">
+
+                `;
+            } 
+            else 
+            {
+                dynamicField.innerHTML = `
+                    <label for="formFile" class="form-label d-flex justify-content-start">Upload Event Report</label>
+                    <input class="form-control" name="eventreport" type="file" id="formFile" >
+                `;
+            }
+        }
+
+        physicalRadio.addEventListener("change", updateField);
+        virtualRadio.addEventListener("change", updateField);
+        updateField();
     </script>
 </body>
 </html>

@@ -135,6 +135,7 @@
   display: none; /* Hide by default until an image is loaded */
   border: 1px solid #000000;
   border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* ----------------------------------------------------------PARTICIPANTS SECTION------------------------------------------------------------ */

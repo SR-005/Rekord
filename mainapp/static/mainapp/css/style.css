@@ -52,12 +52,14 @@
   color: #fff;
   height: 40px;
   width: 200px;
+  margin-bottom: 400px;
 }
 .tocreate-btn:hover{
   scale: 1.2;
   background-color: #ffffff;
   border-color: #000000;
   color: #5a32a3;
+  box-shadow: 0 8px 20px rgba(223, 17, 255, 0.15);
 }
 
 .eventcreation-tile{

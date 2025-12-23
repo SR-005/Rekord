@@ -23,6 +23,8 @@
   padding-top: 10px;
 }
 
+
+/* ----------------------------------------------------------HEADING SECTION------------------------------------------------------------ */
 .homepage-title{
   font-family: "BaseNeueRegular", sans-serif;
   font-size: 90px;
@@ -41,6 +43,22 @@
     margin-top: -18px;
 }
 
+.tocreate-btn{
+  background-color: #7d41ed;
+  border-color: #6f42c1;
+  font-family: "BaseNeueRegular", sans-serif;
+  scale: 1.1;
+  transition: scale 0.8s;
+  color: #fff;
+  height: 40px;
+  width: 200px;
+}
+.tocreate-btn:hover{
+  scale: 1.2;
+  background-color: #ffffff;
+  border-color: #000000;
+  color: #5a32a3;
+}
 
 .eventcreation-tile{
   font-family: "BaseNeueRegular";
@@ -79,6 +97,8 @@
 .file-upload-div{
   margin-left: 205px;
 }
+
+/* ----------------------------------------------------------PARTICIPANTS SECTION------------------------------------------------------------ */
 
 .participant-tile {
   font-family: "BaseNeueRegular";

@@ -38,10 +38,15 @@
         </div>
     </nav>
 
+
+
     <!--Heading-->
     <section id="header">
         <h1 class="homepage-title text-center">hello<span class="orgname">{{ orgdetails.name }}!! </span> </h1>
         <h4 class="caption text-center">--let's mint some badges on chain--</h4>
+        <div class="tocreate d-flex justify-content-center mt-4">
+            <a href="#" class="btn tocreate-btn p-2">Create an Event</a>
+        </div>   
     </section>
 
     <section id="create-event">
@@ -126,7 +131,6 @@
     </section>
 
 
-
     <!-- Participants Section: Physical Event -->
     {% if formnumber %}
     <div class="participant-tile">
@@ -148,7 +152,6 @@
 
 
 
-
     <!-- History-->
     <section id="history">
         <h3 class="history-heading text-center">Previous Events from {{ orgdetails.name }}</h3>
@@ -165,7 +168,6 @@
                         <p class="card-text mb-1">Event ID: {{ event.eventid }}</p>
                         <p class="card-text mb-1">{{ event.eventdescription }}</p>
                         <p class="card-text ">{{ event.city }}</p>
-                        <a href="#" class="btn btn-primary">Generate Links</a>
                     </div>
                 </div>
             {% endfor %}

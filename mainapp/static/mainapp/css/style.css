@@ -162,7 +162,7 @@
 .card-div{
   margin-right: 20px;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, filter 0.5s ease;
-  filter: grayscale(100%);
+  filter: grayscale(85%);
 }
 
 .card-div:hover {

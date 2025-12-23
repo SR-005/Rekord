@@ -46,6 +46,16 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
 #---------------------------------------------------------------HTML FUNCTIONS----------------------------------------------------------------
 
 def homepage(request):
+    #fetching organization details
+    organizationid=request.session.get("currentorganizationid")
+    organizationdetails=organization.objects.get(id=organizationid)     #use .get if you want to get only 1 result
+
+    #fetching event details
+    eventdetails=event.objects.filter(organizationid=organizationid)
+
+    return render(request,"homepage.html",{"orgdetails":organizationdetails,"events":eventdetails})
+
+def create(request):
     formnumber = None           #number of participants in a physical event
     lasteventid=None            
     eventtype=None              #virtual or physical
@@ -127,12 +137,8 @@ def homepage(request):
 
             messages.success(request, "Tokens generated successfully!")
             return redirect("homepage")
-
-
-    return render(request,"homepage.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
+        
+    return render(request, "create.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
 
 def claim(request,code):
     return HttpResponse(f"Connected Successfully")
-
-def create(request):
-    return render(request, "create.html")

@@ -83,8 +83,9 @@
   filter: grayscale(0);
 }
 
-/*----------------------------------------------------------CREATE SECTION------------------------------------------------------------ */
 
+
+/*----------------------------------------------------------CREATE SECTION------------------------------------------------------------ */
 
 .eventcreation-tile{
   font-family: "BaseNeueRegular";
@@ -147,14 +148,14 @@
   padding: 25px 30px;
   background: #ffffff;
   border-radius: 15px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(215, 27, 244, 0.233); 
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .participant-tile:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(215, 27, 244, 0.233); 
 }
 
 .participant-tile-heading {

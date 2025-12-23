@@ -157,6 +157,7 @@
 
 /*---------HISTORY CARDS---------*/
 .card-div{
+  width: 18rem;
   margin-right: 20px;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, filter 0.5s ease;
   filter: grayscale(85%);

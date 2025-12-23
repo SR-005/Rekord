@@ -135,4 +135,4 @@ def claim(request,code):
     return HttpResponse(f"Connected Successfully")
 
 def create(request):
-    return HttpResponse(f"Create Events Page")
+    return render(request, "create.html")

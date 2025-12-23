@@ -64,14 +64,13 @@
 
 .eventcreation-tile{
   font-family: "BaseNeueRegular";
-  width: 800px;
+  width: 1300px;
   margin: 50px auto;     
-  margin-top: 310px;       
+  margin-top: 100px;       
   padding: 20px 20px;
   background: #ffffff;          
   border-radius: 15px;         
-  box-shadow: 0 8px 20px rgba(223, 17, 255, 0.15); 
-  text-align: center;           
+  box-shadow: 0 8px 20px rgba(223, 17, 255, 0.15);        
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .eventcreation-tile:hover {
@@ -79,7 +78,12 @@
   box-shadow: 0 8px 20px rgba(215, 27, 244, 0.233); 
 }
 .eventcreation-tile-heading{
-  font-size: 30px;
+  font-size: 60px;
+}
+.splitform{
+  padding-left: 55px;
+  width: 1300px;
+  gap: 25px
 }
 
 .event-type-div{
@@ -190,3 +194,10 @@
   filter: grayscale(0);
 }
 
+.imagepreview{
+  max-width: 300px;
+  max-height: 300px;
+  display: none; /* Hide by default until an image is loaded */
+  border: 1px solid #ccc;
+  margin-top: 10px
+}

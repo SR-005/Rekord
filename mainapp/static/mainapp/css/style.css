@@ -195,9 +195,9 @@
 }
 
 .imagepreview{
-  max-width: 300px;
-  max-height: 300px;
+  width: 300px;
+  height: 380px;
   display: none; /* Hide by default until an image is loaded */
-  border: 1px solid #ccc;
-  margin-top: 10px
+  border: 2px solid #000000;
+  
 }

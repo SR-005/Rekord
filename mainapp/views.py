@@ -147,12 +147,16 @@ def create(request):
             lasteventid=request.session.get("lasteventid")          
             print("Current Event ID: ",lasteventid)
             lasteventobject=event.objects.get(eventid=lasteventid)
-
+            
+            pname=request.POST.getlist("name")
             pparticipantemails=request.POST.getlist("emails")        #fetching entered email from form
             print("List of Emails: ", pparticipantemails)
 
-            for pmail in pparticipantemails:
-                generatetokens(request,lasteventobject,pmail,pmail)           #calls token generating function
+            for i,pmail in enumerate(pparticipantemails):
+                print("Name: ",pname[i])
+                print("Email: ",pmail)
+                print("\n")
+                generatetokens(request,lasteventobject,pname[i],pmail)           #calls token generating function
 
             messages.success(request, "Tokens generated successfully!")
             return redirect("homepage")

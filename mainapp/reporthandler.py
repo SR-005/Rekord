@@ -1,10 +1,13 @@
-import pandas as pd
-import numpy as np
-from datetime import datetime
+
 
 def main(filepath):
+    import pandas as pd
+    import numpy as np
+    from datetime import datetime
+
+
     filepath="./media/"+filepath
-    print(filepath)    
+    '''print(filepath)  '''  
     #----------------------------------------------------------------------DATA SECTION----------------------------------------------------------------------
 
     #DATA HANDLING AND PROCESSING
@@ -16,15 +19,14 @@ def main(filepath):
     dforg["Session Duration"]=(dforg["End Time"]-dforg["Start Time"]).dt.total_seconds() / 60   #calculating meeting duration and converting it to minutes
     dforg["Session Duration"]=dforg["Session Duration"].astype(int) #converting it to int values
     dfmain=dforg.drop(["Join Time","Leave Time","Guest"],axis=1) #dropping uncessesary datas; Axis=1-coloumn
-    print(dfmain)
+    '''print(dfmain)'''
 
     #calculating minimum presence time
     minimumtime=dfmain.loc[0, "Session Duration"]
     minimumtime=round((minimumtime/100)*75) #75% attendence given
-    print("Minimum Time of Presence in Event",minimumtime)
+    '''print("Minimum Time of Presence in Event",minimumtime)'''
 
     #Getting Topic ,Start Date and End Date
-    eventname=dfmain.loc[0, "Topic"]
     startdate=dfmain.loc[0, "Start Time"]
     enddate=dfmain.loc[0, "End Time"]
     

@@ -42,6 +42,10 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
         imgsavedpath=default_storage.save(path,ContentFile(buffer.read()))         #saving img to actual output path: media/icons/..
         return imgsavedpath
 
+def generatetokens(request,lasteventobject,name,email):
+    uniquetoken=str(uuid.uuid4())               #generate unique tokens for each participants
+    claimurl = request.build_absolute_uri(reverse("claim", kwargs={"code": uniquetoken}))   #building claim urls with tokens
+    eventtoken.objects.create(eventid=lasteventobject,email=email,claimurl=claimurl)        #adding tokens in association with emails and event
 
 
 #---------------------------------------------------------------HTML FUNCTIONS----------------------------------------------------------------
@@ -119,29 +123,36 @@ def create(request):
 
             if eventtype=="virtual":
                 vparticipants,count=reporthandler(filepath)
-                print("Virtual Participants: ",vparticipants)
-                
+                vnames=list(vparticipants.keys())
+                vparticipantemails=list(vparticipants.values())
+
+                lasteventobject=event.objects.get(eventid=lasteventid)
+
+                for i,vmail in enumerate(vparticipantemails):
+                    print("Name: ",vnames[i])
+                    print("Email: ",vmail)
+                    print("\n")
+                    generatetokens(request,lasteventobject,vnames[i],vmail)           #calls token generating function
+
             
             lasteventdetails=event.objects.last()   #used for fetching last created row(in order to get the eventid)
             lasteventid=lasteventdetails.eventid        #event id of the previous event(+1 for the current event id)
             #lasteventid=lasteventid+1           #increment: added current event
             request.session["lasteventid"]=lasteventid  #saving latest event id in session
+            
 
-
-        if action=="autogenerate-tokens":             #Generates Token: (as next step if event is physical event)
+        if action=="physical-generate":             #Generates Token: (as next step if event is physical event)
             print("ENTERED THE GENERATE TOKENS FUNCTION")
 
             lasteventid=request.session.get("lasteventid")          
             print("Current Event ID: ",lasteventid)
             lasteventobject=event.objects.get(eventid=lasteventid)
 
-            participantemails=request.POST.getlist("emails")        #fetching entered email from form
-            print("List of Emails: ", participantemails)
+            pparticipantemails=request.POST.getlist("emails")        #fetching entered email from form
+            print("List of Emails: ", pparticipantemails)
 
-            for email in participantemails:
-                uniquetoken=str(uuid.uuid4())               #generate unique tokens for each participants
-                claimurl = request.build_absolute_uri(reverse("claim", kwargs={"code": uniquetoken}))   #building claim urls with tokens
-                eventtoken.objects.create(eventid=lasteventobject,email=email,claimurl=claimurl)        #adding tokens in association with emails and event
+            for pmail in pparticipantemails:
+                generatetokens(request,lasteventobject,pmail,pmail)           #calls token generating function
 
             messages.success(request, "Tokens generated successfully!")
             return redirect("homepage")

@@ -19,12 +19,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#create-event">Create an Event</a>
+                    <li class="nav-item ">
+                        <a class="nav-link active" href="{% url 'homepage' %}">Home</a>
                     </li>
 
                     <li class="nav-item ">
-                        <a class="nav-link active" href="#history">History</a>
+                        <a class="nav-link active" href="{% url 'homepage' %}#history">History</a>
                     </li>
 
                     <li class="nav-item">
@@ -127,14 +127,14 @@
 
 
     <!-- Participants Section: Physical Event -->
-    {% comment %} {% if formnumber %} {% endcomment %}
+    {% if formnumber %}
     <div class="participant-tile">
         <h2 class="participant-tile-heading">Enter Participant Emails ({{ formnumber }})</h2>
         <form method="POST" action="{% url 'homepage' %}">
             {% csrf_token %}
             <input type="hidden" name="action" value="submit-emails">
 
-            {% for i in ""|center:2 %}
+            {% for i in ""|center:formnumber %}
                 <div class="mb-3">
                     <input type="email" name="emails" class="participant-input" placeholder="participant@gmail.com" {{ forloop.counter }} Email required>
                 </div>
@@ -143,10 +143,8 @@
             <button type="submit" class="participant-submit" name="action" value="generate-tokens">Submit All</button>
         </form>
     </div>
-    {% comment %} {% endif %} {% endcomment %}
+    {% endif %}
 
-    
-    
 
     <script>
         //----------------------------------------------------------IMAGE PREVIEW----------------------------------------------------------

@@ -8,6 +8,7 @@ from rekordapp.models import organization
 from .models import event,eventtoken
 from .forms import createeventForm,generatelinksForm
 from .imagemal import imagemanipulation
+from .reporthandler import main as reporthandler
 import uuid
 import io
 
@@ -59,6 +60,8 @@ def create(request):
     formnumber = None           #number of participants in a physical event
     lasteventid=None            
     eventtype=None              #virtual or physical
+    vparticipants=None
+    count=None
     
     #fetching organization details
     organizationid=request.session.get("currentorganizationid")
@@ -102,7 +105,7 @@ def create(request):
 
                 if image:
                     #file renaming: if virtual (if not physical)
-                    if eventtype!="physical":
+                    if eventtype=="virtual":
                         filepath=filemanipulate(file,0,organizationdetails.name,lasteventid)       #if trigger=0: file
                         eventobject.eventreport=filepath
 
@@ -113,6 +116,11 @@ def create(request):
 
             else:
                 print("BUTTON WORKS BUT SOME FORM ERROR")
+
+            if eventtype=="virtual":
+                vparticipants,count=reporthandler(filepath)
+                print("Virtual Participants: ",vparticipants)
+                
             
             lasteventdetails=event.objects.last()   #used for fetching last created row(in order to get the eventid)
             lasteventid=lasteventdetails.eventid        #event id of the previous event(+1 for the current event id)

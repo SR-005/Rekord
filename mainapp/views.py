@@ -9,11 +9,14 @@ from .models import event,eventtoken
 from .forms import createeventForm,generatelinksForm
 from .imagemal import imagemanipulation
 from .reporthandler import main as reporthandler
+import secrets
+import string
 import uuid
 import io
 
 #---------------------------------------------------------------USER DEFINED----------------------------------------------------------------
 
+#to rename file and saving them and editing image for nft 
 def filemanipulate(file,trigger,organizationname,lasteventid):
 
     if trigger==0:                          #trigger=0: csv, rename file and specify path accordingly
@@ -42,9 +45,19 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
         imgsavedpath=default_storage.save(path,ContentFile(buffer.read()))         #saving img to actual output path: media/icons/..
         return imgsavedpath
 
+#to generate password for authenticating claim links
+def generatepassword():
+    length=8
+    alphabet=string.ascii_lowercase+string.digits
+    return ''.join(secrets.choice(alphabet) for _ in range(length))
+
+#to geneate tokens and unique claim links
 def generatetokens(request,lasteventobject,name,email):
     uniquetoken=str(uuid.uuid4())               #generate unique tokens for each participants
-    claimurl = request.build_absolute_uri(reverse("claim", kwargs={"code": uniquetoken}))   #building claim urls with tokens
+    claimurl = request.build_absolute_uri(reverse("claim", kwargs={"code": uniquetoken}))   #building claim urls with token
+
+    password=generatepassword() #call function to generate password
+
     eventtoken.objects.create(eventid=lasteventobject,email=email,claimurl=claimurl)        #adding tokens in association with emails and event
 
 

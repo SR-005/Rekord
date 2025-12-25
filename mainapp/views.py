@@ -55,11 +55,9 @@ def generatepassword():
 def generatetokens(request,lasteventobject,name,email):
     uniquetoken=str(uuid.uuid4())               #generate unique tokens for each participants
     claimurl = request.build_absolute_uri(reverse("claim", kwargs={"code": uniquetoken}))   #building claim urls with token
-
     password=generatepassword() #call function to generate password
 
-    eventtoken.objects.create(eventid=lasteventobject,email=email,claimurl=claimurl)        #adding tokens in association with emails and event
-
+    eventtoken.objects.create(eventid=lasteventobject,email=email,claimurl=claimurl,claimpass=password)        #adding tokens in association with emails and event
 
 #---------------------------------------------------------------HTML FUNCTIONS----------------------------------------------------------------
 

@@ -23,6 +23,7 @@ class eventtoken(models.Model):
     eventid=models.ForeignKey(event, on_delete=models.CASCADE,related_name="eventtoken")
     email=models.EmailField()
     claimurl=models.CharField(max_length=100)
+    claimpass=models.CharField(max_length=100,default="eventtoken")
     status=models.BooleanField(default=False)
     
     def __str__(self):

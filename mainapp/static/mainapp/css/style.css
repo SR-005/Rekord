@@ -207,3 +207,32 @@
   border-color: #5a32a3;
   color: #fff;
 }
+
+
+/*----------------------------------------------------------CLAIM SECTION------------------------------------------------------------ */
+
+.claim-title{
+  font-family: "BaseNeueRegular", sans-serif;
+  font-size: 100px;
+  margin-top: 120px;
+  margin-bottom: 0px;
+}
+.participant-name{
+  font-family: "BaseNeueBold", sans-serif;
+  font-size: 126px;
+  color: #07ad26;
+}
+.claim-subtitle{
+  font-family: "BaseNeueRegular", sans-serif;
+  font-size: 23px;
+  margin-left: 10px;
+  margin-top: -15px;
+}
+.claim-imagepreview{
+  width: 300px;
+  height: 380px;
+  display: none; /* Hide by default until an image is loaded */
+  border: 1px solid #000000;
+  border-radius: 50px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}

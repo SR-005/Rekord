@@ -23,7 +23,7 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
         defaultpath="reports/"
         extension=".csv"
     else:                                   #trigger=1: image, rename file and specify path accordingly
-        defaultpath="icons"
+        defaultpath="icons/"
         extension=".png"
 
     currenteventid=lasteventid+1                    #match name with eventid
@@ -175,4 +175,4 @@ def create(request):
     return render(request, "create.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
 
 def claim(request,code):
-    return HttpResponse(f"Connected Successfully")
+    return render(request,"claim.html")

@@ -241,7 +241,7 @@
 
 .display-tile {
   font-family: "BaseNeueRegular";
-  width: 700px;
+  width: 850px;
   margin: 40px auto;
   padding: 25px 30px;
   background: #ffffff;
@@ -257,5 +257,5 @@
 }
 
 .claim-eventname{
-  font-size: 25px;
+  font-size: 40px;
 }

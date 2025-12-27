@@ -233,8 +233,17 @@
   height: 380px;
   border: 1px solid #000000;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: scale 0.5s ease-in-out;
+  box-shadow: 20px 0px 20px rgba(130, 243, 138, 0.15);
+}
+.claim-imagepreview:hover{
+  width: 300px;
+  height: 380px;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  scale: 1.02;
+  box-shadow: 20px 8px 20px rgba(60, 202, 69, 0.15);
 }
 .imagediv{
-  margin-top: 100px;
+  margin-top: 50px;
 }

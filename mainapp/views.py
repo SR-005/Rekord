@@ -57,7 +57,7 @@ def generatetokens(request,lasteventobject,name,email):
     claimurl = request.build_absolute_uri(reverse("claim", kwargs={"code": uniquetoken}))   #building claim urls with token
     password=generatepassword() #call function to generate password
 
-    eventtoken.objects.create(eventid=lasteventobject,email=email,claimurl=claimurl,claimpass=password)        #adding tokens in association with emails and event
+    eventtoken.objects.create(eventid=lasteventobject,name=name,email=email,claimurl=claimurl,claimpass=password)        #adding tokens in association with emails and event
 
 #---------------------------------------------------------------HTML FUNCTIONS----------------------------------------------------------------
 
@@ -175,4 +175,12 @@ def create(request):
     return render(request, "create.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
 
 def claim(request,code):
-    return render(request,"claim.html")
+    
+    url="http://127.0.0.1:8000/claim/"+code+"/"
+
+    claimtokenobject=eventtoken.objects.get(claimurl=url)
+    name=claimtokenobject.name
+    print("Name: ",name)
+    claimeventobject=claimtokenobject.eventid
+
+    return render(request,"claim.html",{"event":claimeventobject,"claimtoken":claimtokenobject})

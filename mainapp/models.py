@@ -21,9 +21,10 @@ class event(models.Model):
 class eventtoken(models.Model):
     tokenid=models.AutoField(primary_key=True)
     eventid=models.ForeignKey(event, on_delete=models.CASCADE,related_name="eventtoken")
+    name=models.CharField(max_length=100,default="Tester")
     email=models.EmailField()
     claimurl=models.CharField(max_length=100)
-    claimpass=models.CharField(max_length=100,default="eventtoken")
+    claimpass=models.CharField(max_length=100)
     status=models.BooleanField(default=False)
     
     def __str__(self):

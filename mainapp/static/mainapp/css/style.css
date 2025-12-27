@@ -228,22 +228,30 @@
   margin-left: 10px;
   margin-top: -15px;
 }
+
 .claim-imagepreview{
-  width: 300px;
-  height: 380px;
-  border: 1px solid #000000;
+  width: 350px;
+  height: 350px;
   border-radius: 20px;
   transition: scale 0.5s ease-in-out;
   box-shadow: 20px 0px 20px rgba(130, 243, 138, 0.15);
 }
-.claim-imagepreview:hover{
-  width: 300px;
-  height: 380px;
-  border: 1px solid #000000;
-  border-radius: 20px;
-  scale: 1.02;
-  box-shadow: 20px 8px 20px rgba(60, 202, 69, 0.15);
-}
 .imagediv{
-  margin-top: 50px;
+}
+
+.display-tile {
+  font-family: "BaseNeueRegular";
+  width: 700px;
+  margin: 40px auto;
+  padding: 25px 30px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(53, 233, 65, 0.15);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.display-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(60, 202, 69, 0.15);
 }

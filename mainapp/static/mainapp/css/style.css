@@ -255,3 +255,7 @@
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(60, 202, 69, 0.15);
 }
+
+.claim-eventname{
+  font-size: 25px;
+}

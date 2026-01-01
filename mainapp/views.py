@@ -48,7 +48,7 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
         ipfsuri=upload(imagebytes,filename)
 
         imgsavedpath=default_storage.save(path,ContentFile(buffer.read()))         #saving img to actual output path: media/icons/..
-        return imgsavedpath
+        return imgsavedpath,ipfsuri
 
 #to generate password for authenticating claim links
 def generatepassword():
@@ -126,11 +126,12 @@ def create(request):
                 if image:
                     #file renaming: if virtual (if not physical)
                     if eventtype=="virtual":
-                        filepath=filemanipulate(file,0,organizationdetails.name,lasteventid)       #if trigger=0: file
+                        filepath,ipfsuri=filemanipulate(file,0,organizationdetails.name,lasteventid)       #if trigger=0: file
                         eventobject.eventreport=filepath
 
                     imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid)      #if trigger=1: image
                     eventobject.eventicon=imagepath
+                    eventobject.ipfs=ipfsuri
                     eventobject.save()
                 messages.success(request, "Event Added successfully!")
 

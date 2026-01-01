@@ -11,17 +11,19 @@ class event(models.Model):
     city=models.CharField(max_length=20)
     eventdate=models.CharField(max_length=12)
     eventtype=models.CharField(max_length=20)
-    eventreport = models.FileField(upload_to="", null=True, blank=True)  #file will be send to backend for furthur renameing
-    eventparticipants = models.IntegerField(null=True, blank=True) 
-    eventicon = models.ImageField(upload_to="", null=True, blank=True)          #image will be send to backend for furthur processing
-                                                                                #use 'event.eventicon.url' to access it
+    eventreport=models.FileField(upload_to="", null=True, blank=True)  #file will be send to backend for furthur renameing
+    eventparticipants=models.IntegerField(null=True, blank=True) 
+    #image will be send to backend for furthur processing
+    eventicon=models.ImageField(upload_to="", null=True, blank=True)  #use 'event.eventicon.url' to access it          
+    ipfs=models.CharField(max_length=255,null=True, blank=True)                                                                          
+
     def __str__(self):
         return self.eventname
     
 class eventtoken(models.Model):
     tokenid=models.AutoField(primary_key=True)
     eventid=models.ForeignKey(event, on_delete=models.CASCADE,related_name="eventtoken")
-    name=models.CharField(max_length=100,default="Tester")
+    name=models.CharField(max_length=100)
     email=models.EmailField()
     claimurl=models.CharField(max_length=100)
     claimpass=models.CharField(max_length=100)

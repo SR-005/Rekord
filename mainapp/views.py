@@ -9,6 +9,7 @@ from .models import event,eventtoken
 from .forms import createeventForm,generatelinksForm
 from .imagemal import imagemanipulation
 from .reporthandler import main as reporthandler
+from .pinata import upload
 import secrets
 import string
 import uuid
@@ -27,6 +28,7 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
         extension=".png"
 
     currenteventid=lasteventid+1                    #match name with eventid
+    organizationname=organizationname.replace(" ", "_")  #Replace white space in org name with underscore
     filename=str(organizationname)+str(currenteventid)+extension      #generate custom img name: orgname+eventid
     path=defaultpath+filename                      #generate path
 
@@ -41,6 +43,9 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
         buffer=io.BytesIO()         
         image.save(buffer, format="PNG")
         buffer.seek(0)
+        imagebytes=buffer.read()
+
+        ipfsuri=upload(imagebytes,filename)
 
         imgsavedpath=default_storage.save(path,ContentFile(buffer.read()))         #saving img to actual output path: media/icons/..
         return imgsavedpath

@@ -18,5 +18,10 @@ def imagemanipulation(image):
     nftimage=croppedimage.resize((nftsize,nftsize),Image.LANCZOS)   #resizing the cropped img to fit as nft
     return nftimage
 
+def nftlevel(image):
+    img=Image.open(str(image))
+    return 0
+
+
 if __name__ == "__main__":
     imagemanipulation(None)

@@ -7,7 +7,7 @@ from django.core.files.base import ContentFile
 from rekordapp.models import organization
 from .models import event,eventtoken
 from .forms import createeventForm,generatelinksForm
-from .imagemal import imagemanipulation
+from .imagemal import imagemanipulation,leveleditor
 from .reporthandler import main as reporthandler
 from .pinata import upload
 import secrets
@@ -43,12 +43,9 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
         buffer=io.BytesIO()         
         image.save(buffer, format="PNG")
         buffer.seek(0)
-        imagebytes=buffer.read()
-
-        ipfsuri=upload(imagebytes,filename)
 
         imgsavedpath=default_storage.save(path,ContentFile(buffer.read()))         #saving img to actual output path: media/icons/..
-        return imgsavedpath,ipfsuri
+        return imgsavedpath
 
 #to generate password for authenticating claim links
 def generatepassword():
@@ -126,12 +123,11 @@ def create(request):
                 if image:
                     #file renaming: if virtual (if not physical)
                     if eventtype=="virtual":
-                        filepath,ipfsuri=filemanipulate(file,0,organizationdetails.name,lasteventid)       #if trigger=0: file
+                        filepath=filemanipulate(file,0,organizationdetails.name,lasteventid)       #if trigger=0: file
                         eventobject.eventreport=filepath
 
                     imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid)      #if trigger=1: image
-                    eventobject.eventicon=imagepath
-                    eventobject.ipfs=ipfsuri
+                    eventobject.eventicon=imagepath          
                     eventobject.save()
                 messages.success(request, "Event Added successfully!")
 
@@ -187,6 +183,9 @@ def claim(request,code):
     claimtokenobject=eventtoken.objects.get(claimurl=url)
     name=claimtokenobject.name
     print("Name: ",name)
-    claimeventobject=claimtokenobject.eventid
+    claimeventobject=claimtokenobject.eventid           
+    
+    image=claimeventobject.eventicon                    #fetching nft image of the current event
+    leveleditor(image)                                  #function to edit img as per level
 
     return render(request,"claim.html",{"event":claimeventobject,"claimtoken":claimtokenobject})

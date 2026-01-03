@@ -3,6 +3,8 @@ from PIL import Image,ImageDraw
 def imagemanipulation(image):
     img=Image.open(image)                   #load the image
     nftsize=1024
+    pixelsize=8
+    maxcolors=64
 
     width,height=img.size                           #get the current dimentions
     mindimention=min(width,height)            #to get the minimum w and h without loosing quality and aspect ratio
@@ -17,8 +19,8 @@ def imagemanipulation(image):
     croppedimage=img.crop((left,top,right,bottom))      #cropping the image
     nftimage=croppedimage.resize((nftsize,nftsize),Image.LANCZOS)   #resizing the cropped img to fit as nft
 
-    draw=ImageDraw.Draw(nftimage)
 
+    draw=ImageDraw.Draw(nftimage)
     prestige="hi"
     if prestige=="Standard":
         color="#887A66"
@@ -33,7 +35,13 @@ def imagemanipulation(image):
     for i in range(thickness):
         draw.rectangle([i, i, nftsize-i-1, nftsize-i-1], outline=color)
 
-    nftimage.save("testimg.png")
+
+    pixelednft=nftimage.resize((nftsize//pixelsize, nftsize//pixelsize), resample=Image.BILINEAR)
+    colorednft=pixelednft.quantize(colors=maxcolors)
+    finalnft=colorednft.resize((nftsize,nftsize),resample=Image.NEAREST)
+
+
+    finalnft.save("nftimage.png")
     return nftimage
 
 def leveleditor(image):
@@ -42,5 +50,5 @@ def leveleditor(image):
 
 
 if __name__ == "__main__":
-    imagemanipulation("nftimage.png")
+    imagemanipulation("testimage.png")
     '''leveleditor("nftimage.png")'''

@@ -4,7 +4,7 @@ from .models import event,eventtoken
 class createeventForm(forms.ModelForm):
     class Meta:
         model = event
-        fields = ["organizationid", "eventname", "eventdescription", "city","eventdate", "eventtype", "eventreport", "eventparticipants", "eventicon"]
+        fields = ["organizationid", "eventname", "eventdescription", "city","eventdate", "eventtype", "eventprestige", "eventreport", "eventparticipants", "eventicon"]
 
     def clean(self):
         cleaned_data=super().clean()

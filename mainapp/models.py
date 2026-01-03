@@ -14,7 +14,8 @@ class event(models.Model):
     eventreport=models.FileField(upload_to="", null=True, blank=True)  #file will be send to backend for furthur renameing
     eventparticipants=models.IntegerField(null=True, blank=True) 
     #image will be send to backend for furthur processing
-    eventicon=models.ImageField(upload_to="", null=True, blank=True)  #use 'event.eventicon.url' to access it                                                                                   
+    eventicon=models.ImageField(upload_to="", null=True, blank=True)  #use 'event.eventicon.url' to access it 
+    eventprestige=models.CharField(max_length=20, default="standard",blank=True)                                                                                  
 
     def __str__(self):
         return self.eventname

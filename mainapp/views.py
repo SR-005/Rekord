@@ -18,7 +18,7 @@ import io
 #---------------------------------------------------------------USER DEFINED----------------------------------------------------------------
 
 #to rename file and saving them and editing image for nft 
-def filemanipulate(file,trigger,organizationname,lasteventid):
+def filemanipulate(file,trigger,organizationname,lasteventid,eventprestige):
 
     if trigger==0:                          #trigger=0: csv, rename file and specify path accordingly
         defaultpath="reports/"
@@ -37,7 +37,7 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
         return filesavedpath
 
     else:                   #save image to path
-        image=imagemanipulation(file)              #function call for image manipulation
+        image=imagemanipulation(file,eventprestige)              #function call for image manipulation
 
         #getting img from pil return type
         buffer=io.BytesIO()         
@@ -116,17 +116,19 @@ def create(request):
 
                 #csv and img fetching: from create event form
                 eventtype=request.POST.get("eventtype")
+                eventprestige=request.POST.get("eventprestige")
                 print("Current Event Type: ", eventtype)
+                print("Current Event Prestige: ", eventprestige)
                 file=request.FILES.get("eventreport")
                 image=request.FILES.get("eventicon")
 
                 if image:
                     #file renaming: if virtual (if not physical)
                     if eventtype=="virtual":
-                        filepath=filemanipulate(file,0,organizationdetails.name,lasteventid)       #if trigger=0: file
+                        filepath=filemanipulate(file,0,organizationdetails.name,lasteventid,0)       #if trigger=0: file
                         eventobject.eventreport=filepath
 
-                    imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid)      #if trigger=1: image
+                    imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid,eventprestige)      #if trigger=1: image
                     eventobject.eventicon=imagepath          
                     eventobject.save()
                 messages.success(request, "Event Added successfully!")

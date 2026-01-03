@@ -1,10 +1,11 @@
-from PIL import Image,ImageDraw
+from PIL import Image,ImageDraw, ImageFilter
 
 def imagemanipulation(image):
-    img=Image.open(image)                   #load the image
+    img=Image.open(image).convert("RGBA")                   #load the image
     nftsize=1024
-    pixelsize=8
+    pixelsize=9
     maxcolors=64
+    glow_radius=5
 
     width,height=img.size                           #get the current dimentions
     mindimention=min(width,height)            #to get the minimum w and h without loosing quality and aspect ratio
@@ -21,16 +22,29 @@ def imagemanipulation(image):
 
 
     draw=ImageDraw.Draw(nftimage)
-    prestige="hi"
+    prestige="Elite"
     if prestige=="Standard":
-        color="#887A66"
-        thickness=8
+        color="#46D12D"
+        thickness=14
     elif prestige=="Elite":
         color="#F1C40F"
-        thickness=12
+        thickness=18
     else:
         color="#8E44AD"
-        thickness=14
+        thickness=22
+
+    glow_layer = Image.new("RGBA", (nftsize, nftsize), (0, 0, 0, 0))
+    glow_draw = ImageDraw.Draw(glow_layer)
+
+    for i in range(thickness):
+        glow_draw.rectangle(
+            [i, i, nftsize - i - 1, nftsize - i - 1],
+            outline=color
+        )
+
+    glow_layer = glow_layer.filter(ImageFilter.GaussianBlur(glow_radius))
+    nftimage = Image.alpha_composite(nftimage, glow_layer)
+
 
     for i in range(thickness):
         draw.rectangle([i, i, nftsize-i-1, nftsize-i-1], outline=color)

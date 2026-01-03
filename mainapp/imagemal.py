@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image,ImageDraw
 
 def imagemanipulation(image):
     img=Image.open(image)                   #load the image
@@ -16,12 +16,31 @@ def imagemanipulation(image):
 
     croppedimage=img.crop((left,top,right,bottom))      #cropping the image
     nftimage=croppedimage.resize((nftsize,nftsize),Image.LANCZOS)   #resizing the cropped img to fit as nft
+
+    draw=ImageDraw.Draw(nftimage)
+
+    prestige="hi"
+    if prestige=="Standard":
+        color="#887A66"
+        thickness=8
+    elif prestige=="Elite":
+        color="#F1C40F"
+        thickness=12
+    else:
+        color="#8E44AD"
+        thickness=14
+
+    for i in range(thickness):
+        draw.rectangle([i, i, nftsize-i-1, nftsize-i-1], outline=color)
+
+    nftimage.save("testimg.png")
     return nftimage
 
-def nftlevel(image):
+def leveleditor(image):
     img=Image.open(str(image))
     return 0
 
 
 if __name__ == "__main__":
-    imagemanipulation(None)
+    imagemanipulation("nftimage.png")
+    '''leveleditor("nftimage.png")'''

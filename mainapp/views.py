@@ -184,6 +184,7 @@ def claim(request,code):
     name=claimtokenobject.name
     print("Name: ",name)
     claimeventobject=claimtokenobject.eventid           
+
     
     image=claimeventobject.eventicon                    #fetching nft image of the current event
     leveleditor(image)                                  #function to edit img as per level

@@ -7,7 +7,7 @@ from django.core.files.base import ContentFile
 from rekordapp.models import organization
 from .models import event,eventtoken
 from .forms import createeventForm,generatelinksForm
-from .imagemal import imagemanipulation,leveleditor
+from .imagemal import imagemanipulation,loyality
 from .reporthandler import main as reporthandler
 from .pinata import upload
 import secrets
@@ -18,7 +18,7 @@ import io
 #---------------------------------------------------------------USER DEFINED----------------------------------------------------------------
 
 #to rename file and saving them and editing image for nft 
-def filemanipulate(file,trigger,organizationname,lasteventid,eventprestige):
+def filemanipulate(file,trigger,organizationname,lasteventid):
 
     if trigger==0:                          #trigger=0: csv, rename file and specify path accordingly
         defaultpath="reports/"
@@ -37,7 +37,7 @@ def filemanipulate(file,trigger,organizationname,lasteventid,eventprestige):
         return filesavedpath
 
     else:                   #save image to path
-        image=imagemanipulation(file,eventprestige)              #function call for image manipulation
+        image=imagemanipulation(file)              #function call for image manipulation
 
         #getting img from pil return type
         buffer=io.BytesIO()         
@@ -116,9 +116,7 @@ def create(request):
 
                 #csv and img fetching: from create event form
                 eventtype=request.POST.get("eventtype")
-                eventprestige=request.POST.get("eventprestige")
                 print("Current Event Type: ", eventtype)
-                print("Current Event Prestige: ", eventprestige)
                 file=request.FILES.get("eventreport")
                 image=request.FILES.get("eventicon")
 
@@ -128,7 +126,7 @@ def create(request):
                         filepath=filemanipulate(file,0,organizationdetails.name,lasteventid,0)       #if trigger=0: file
                         eventobject.eventreport=filepath
 
-                    imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid,eventprestige)      #if trigger=1: image
+                    imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid)      #if trigger=1: image
                     eventobject.eventicon=imagepath          
                     eventobject.save()
                 messages.success(request, "Event Added successfully!")
@@ -189,6 +187,6 @@ def claim(request,code):
 
     
     image=claimeventobject.eventicon                    #fetching nft image of the current event
-    leveleditor(image)                                  #function to edit img as per level
+    loyality(image)                                  #function to edit img as per level
 
     return render(request,"claim.html",{"event":claimeventobject,"claimtoken":claimtokenobject})

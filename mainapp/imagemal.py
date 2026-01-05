@@ -1,8 +1,10 @@
 from PIL import Image,ImageDraw, ImageFilter
 
-def imagemanipulation(image,prestige,loyality):
+def imagemanipulation(image):
     img=Image.open(image).convert("RGBA")                   #load the image
     nftsize=1024
+    prestige="flagship"
+    loyality="short"
 
     width,height=img.size                           #get the current dimentions
     mindimention=min(width,height)            #to get the minimum w and h without loosing quality and aspect ratio
@@ -17,6 +19,13 @@ def imagemanipulation(image,prestige,loyality):
     croppedimage=img.crop((left,top,right,bottom))      #cropping the image
     nftimage=croppedimage.resize((nftsize,nftsize),Image.LANCZOS)   #resizing the cropped img to fit as nft
 
+    nftimage.save("nftimage.png")
+    return nftimage
+
+def loyality(image,prestige,loyality):
+    nftimage=Image.open(str(image))
+    nftsize=1024
+
     if loyality=="long":                                      #pixeled image section
         thickness=3
         pixelsize=5
@@ -27,16 +36,13 @@ def imagemanipulation(image,prestige,loyality):
         finalnft=colorednft.resize((nftsize,nftsize),resample=Image.NEAREST)
 
     elif loyality in ["short","medium"]:  # colored dot image section
-        thickness=0
-        dotspacing = 8
+        thickness = 0
+        dotspacing = 7
         maxdotradius = 5
 
         # Grayscale for brightness
         gray = nftimage.convert("L")
         gray_pixels = gray.load()
-
-        # RGB for color
-        color_pixels = nftimage.convert("RGB").load()
 
         # White canvas
         dotted = Image.new("RGBA", (nftsize, nftsize), "white")
@@ -44,12 +50,12 @@ def imagemanipulation(image,prestige,loyality):
 
         for y in range(0, nftsize, dotspacing):
             for x in range(0, nftsize, dotspacing):
-                brightness = gray_pixels[x, y]  # ✅ int 0–255
+                brightness = gray_pixels[x, y]  # 0–255
 
+                # Darker pixel → bigger dot
                 radius = int((255 - brightness) / 255 * maxdotradius)
 
                 if radius > 0:
-                    r, g, b = color_pixels[x, y]  # ✅ tuple
                     dot_draw.ellipse(
                         (
                             x - radius,
@@ -57,7 +63,7 @@ def imagemanipulation(image,prestige,loyality):
                             x + radius,
                             y + radius
                         ),
-                        fill=(r, g, b)
+                        fill="black"
                     )
 
         finalnft = dotted
@@ -92,17 +98,9 @@ def imagemanipulation(image,prestige,loyality):
     for i in range(thickness):
         draw.rectangle([i, i, nftsize-i-1, nftsize-i-1], outline=color)
 
-
-
-
-    finalnft.save("nftimage.png")
-    return nftimage
-
-def leveleditor(image):
-    img=Image.open(str(image))
     return 0
 
 
 if __name__ == "__main__":
-    imagemanipulation("testimage.png","flagship","long")
-    '''leveleditor("nftimage.png")'''
+    imagemanipulation("testimage2.png")
+    loyality("nftimage.png")

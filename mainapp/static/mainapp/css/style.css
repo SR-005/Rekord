@@ -260,3 +260,15 @@
 .claim-eventname{
   font-size: 40px;
 }
+
+.claim-btn-green {
+  background-color: #0c9505;
+  border-color: #32ec29;
+  color: #fff;
+  width: 110px;
+}
+.claim-btn-green:hover {
+  background-color: #0fa907;
+  border-color: #0e9d06;
+  color: #fff;
+}

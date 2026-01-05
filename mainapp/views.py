@@ -187,6 +187,6 @@ def claim(request,code):
 
     
     image=claimeventobject.eventicon                    #fetching nft image of the current event
-    loyality(image)                                  #function to edit img as per level
+    #loyality(image,"flagship","long")                                  #function to edit img as per level
 
     return render(request,"claim.html",{"event":claimeventobject,"claimtoken":claimtokenobject})

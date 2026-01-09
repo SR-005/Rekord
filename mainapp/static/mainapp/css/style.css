@@ -229,6 +229,54 @@
   margin-left: 10px;
   margin-top: -15px;
 }
+.nowalletaddr{
+  font-family: "BaseNeueRegular", sans-serif;
+  color: #f52626;;
+  margin-bottom: 100px;
+}
+.yeswalletaddr{
+  font-family: "BaseNeueRegular", sans-serif;
+  color: #0fa907;;
+  margin-bottom: 100px;
+}
+.connect-btn{
+  background-color: #7d41ed;
+  border-color: #6f42c1;
+  font-family: "BaseNeueRegular", sans-serif;
+  scale: 1.1;
+  transition: scale 0.8s;
+  color: #fff;
+  height: 40px;
+  width: 200px;
+  margin-top: 80px;
+}
+.connect-btn:hover{
+  scale: 1.13;
+  background-color: #ffffff;
+  border-color: #000000;
+  color: #5a32a3;
+  box-shadow: 0 8px 20px rgba(223, 17, 255, 0.15);
+}
+.disconnect-btn{
+  background-color: #f52626;
+  border-color: #c21616;
+  font-family: "BaseNeueRegular", sans-serif;
+  scale: 1.1;
+  transition: scale 0.8s;
+  color: #fff;
+  height: 40px;
+  width: 200px;
+  margin-top: 80px;
+}
+.disconnect-btn:hover{
+  scale: 1.13;
+  background-color: #e90505;
+  border-color: rgb(212, 5, 5);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(223, 17, 255, 0.15);
+}
+
+
 
 .claim-imagepreview{
   width: 350px;
@@ -236,8 +284,6 @@
   border-radius: 20px;
   transition: scale 0.5s ease-in-out;
   box-shadow: 20px 0px 20px rgba(130, 243, 138, 0.15);
-}
-.imagediv{
 }
 
 .display-tile {
@@ -251,15 +297,15 @@
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .display-tile:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(60, 202, 69, 0.15);
 }
-
 .claim-eventname{
   font-size: 40px;
 }
+
+
 
 .claim-btn-green {
   background-color: #0c9505;

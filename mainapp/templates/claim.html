@@ -6,15 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- import css file -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'mainapp/css/style.css'%}?v=5">
+    <link rel="stylesheet" href="{% static 'mainapp/css/style.css'%}?v=1">
 
     <title>Claim Your Rekord</title>
 </head>
 <body>
+
+    <!-- navbar section -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand">REKORD</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Wallet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Help</a>
+                    </li>
+                </ul>
+                <a href="/" class="btn btn-outline-danger">Log Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- title section -->
     <div>
         <h1 class="claim-title text-center">hey <span class="participant-name">{{claimtoken.name}}!!!</span></h1>
-        <p class="claim-subtitle text-center mt-5">you have a Rekord to mint. Not everyone get's one, so </p>
-        <p class="claim-subtitle text-center">claim you're right now!!</p>
+        <h4 class="caption text-center">--let's make some badges on chain--</h4>
+        
+        <div class="dynamicdiv">
+            <div class="d-flex justify-content-center mb-3">
+                <button type="button" class="btn connect-btn w-25" name="action" value="connect-wallet" id="connectwalletbutton">Connect Wallet</button>
+            </div>
+            <p id="walletAddress" class="nowalletaddr text-center"> No Wallet Connected</p>
+            <input type="hidden" id="walletInput" name="wallet_address">
+        </div>
+        {% comment %}
+            <p class="claim-subtitle text-center mt-5">you have a Rekord to mint. Not everyone get's one, so </p>
+            <p class="claim-subtitle text-center">claim you're right now!!</p>
+        {% endcomment %}
     </div>
 
     
@@ -35,7 +72,66 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn claim-btn-green w-50 mt-3" name="action" value="create-event">Connect Wallet</button>
+        <button type="button" class="btn claim-btn-green w-50 mt-3" name="action" value="connect-wallet" id="connectwalletbutton">Connect Wallet</button>
     </div>
+    
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script>
+        const walletBtn = document.getElementById("connectwalletbutton");
+        const walletText = document.getElementById("walletAddress");
+        const walletInput = document.getElementById("walletInput");
+
+        let provider = null;
+        let signer = null;
+        let connectedAddress = null;
+
+        async function connectWallet() {
+            if (!window.ethereum) {
+                alert("MetaMask not detected. Please install MetaMask.");
+                return;
+            }
+
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+            await provider.send("eth_requestAccounts", []);
+            signer = provider.getSigner();
+            connectedAddress = await signer.getAddress();
+
+            // UI update
+            walletText.innerText = `Connected to : ${connectedAddress}`;
+            walletText.classList.remove("nowalletaddr");
+            walletText.classList.add("yeswalletaddr");
+            walletInput.value = connectedAddress;
+
+            walletBtn.innerText = "Disconnect Wallet";
+            walletBtn.classList.remove("connect-btn");
+            walletBtn.classList.add("disconnect-btn");
+
+            walletBtn.onclick = disconnectWallet;
+        }
+
+        function disconnectWallet() {
+            provider = null;
+            signer = null;
+            connectedAddress = null;
+
+            walletText.innerText = "No Wallet Connected";
+            walletInput.value = "";
+
+            walletBtn.innerText = "Connect Wallet";
+            walletBtn.classList.remove("disconnect-btn");
+            walletBtn.classList.add("connect-btn");
+
+            walletBtn.onclick = connectWallet;
+        }
+
+        // Initial binding
+        walletBtn.onclick = connectWallet;
+    </script>
+
 </body>
 </html>

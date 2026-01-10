@@ -191,16 +191,13 @@ def claim(request,code):
     if request.method=="POST":
         action=request.POST.get("action") #for pinpointing which button was clicked
         if action=="mint-badge":
-            walletaddress=request.POST.get("walletaddress")
-            print("Connected Wallet Address1: ",walletaddress)
-            print(request.POST)
+            walletaddress=request.POST.get("walletaddress")     #fetching wallet address from html form
+
             if not walletaddress:
                 messages.error(request, "Please connect the wallet before claiming")
                 return redirect(request.path)
             
             messages.success(request, "Wallet Connected Successfully")
-            print("Connected Wallet Address2: ",walletaddress)
-            return redirect("claim_success")
-            
+            print("Connected Wallet Address: ",walletaddress)
 
     return render(request,"claim.html",{"event":claimeventobject,"claimtoken":claimtokenobject})

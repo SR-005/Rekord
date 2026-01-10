@@ -30,3 +30,4 @@ class generatelinksForm(forms.ModelForm):
     class Meta:
         model = eventtoken
         fields=["eventid","email","claimurl"]
+

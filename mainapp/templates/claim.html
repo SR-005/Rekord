@@ -46,7 +46,6 @@
                 <button type="button" class="btn connect-btn w-25" name="action" value="connect-wallet" id="connectwalletbutton">Connect Wallet</button>
             </div>
             <p id="walletAddress" class="nowalletaddr text-center"> No Wallet Connected</p>
-            <input type="hidden" id="walletInput" name="wallet_address">
         </div>
         {% comment %}
             <p class="claim-subtitle text-center mt-5">you have a Rekord to mint. Not everyone get's one, so </p>
@@ -72,7 +71,11 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="btn claim-btn-green w-50 mt-3" name="action" value="mint-button" id="mintbutton">Mint NFT</button>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" id="walletInput" name="walletaddress">
+            <button type="submit" class="btn claim-btn-green w-50 mt-3" disabled name="action" value="mint-badge" id="mintbadge">Mint NFT</button>
+        </form>
     </div>
     
 
@@ -85,6 +88,7 @@
         const walletBtn = document.getElementById("connectwalletbutton");
         const walletText = document.getElementById("walletAddress");
         const walletInput = document.getElementById("walletInput");
+        const mintBtn = document.getElementById("mintbadge");
 
         let provider = null;
         let signer = null;
@@ -106,6 +110,8 @@
             walletText.classList.remove("nowalletaddr");
             walletText.classList.add("yeswalletaddr");
             walletInput.value = connectedAddress;
+            console.log("Hidden input set to:", walletInput.value);
+            mintBtn.disabled = false;
 
             walletBtn.innerText = "Disconnect Wallet";
             walletBtn.classList.remove("connect-btn");

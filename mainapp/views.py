@@ -185,8 +185,22 @@ def claim(request,code):
     print("Name: ",name)
     claimeventobject=claimtokenobject.eventid           
 
-    
     image=claimeventobject.eventicon                    #fetching nft image of the current event
     #loyality(image,"flagship","long")                                  #function to edit img as per level
+
+    if request.method=="POST":
+        action=request.POST.get("action") #for pinpointing which button was clicked
+        if action=="mint-badge":
+            walletaddress=request.POST.get("walletaddress")
+            print("Connected Wallet Address1: ",walletaddress)
+            print(request.POST)
+            if not walletaddress:
+                messages.error(request, "Please connect the wallet before claiming")
+                return redirect(request.path)
+            
+            messages.success(request, "Wallet Connected Successfully")
+            print("Connected Wallet Address2: ",walletaddress)
+            return redirect("claim_success")
+            
 
     return render(request,"claim.html",{"event":claimeventobject,"claimtoken":claimtokenobject})

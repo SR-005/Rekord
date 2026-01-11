@@ -130,6 +130,7 @@
             walletBtn.innerText = "Connect Wallet";
             walletBtn.classList.remove("disconnect-btn");
             walletBtn.classList.add("connect-btn");
+            mintBtn.disabled = true;
 
             walletBtn.onclick = connectWallet;
         }

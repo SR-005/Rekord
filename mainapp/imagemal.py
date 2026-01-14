@@ -98,9 +98,10 @@ def loyality(image,prestige,loyality):
     for i in range(thickness):
         draw.rectangle([i, i, nftsize-i-1, nftsize-i-1], outline=color)
 
+    finalnft.save("nftimage.png")
     return 0
 
 
 if __name__ == "__main__":
-    imagemanipulation("testimage2.png")
-    loyality("nftimage.png")
+    '''imagemanipulation("testimage3.png")'''
+    loyality("testimage3.png","flagship","short")

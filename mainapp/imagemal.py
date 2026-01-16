@@ -101,7 +101,71 @@ def loyality(image,prestige,loyality):
     finalnft.save("nftimage.png")
     return 0
 
+def imagetest(image):
+    from PIL import Image, ImageDraw, ImageFont
+
+    # Open image
+    img = Image.open(image).convert("RGB")
+
+    TARGET_SIZE = 1024
+
+    # Borders
+    border_top = 40
+    border_left = 20
+    border_right = 20
+    border_bottom = 160
+
+    # Image area
+    target_w = TARGET_SIZE - (border_left + border_right)
+    target_h = TARGET_SIZE - (border_top + border_bottom)
+
+    # --- Crop to fit ---
+    img_ratio = img.width / img.height
+    target_ratio = target_w / target_h
+
+    if img_ratio > target_ratio:
+        new_width = int(img.height * target_ratio)
+        left = (img.width - new_width) // 2
+        img = img.crop((left, 0, left + new_width, img.height))
+    else:
+        new_height = int(img.width / target_ratio)
+        top = (img.height - new_height) // 2
+        img = img.crop((0, top, img.width, top + new_height))
+
+    img = img.resize((target_w, target_h), Image.LANCZOS)
+
+    # --- Canvas (border color here) ---
+    border_color = (0, 0, 0)
+    canvas = Image.new("RGB", (TARGET_SIZE, TARGET_SIZE), border_color)
+    canvas.paste(img, (border_left, border_top))
+
+    # --- Draw text ---
+    draw = ImageDraw.Draw(canvas)
+
+    # Load Roca Two font
+    font = ImageFont.truetype("Roca_Two_Bold.ttf", 94)
+
+    text = "TINK-HER-HACK"
+    text_color = (255, 255, 255)
+
+    # Measure text size
+    bbox = draw.textbbox((0, 0), text, font=font)
+    text_w = bbox[2] - bbox[0]
+    text_h = bbox[3] - bbox[1]
+
+    # Position text inside bottom border (centered)
+    x = (TARGET_SIZE - text_w) // 2
+    y = TARGET_SIZE - border_bottom + (border_bottom - text_h) // 2
+    y-=36
+    draw.text((x, y), text, fill=text_color, font=font)
+
+    # Save
+    canvas.save("output_1024_named.jpg")
+
+
+
 
 if __name__ == "__main__":
     '''imagemanipulation("testimage3.png")'''
-    loyality("testimage3.png","flagship","short")
+    '''loyality("testimage3.png","flagship","short")'''
+    imagetest("testimage.png")

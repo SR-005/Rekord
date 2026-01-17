@@ -1,4 +1,4 @@
-from PIL import Image,ImageDraw, ImageFilter
+from PIL import Image,ImageDraw, ImageFilter, ImageFont
 
 def imagemanipulation(image):
     img=Image.open(image).convert("RGBA")                   #load the image
@@ -101,13 +101,23 @@ def loyality(image,prestige,loyality):
     finalnft.save("nftimage.png")
     return 0
 
-def imagetest(image):
-    from PIL import Image, ImageDraw, ImageFont
+def imagetest(image,prestige):
 
     # Open image
     img = Image.open(image).convert("RGB")
-
     TARGET_SIZE = 1024
+    
+    if prestige=="standard":
+        bordercolor=(40,38,40)          #border color: grey-black
+        textcolor = (255, 255, 255)     #text color: white
+    elif prestige=="signature": 
+        bordercolor=(252, 197, 33)      #border color: yellow-gold
+        textcolor = (0, 0, 0)           #text color: black
+    elif prestige=="flagship":
+        bordercolor=(143,56,197)        #border color: purple
+        textcolor = (255, 255, 255)     #text color: white
+    else:
+        print("Event Prestige Not Valid!!")
 
     # Borders
     border_top = 40
@@ -135,32 +145,47 @@ def imagetest(image):
     img = img.resize((target_w, target_h), Image.LANCZOS)
 
     # --- Canvas (border color here) ---
-    border_color = (0, 0, 0)
-    canvas = Image.new("RGB", (TARGET_SIZE, TARGET_SIZE), border_color)
+    canvas = Image.new("RGB", (TARGET_SIZE, TARGET_SIZE), bordercolor)
     canvas.paste(img, (border_left, border_top))
+
+
+
 
     # --- Draw text ---
     draw = ImageDraw.Draw(canvas)
 
     # Load Roca Two font
-    font = ImageFont.truetype("Roca_Two_Bold.ttf", 94)
+    font = ImageFont.truetype("Roca_Two_Bold.ttf", 104)
 
     text = "TINK-HER-HACK"
-    text_color = (255, 255, 255)
-
+    
     # Measure text size
     bbox = draw.textbbox((0, 0), text, font=font)
     text_w = bbox[2] - bbox[0]
     text_h = bbox[3] - bbox[1]
 
-    # Position text inside bottom border (centered)
-    x = (TARGET_SIZE - text_w) // 2
-    y = TARGET_SIZE - border_bottom + (border_bottom - text_h) // 2
-    y-=36
-    draw.text((x, y), text, fill=text_color, font=font)
+    # Position text - Event Name
+    mainx = (TARGET_SIZE - text_w) // 2
+    mainy = TARGET_SIZE - border_bottom + (border_bottom - text_h) // 2
+    mainy-=36
+    draw.text((mainx, mainy), text, fill=textcolor, font=font)
+
+
+    font = ImageFont.truetype("Roca_Two_Bold.ttf", 58)
+    text = "by tinkerhub"
+    # Measure text size
+    bbox = draw.textbbox((0, 0), text, font=font)
+    text_w = bbox[2] - bbox[0]
+    text_h = bbox[3] - bbox[1]
+
+    # Position text - Event Name
+    mainx = (TARGET_SIZE - text_w) //1.03
+    mainy = TARGET_SIZE - border_bottom + (border_bottom - text_h) // 2
+    mainy+=40
+    draw.text((mainx, mainy), text, fill=textcolor, font=font)
 
     # Save
-    canvas.save("output_1024_named.jpg")
+    canvas.save("nftimage.png")
 
 
 
@@ -168,4 +193,7 @@ def imagetest(image):
 if __name__ == "__main__":
     '''imagemanipulation("testimage3.png")'''
     '''loyality("testimage3.png","flagship","short")'''
-    imagetest("testimage.png")
+    imagetest("testimage.png","flagship")
+#standard
+#signature
+#flagship

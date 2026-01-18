@@ -103,7 +103,7 @@ def loyality(image,prestige,loyality):
 
 
 
-def imagetest(image,prestige):
+def imagetest(image,prestige,loyality):
 
     # Open image
     img=Image.open(image).convert("RGB")
@@ -184,55 +184,57 @@ def imagetest(image,prestige):
     mainy+=40
     draw.text((mainx, mainy), text, fill=textcolor, font=font)
 
-    #draw bounding box for the image inside border
-    x1=borderleft
-    y1=bordertop
-    x2=borderleft+ cropped_imagewidth
-    y2=bordertop+ cropped_imageheight
+    if loyality=="short":
+        gray_img = img.convert("L").convert("RGB")  
+        canvas.paste(gray_img, (borderleft, bordertop))
+    elif loyality=="medium":
+        pass
+    elif loyality=="long":
+        #draw bounding box for the image inside border
+        x1=borderleft
+        y1=bordertop
+        x2=borderleft+ cropped_imagewidth
+        y2=bordertop+ cropped_imageheight
 
-    image_height = y2 - y1
+        image_height = y2 - y1
+        label = "REKORD FLAGSHIP NFT"
+        font = ImageFont.truetype("Roca_Two_Bold.ttf", 22)
+        text_color = (0,0,0)
 
-    label = "REKORD FLAGSHIP NFT"
-    font = ImageFont.truetype("Roca_Two_Bold.ttf", 22)
-    text_color = (0,0,0)
+        # Measure text
+        bbox = draw.textbbox((0, 0), label, font=font)
+        text_w = bbox[2] - bbox[0]
+        text_h = bbox[3] - bbox[1]
 
-    # Measure text
-    bbox = draw.textbbox((0, 0), label, font=font)
-    text_w = bbox[2] - bbox[0]
-    text_h = bbox[3] - bbox[1]
+        # X: center within image bbox
+        offsetx=-350
+        text_x = x1 + (x2 - x1 - text_w) // 2 + offsetx
 
-    # X: center within image bbox
-    offsetx=-350
-    text_x = x1 + (x2 - x1 - text_w) // 2 + offsetx
+        # Y: inside image, near top
+        top_offset_ratio = 0.01 
+        text_y = y1 + int(image_height * top_offset_ratio)
 
-    # Y: inside image, near top
-    top_offset_ratio = 0.01 
-    text_y = y1 + int(image_height * top_offset_ratio)
-
-    draw.text((text_x, text_y), label, fill=text_color, font=font)
-
-
-    label = "0xDFDa8340978B38d93114FAE615144e895A75ebb2"
-    font = ImageFont.truetype("Roca_Two_Bold.ttf", 16)
-    text_color = (0,0,0)
-
-    # Measure text
-    bbox = draw.textbbox((0, 0), label, font=font)
-    text_w = bbox[2] - bbox[0]
-    text_h = bbox[3] - bbox[1]
-
-    # X: center within image bbox
-    offsetx=290
-    text_x = x1 + (x2 - x1 - text_w) // 2 + offsetx
-
-    # Y: inside image, near top
-    top_offset_ratio = 0.01 
-    text_y = y1 + int(image_height * top_offset_ratio)
-
-    draw.text((text_x, text_y), label, fill=text_color, font=font)
+        draw.text((text_x, text_y), label, fill=text_color, font=font)
 
 
+        label = "0xDFDa8340978B38d93114FAE615144e895A75ebb2"
+        font = ImageFont.truetype("Roca_Two_Bold.ttf", 16)
+        text_color = (0,0,0)
 
+        # Measure text
+        bbox = draw.textbbox((0, 0), label, font=font)
+        text_w = bbox[2] - bbox[0]
+        text_h = bbox[3] - bbox[1]
+
+        # X: center within image bbox
+        offsetx=290
+        text_x = x1 + (x2 - x1 - text_w) // 2 + offsetx
+
+        # Y: inside image, near top
+        top_offset_ratio = 0.01 
+        text_y = y1 + int(image_height * top_offset_ratio)
+
+        draw.text((text_x, text_y), label, fill=text_color, font=font)
 
     # Save
     canvas.save("nftimage.png")
@@ -243,7 +245,11 @@ def imagetest(image,prestige):
 if __name__ == "__main__":
     '''imagemanipulation("testimage3.png")'''
     '''loyality("testimage3.png","flagship","short")'''
-    imagetest("testimage.png","flagship")
+    imagetest("testimage.png","flagship","short")
 #standard
 #signature
 #flagship
+
+#short
+#medium
+#long

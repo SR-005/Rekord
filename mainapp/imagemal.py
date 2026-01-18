@@ -101,11 +101,13 @@ def loyality(image,prestige,loyality):
     finalnft.save("nftimage.png")
     return 0
 
+
+
 def imagetest(image,prestige):
 
     # Open image
-    img = Image.open(image).convert("RGB")
-    TARGET_SIZE = 1024
+    img=Image.open(image).convert("RGB")
+    imagesize=1024
     
     if prestige=="standard":
         bordercolor=(40,38,40)          #border color: grey-black
@@ -120,44 +122,42 @@ def imagetest(image,prestige):
         print("Event Prestige Not Valid!!")
 
     # Borders
-    border_top = 40
-    border_left = 20
-    border_right = 20
-    border_bottom = 160
+    bordertop=40
+    borderleft=20
+    borderright=20
+    borderbottom=160
 
     # Image area
-    target_w = TARGET_SIZE - (border_left + border_right)
-    target_h = TARGET_SIZE - (border_top + border_bottom)
+    cropped_imagewidth=imagesize-(borderleft+ borderright)
+    cropped_imageheight=imagesize-(bordertop+ borderbottom)
 
     # --- Crop to fit ---
-    img_ratio = img.width / img.height
-    target_ratio = target_w / target_h
+    original_imageratio=img.width/img.height
+    cropped_imageratio=cropped_imagewidth/cropped_imageheight
 
-    if img_ratio > target_ratio:
-        new_width = int(img.height * target_ratio)
-        left = (img.width - new_width) // 2
-        img = img.crop((left, 0, left + new_width, img.height))
+    if original_imageratio>cropped_imageratio:
+        new_width=int(img.height * cropped_imageratio)
+        left=(img.width - new_width) // 2
+        img=img.crop((left, 0, left + new_width, img.height))
     else:
-        new_height = int(img.width / target_ratio)
-        top = (img.height - new_height) // 2
-        img = img.crop((0, top, img.width, top + new_height))
+        new_height = int(img.width / cropped_imageratio)
+        top=(img.height - new_height) // 2
+        img=img.crop((0, top, img.width, top + new_height))
 
-    img = img.resize((target_w, target_h), Image.LANCZOS)
+    img=img.resize((cropped_imagewidth, cropped_imageheight), Image.LANCZOS)
 
     # --- Canvas (border color here) ---
-    canvas = Image.new("RGB", (TARGET_SIZE, TARGET_SIZE), bordercolor)
-    canvas.paste(img, (border_left, border_top))
+    canvas=Image.new("RGB", (imagesize,imagesize), bordercolor)
+    canvas.paste(img, (borderleft, bordertop))
 
 
 
 
     # --- Draw text ---
-    draw = ImageDraw.Draw(canvas)
+    draw=ImageDraw.Draw(canvas)
+    font=ImageFont.truetype("Roca_Two_Bold.ttf", 104)
 
-    # Load Roca Two font
-    font = ImageFont.truetype("Roca_Two_Bold.ttf", 104)
-
-    text = "TINK-HER-HACK"
+    text="TINK-HER-HACK"
     
     # Measure text size
     bbox = draw.textbbox((0, 0), text, font=font)
@@ -165,8 +165,8 @@ def imagetest(image,prestige):
     text_h = bbox[3] - bbox[1]
 
     # Position text - Event Name
-    mainx = (TARGET_SIZE - text_w) // 2
-    mainy = TARGET_SIZE - border_bottom + (border_bottom - text_h) // 2
+    mainx = (imagesize - text_w) // 2
+    mainy =imagesize - borderbottom+ (borderbottom- text_h) // 2
     mainy-=36
     draw.text((mainx, mainy), text, fill=textcolor, font=font)
 
@@ -179,16 +179,16 @@ def imagetest(image,prestige):
     text_h = bbox[3] - bbox[1]
 
     # Position text - Event Name
-    mainx = (TARGET_SIZE - text_w) //1.03
-    mainy = TARGET_SIZE - border_bottom + (border_bottom - text_h) // 2
+    mainx = (imagesize - text_w) //1.03
+    mainy =imagesize - borderbottom+ (borderbottom- text_h) // 2
     mainy+=40
     draw.text((mainx, mainy), text, fill=textcolor, font=font)
 
     #draw bounding box for the image inside border
-    x1=border_left
-    y1=border_top
-    x2=border_left + target_w
-    y2=border_top + target_h
+    x1=borderleft
+    y1=bordertop
+    x2=borderleft+ cropped_imagewidth
+    y2=bordertop+ cropped_imageheight
 
     image_height = y2 - y1
 

@@ -184,11 +184,14 @@ def imagetest(image,prestige,loyality):
     mainy+=40
     draw.text((mainx, mainy), text, fill=textcolor, font=font)
 
+    #loyality levels
     if loyality=="short":
         gray_img = img.convert("L").convert("RGB")  
         canvas.paste(gray_img, (borderleft, bordertop))
+
     elif loyality=="medium":
         pass
+
     elif loyality=="long":
         #draw bounding box for the image inside border
         x1=borderleft
@@ -235,6 +238,8 @@ def imagetest(image,prestige,loyality):
         text_y = y1 + int(image_height * top_offset_ratio)
 
         draw.text((text_x, text_y), label, fill=text_color, font=font)
+    else:
+        print("Loyality level is Invalid!!")
 
     # Save
     canvas.save("nftimage.png")

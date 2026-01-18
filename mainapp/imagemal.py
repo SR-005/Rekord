@@ -184,6 +184,56 @@ def imagetest(image,prestige):
     mainy+=40
     draw.text((mainx, mainy), text, fill=textcolor, font=font)
 
+    #draw bounding box for the image inside border
+    x1=border_left
+    y1=border_top
+    x2=border_left + target_w
+    y2=border_top + target_h
+
+    image_height = y2 - y1
+
+    label = "REKORD FLAGSHIP NFT"
+    font = ImageFont.truetype("Roca_Two_Bold.ttf", 22)
+    text_color = (0,0,0)
+
+    # Measure text
+    bbox = draw.textbbox((0, 0), label, font=font)
+    text_w = bbox[2] - bbox[0]
+    text_h = bbox[3] - bbox[1]
+
+    # X: center within image bbox
+    offsetx=-350
+    text_x = x1 + (x2 - x1 - text_w) // 2 + offsetx
+
+    # Y: inside image, near top
+    top_offset_ratio = 0.01 
+    text_y = y1 + int(image_height * top_offset_ratio)
+
+    draw.text((text_x, text_y), label, fill=text_color, font=font)
+
+
+    label = "0xDFDa8340978B38d93114FAE615144e895A75ebb2"
+    font = ImageFont.truetype("Roca_Two_Bold.ttf", 16)
+    text_color = (0,0,0)
+
+    # Measure text
+    bbox = draw.textbbox((0, 0), label, font=font)
+    text_w = bbox[2] - bbox[0]
+    text_h = bbox[3] - bbox[1]
+
+    # X: center within image bbox
+    offsetx=290
+    text_x = x1 + (x2 - x1 - text_w) // 2 + offsetx
+
+    # Y: inside image, near top
+    top_offset_ratio = 0.01 
+    text_y = y1 + int(image_height * top_offset_ratio)
+
+    draw.text((text_x, text_y), label, fill=text_color, font=font)
+
+
+
+
     # Save
     canvas.save("nftimage.png")
 

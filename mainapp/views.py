@@ -18,7 +18,7 @@ import io
 #---------------------------------------------------------------USER DEFINED----------------------------------------------------------------
 
 #to rename file and saving them and editing image for nft 
-def filemanipulate(file,trigger,organizationname,lasteventid):
+def filemanipulate(file,trigger,organizationname,lasteventid,prestige):
 
     if trigger==0:                          #trigger=0: csv, rename file and specify path accordingly
         defaultpath="reports/"
@@ -37,7 +37,7 @@ def filemanipulate(file,trigger,organizationname,lasteventid):
         return filesavedpath
 
     else:                   #save image to path
-        image=imagemanipulation(file)              #function call for image manipulation
+        image=imagemanipulation(file,prestige)              #function call for image manipulation
 
         #getting img from pil return type
         buffer=io.BytesIO()         
@@ -95,7 +95,7 @@ def create(request):
 
             '''print("----EVENT FORM----")
             print(form)'''
-
+            
             if form.is_valid():
                 print("DATA:",form.cleaned_data)
                 eventobject=form.save(commit=False)         #commit=Flase: means data will not be saved to db
@@ -108,15 +108,17 @@ def create(request):
                 except:
                     lasteventid=0
                     print("This is the First Event")
-
+                
                 try: 
                     formnumber=request.POST.get("eventparticipants")
                 except:
                     print("No Event Participants Found: Not a Physical Event")
-
+                
                 #csv and img fetching: from create event form
                 eventtype=request.POST.get("eventtype")
+                prestige=request.POST.get("eventprestige")
                 print("Current Event Type: ", eventtype)
+                print("Current Event Prestige: ", prestige)
                 file=request.FILES.get("eventreport")
                 image=request.FILES.get("eventicon")
 
@@ -126,7 +128,7 @@ def create(request):
                         filepath=filemanipulate(file,0,organizationdetails.name,lasteventid,0)       #if trigger=0: file
                         eventobject.eventreport=filepath
 
-                    imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid)      #if trigger=1: image
+                    imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid,prestige)      #if trigger=1: image
                     eventobject.eventicon=imagepath          
                     eventobject.save()
                 messages.success(request, "Event Added successfully!")
@@ -154,7 +156,7 @@ def create(request):
             request.session["lasteventid"]=lasteventid  #saving latest event id in session
             
 
-        if action=="physical-generate":             #Generates Token: (as next step if event is physical event)
+        if action=="physical-generate":             #Participant Email Prompt: (as next step if event is physical event)
             print("ENTERED THE GENERATE TOKENS FUNCTION")
 
             lasteventid=request.session.get("lasteventid")          

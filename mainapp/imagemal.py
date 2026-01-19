@@ -1,28 +1,7 @@
 from PIL import Image,ImageDraw, ImageFilter, ImageFont
 
-def imagemanipulation(image):
-    img=Image.open(image).convert("RGBA")                   #load the image
-    nftsize=1024
-
-    width,height=img.size                           #get the current dimentions
-    mindimention=min(width,height)            #to get the minimum w and h without loosing quality and aspect ratio
-
-    #aspects for cropping as a square
-    left=(width-mindimention)//2
-    right=left+mindimention
-
-    top=(height-mindimention)//2
-    bottom=top+mindimention
-
-    croppedimage=img.crop((left,top,right,bottom))      #cropping the image
-    nftimage=croppedimage.resize((nftsize,nftsize),Image.LANCZOS)   #resizing the cropped img to fit as nft
-
-    nftimage.save("nftimage.png")
-    return nftimage
-
-
-def prestige(image,prestige):
-    img=Image.open(image).convert("RGB")
+def prestige(img,prestige):
+    img=img.convert("RGB")
     imagesize=1024
     
     if prestige=="standard":
@@ -101,7 +80,29 @@ def prestige(image,prestige):
     mainy+=40
     draw.text((mainx, mainy), organizationname, fill=organizationnamecolor, font=font)
 
-    canvas.save("prestigeimage.png")
+    return canvas
+    #canvas.save("prestigeimage.png")
+
+def imagemanipulation(image,prestigelevel):
+    img=Image.open(image).convert("RGBA")                   #load the image
+    nftsize=1024
+
+    width,height=img.size                           #get the current dimentions
+    mindimention=min(width,height)            #to get the minimum w and h without loosing quality and aspect ratio
+
+    #aspects for cropping as a square
+    left=(width-mindimention)//2
+    right=left+mindimention
+
+    top=(height-mindimention)//2
+    bottom=top+mindimention
+
+    croppedimage=img.crop((left,top,right,bottom))      #cropping the image
+    nftimage=croppedimage.resize((nftsize,nftsize),Image.LANCZOS)   #resizing the cropped img to fit as nft
+
+    #nftimage.save("nftimage.png")
+    image=prestige(nftimage,prestigelevel)
+    return image
 
 def loyality(image,loyality):
 
@@ -184,12 +185,13 @@ def loyality(image,loyality):
 
     # Save
     canvas.save("loyalityimage.png")
+    canvas.save("loyalityimage.png")
 
 
 if __name__ == "__main__":
-    '''imagemanipulation("testimage3.png")'''
-    prestige("testimage.png","signature")
-    loyality("prestigeimage.png","long")
+    imagemanipulation(0,0)
+    '''prestige("testimage.png","signature")
+    loyality("prestigeimage.png","long")'''
 #standard
 #signature
 #flagship

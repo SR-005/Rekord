@@ -56,7 +56,8 @@
     <div class="display-tile align-item-start">
         <div class="d-flex align-item-center gap-5">
             <div class="imagediv d-flex justify-content-center">
-                <img class="claim-imagepreview" id="image-preview" src="/media/{{event.eventicon}}" alt="Image Preview">
+                <img class="claim-imagepreview"  id="image-preview1" src="/media/notconnected.jpg" alt="Image Preview">
+                <img class="claim-imagepreview" hidden id="image-preview2" src="/media/{{event.eventicon}}" alt="Image Preview">
             </div>
             <div>
                 <p class="claim-eventname">{{event.eventname}}</p>
@@ -88,6 +89,8 @@
         const walletText = document.getElementById("walletAddress");
         const walletInput = document.getElementById("walletInput");
         const mintBtn = document.getElementById("mintbadge");
+        const imagepreview1 = document.getElementById("image-preview1")
+        const imagepreview2 = document.getElementById("image-preview2")
 
         let provider = null;
         let signer = null;
@@ -111,6 +114,9 @@
             walletInput.value = connectedAddress;
             console.log("Hidden input set to:", walletInput.value);
             mintBtn.disabled = false;
+            imagepreview1.hidden=true;
+            imagepreview2.hidden=false;
+
 
             walletBtn.innerText = "Disconnect Wallet";
             walletBtn.classList.remove("connect-btn");
@@ -131,6 +137,8 @@
             walletBtn.classList.remove("disconnect-btn");
             walletBtn.classList.add("connect-btn");
             mintBtn.disabled = true;
+            imagepreview1.hidden=false;
+            imagepreview2.hidden=true;
 
             walletBtn.onclick = connectWallet;
         }

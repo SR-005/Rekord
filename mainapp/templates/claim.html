@@ -46,6 +46,12 @@
             </div>
             <p id="walletAddress" class="nowalletaddr text-center"> No Wallet Connected</p>
         </div>
+
+        <form id="walletConnectForm" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="connect-wallet">
+            <input type="hidden" name="walletaddress" id="walletInput">
+        </form>
         {% comment %}
             <p class="claim-subtitle text-center mt-5">you have a Rekord to mint. Not everyone get's one, so </p>
             <p class="claim-subtitle text-center">claim you're right now!!</p>
@@ -60,6 +66,7 @@
                 <img class="claim-imagepreview" hidden id="image-preview2" src="/media/{{event.eventicon}}" alt="Image Preview">
             </div>
             <div>
+                <input type="hidden" id="eventId" value="{{ event.eventid }}">
                 <p class="claim-eventname">{{event.eventname}}</p>
 
                 <p class="claim-event">Event Name</p>
@@ -123,6 +130,7 @@
             walletBtn.classList.add("disconnect-btn");
 
             walletBtn.onclick = disconnectWallet;
+            document.getElementById("walletConnectForm").submit();
         }
 
         function disconnectWallet() {

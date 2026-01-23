@@ -8,64 +8,65 @@ from web3.middleware import ExtraDataToPOAMiddleware
 load_dotenv()
 install_solc("0.8.17")
 
-#-----------------------------------------------------------------COMPILING------------------------------------------------------------------
-# Load Solidity file
-with open("mainapp/contracts/simplenft.sol", "r") as f:
-    source = f.read()
+def contractcall(walletaddress):
+    #-----------------------------------------------------------------COMPILING------------------------------------------------------------------
+    # Load Solidity file
+    with open("mainapp/contracts/simplenft.sol", "r") as f:
+        source = f.read()
 
-compiledsol = compile_standard(
-    {
-        "language": "Solidity",
-        "sources": {
-            # IMPORTANT: Use the REAL VIRTUAL FILE PATH
-            "mainapp/contracts/simplenft.sol": {"content": source}
-        },
-        "settings": {
-            "remappings": [
-                "@openzeppelin/=mainapp/node_modules/@openzeppelin/"
-            ],
-            "outputSelection": {
-                "*": {
-                    "*": ["abi", "evm.bytecode"]
+    compiledsol = compile_standard(
+        {
+            "language": "Solidity",
+            "sources": {
+                # IMPORTANT: Use the REAL VIRTUAL FILE PATH
+                "mainapp/contracts/simplenft.sol": {"content": source}
+            },
+            "settings": {
+                "remappings": [
+                    "@openzeppelin/=mainapp/node_modules/@openzeppelin/"
+                ],
+                "outputSelection": {
+                    "*": {
+                        "*": ["abi", "evm.bytecode"]
+                    }
                 }
             }
-        }
-    },
-    solc_version="0.8.20"
-)
+        },
+        solc_version="0.8.20"
+    )
 
-with open("mainapp/contracts/compiled.json", "w") as file:
-    json.dump(compiledsol, file, indent=2)
+    with open("mainapp/contracts/compiled.json", "w") as file:
+        json.dump(compiledsol, file, indent=2)
 
-print("Compiled successfully!")
+    print("Compiled successfully!")
 
-#fetching bytecode from the compiled Smart Contract
-bytecode=compiledsol["contracts"]["mainapp/contracts/simplenft.sol"]["SimpleNFT"]["evm"]["bytecode"]["object"]
+    #fetching bytecode from the compiled Smart Contract
+    bytecode=compiledsol["contracts"]["mainapp/contracts/simplenft.sol"]["SimpleNFT"]["evm"]["bytecode"]["object"]
 
-#get abi from the compiled Smart Contract
-abi=compiledsol["contracts"]["mainapp/contracts/simplenft.sol"]["SimpleNFT"]["abi"]
+    #get abi from the compiled Smart Contract
+    abi=compiledsol["contracts"]["mainapp/contracts/simplenft.sol"]["SimpleNFT"]["abi"]
 
-#connecting to Ganache Blockchain
-w3 = Web3(Web3.HTTPProvider(os.getenv("POLYGON_RPC")))
-w3.middleware_onion.inject(ExtraDataToPOAMiddleware(), layer=0)
+    #connecting to Ganache Blockchain
+    w3 = Web3(Web3.HTTPProvider(os.getenv("POLYGON_RPC")))
+    w3.middleware_onion.inject(ExtraDataToPOAMiddleware(), layer=0)
 
-if not w3.is_connected():
-    raise Exception("Not connected to Polygon")
-else:
-    print("Connected to Polygon Amoy")
-    
-chainid=80002
-print([f["name"] for f in abi if f["type"] == "function"])
-#-----------------------------------------------------------------DEPLOYMENT------------------------------------------------------------------
+    if not w3.is_connected():
+        raise Exception("Not connected to Polygon")
+    else:
+        print("Connected to Polygon Amoy")
+        
+    chainid=80002
+    print([f["name"] for f in abi if f["type"] == "function"])
+    #-----------------------------------------------------------------DEPLOYMENT------------------------------------------------------------------
 
-SimpleNFT=w3.eth.contract(abi=abi,bytecode=bytecode)
-print("Contract Created")
+    SimpleNFT=w3.eth.contract(abi=abi,bytecode=bytecode)
+    print("Contract Created")
 
-MYADDRESS=Web3.to_checksum_address(os.getenv("METAMASK_ADDRESS"))
-SECRETCODE=os.getenv("METAMASK_KEY")
+    MYADDRESS=Web3.to_checksum_address(os.getenv("METAMASK_ADDRESS"))
+    SECRETCODE=os.getenv("METAMASK_KEY")
 
-def contractdeployment():
-    nonce=w3.eth.get_transaction_count(MYADDRESS)
+    #un-comment to re deploy the contract
+    '''nonce=w3.eth.get_transaction_count(MYADDRESS)
     transaction=SimpleNFT.constructor().build_transaction({
         "from": MYADDRESS,
         "nonce": nonce,
@@ -78,21 +79,25 @@ def contractdeployment():
     signedtransaction=w3.eth.account.sign_transaction(transaction, SECRETCODE)
     transactionhash=w3.eth.send_raw_transaction(signedtransaction.raw_transaction)
     transactionreceipt=w3.eth.wait_for_transaction_receipt(transactionhash)
-    return transactionreceipt
-
-'''transactionreceipt=contractdeployment()
-contractaddress=transactionreceipt.contractAddress'''
-contractaddress="0x67839A1002036F8a7db0B0F3c17765c534cE6c4F"
-print("Contract Address: ",contractaddress)
-
-contractinstance=w3.eth.contract(address=contractaddress,abi=abi)
-print("Contract Instacnce: ",contractinstance)
+    contractaddress=transactionreceipt.contractAddress'''
 
 
-#-------------------------------------------------------------------TEST RUN----------------------------------------------------------------------
-code = w3.eth.get_code(contractaddress)
-print("Contract code length:", len(code))
+    contractaddress="0x67839A1002036F8a7db0B0F3c17765c534cE6c4F"
+    print("Contract Address: ",contractaddress)
 
-organizationid=1
-count=contractinstance.functions.orgBadgeCount(MYADDRESS,organizationid).call()
-print("Count: ",count)
+    contractinstance=w3.eth.contract(address=contractaddress,abi=abi)
+    print("Contract Instacnce: ",contractinstance)
+
+
+    #-------------------------------------------------------------------TEST RUN----------------------------------------------------------------------
+    code = w3.eth.get_code(contractaddress)
+    print("Contract code length:", len(code))
+
+    organizationid=1
+    count=contractinstance.functions.orgBadgeCount(walletaddress,organizationid).call()
+    print("Count: ",count)
+
+    return count
+
+if __name__ == "__main__":
+    contractcall("walletaddress")

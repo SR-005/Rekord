@@ -4,16 +4,20 @@ from django.contrib import messages
 from django.urls import reverse
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+from django.http import JsonResponse
 from rekordapp.models import organization
 from .models import event,eventtoken
 from .forms import createeventForm,generatelinksForm
 from .imagemal import imagemanipulation,loyality
 from .reporthandler import main as reporthandler
 from .pinata import upload
+from .contractdeploy import contractcall 
 import secrets
 import string
 import uuid
 import io
+import json
+
 
 #---------------------------------------------------------------USER DEFINED----------------------------------------------------------------
 
@@ -178,6 +182,7 @@ def create(request):
         
     return render(request, "create.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
 
+
 def claim(request,code):
     
     url="http://127.0.0.1:8000/claim/"+code+"/"
@@ -185,13 +190,20 @@ def claim(request,code):
     claimtokenobject=eventtoken.objects.get(claimurl=url)
     name=claimtokenobject.name
     print("Name: ",name)
-    claimeventobject=claimtokenobject.eventid           
-
-    image=claimeventobject.eventicon                    #fetching nft image of the current event
-    #loyality(image,"flagship","long")                                  #function to edit img as per level
+    claimeventobject=claimtokenobject.eventid
 
     if request.method=="POST":
         action=request.POST.get("action") #for pinpointing which button was clicked
+
+        if action=="connect-wallet":                    #automatically executes after connecting wallet
+            walletaddress = request.POST.get("walletaddress")
+            print("Wallet connected:", walletaddress)
+
+            eventcount=contractcall(walletaddress)              #sm function call for event count
+            image=claimeventobject.eventicon                    #fetching event icon 
+            loyality(image,eventcount)                          #loyality edit for image
+
+
         if action=="mint-badge":
             walletaddress=request.POST.get("walletaddress")     #fetching wallet address from html form
 
@@ -201,5 +213,6 @@ def claim(request,code):
             
             messages.success(request, "Wallet Connected Successfully")
             print("Connected Wallet Address: ",walletaddress)
+
 
     return render(request,"claim.html",{"event":claimeventobject,"claimtoken":claimtokenobject})

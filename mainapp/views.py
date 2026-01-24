@@ -16,7 +16,7 @@ import secrets
 import string
 import uuid
 import io
-import json
+from io import BytesIO
 
 
 #---------------------------------------------------------------USER DEFINED----------------------------------------------------------------
@@ -182,9 +182,7 @@ def create(request):
         
     return render(request, "create.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
 
-
 def claim(request,code):
-    
     url="http://127.0.0.1:8000/claim/"+code+"/"
 
     claimtokenobject=eventtoken.objects.get(claimurl=url)
@@ -201,8 +199,17 @@ def claim(request,code):
 
             eventcount=contractcall(walletaddress)              #sm function call for event count
             image=claimeventobject.eventicon                    #fetching event icon 
-            loyality(image,eventcount)                          #loyality edit for image
+            image=loyality(image,eventcount)                          #loyality edit for image
 
+            #convert images into bytes: for pinata upload via API
+            buffer = BytesIO()
+            image.save(buffer, format="PNG")
+            buffer.seek(0)
+            imagebytes=buffer.getvalue()
+
+            #call pinata upload function
+            eventid=str(claimeventobject.eventid)
+            upload(imagebytes,eventid)
 
         if action=="mint-badge":
             walletaddress=request.POST.get("walletaddress")     #fetching wallet address from html form

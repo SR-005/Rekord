@@ -124,25 +124,25 @@ def loyality(image,loyality):
     canvas.paste(img)
     draw = ImageDraw.Draw(canvas)
 
+    #draw bounding box for the image inside border
+    x1=borderleft
+    y1=bordertop
+    x2=borderleft+ cropped_imagewidth
+    y2=bordertop+ cropped_imageheight
+
     #loyality levels
-    if loyality=="short":
-        gray_img = img.convert("L").convert("RGB")  
-        canvas.paste(gray_img)
+    if loyality==0:
+        image_region = canvas.crop((x1, y1, x2, y2))     # crop image area
+        gray_region = image_region.convert("L").convert("RGB")
+        canvas.paste(gray_region, (x1, y1))
 
     elif loyality=="medium":
         pass
 
-    elif loyality=="long":
+    elif loyality>0:
 
         headercolor1=(143,56,197)        #header color: purple
         headercolor2=(0,0,0)        #header color: purple
-        
-
-        #draw bounding box for the image inside border
-        x1=borderleft
-        y1=bordertop
-        x2=borderleft+ cropped_imagewidth
-        y2=bordertop+ cropped_imageheight
 
         image_height = y2 - y1
         headertext1 = "REKORD FLAGSHIP NFT"
@@ -184,14 +184,14 @@ def loyality(image,loyality):
         print("Loyality level is Invalid!!")
 
     # Save
-    canvas.save("loyalityimage.png")
-    canvas.save("loyalityimage.png")
+    canvas.save("test/loyalityimage.png")
+    return canvas
 
 
 if __name__ == "__main__":
-    imagemanipulation(0,0)
-    '''prestige("testimage.png","signature")
-    loyality("prestigeimage.png","long")'''
+    '''imagemanipulation(0,0)'''
+    '''prestige("testimage.png","signature")'''
+    loyality("test/prestigeimage.png",0)
 #standard
 #signature
 #flagship

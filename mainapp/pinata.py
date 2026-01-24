@@ -20,5 +20,19 @@ def upload(file_bytes,file):
     print("IPFS Hash: ",ipfshash)
     return ipfshash
 
+def metadata(event,imageipfs):
+    metadata = {
+        "name": f"Rekord – {event.eventname}",
+        "description": f"Proof of attendance for {event.eventname}",
+        "image": f"ipfs://{imageipfs}",
+        "attributes": [
+            {"trait_type": "Event Type", "value": event.eventtype},
+            {"trait_type": "City", "value": event.city},
+            {"trait_type": "Date", "value": event.eventdate},
+            {"trait_type": "Prestige", "value": event.eventprestige},
+        ]
+    }
+    return ipfshash
+
 if __name__ == "__main__":
     upload(0,0) 

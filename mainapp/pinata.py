@@ -47,7 +47,7 @@ def metadata(event,imagecid,organization):
     }
 
     eventid=str(event.eventid)
-    filename=str(organization.name+eventid)
+    filename=str(organization.name+eventid+"data")
     payload={
          "pinataMetadata": {
             "name": filename
@@ -58,7 +58,7 @@ def metadata(event,imagecid,organization):
     response = requests.post(
         "https://api.pinata.cloud/pinning/pinJSONToIPFS",
         headers=headers,
-        data=payload
+        json=payload
     )
 
     if response.status_code != 200:

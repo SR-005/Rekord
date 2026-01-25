@@ -63,7 +63,7 @@
         <div class="d-flex align-item-center gap-5">
             <div class="imagediv d-flex justify-content-center">
                 <img class="claim-imagepreview"  id="image-preview1" src="/media/notconnected.jpg" alt="Image Preview">
-                <img class="claim-imagepreview" hidden id="image-preview2" src="/media/{{event.eventicon}}" alt="Image Preview">
+                <img class="claim-imagepreview" hidden id="image-preview2" src="/media/loading.png" alt="Image Preview">
             </div>
             <div>
                 <input type="hidden" id="eventId" value="{{ event.eventid }}">
@@ -141,9 +141,6 @@
                 return;
             }
 
-            // 4. Show Pinata image
-            imagepreview1.hidden = true;
-            imagepreview2.hidden = false;
             imagepreview2.src =
                 `https://gateway.pinata.cloud/ipfs/${data.image_cid}`;
         }

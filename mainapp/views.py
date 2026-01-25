@@ -11,7 +11,7 @@ from .forms import createeventForm,generatelinksForm
 from .imagemal import imagemanipulation,loyality
 from .reporthandler import main as reporthandler
 from .pinata import upload, metadata
-from .contractdeploy import contractcall 
+from .contractdeploy import getcount 
 import secrets
 import string
 import uuid
@@ -198,7 +198,7 @@ def claim(request,code):
             walletaddress = request.POST.get("walletaddress")
             print("Wallet connected:", walletaddress)
 
-            eventcount=contractcall(walletaddress)              #sm function call for event count
+            eventcount=getcount(walletaddress)              #sm function call for event count
             image=claimeventobject.eventicon                    #fetching event icon 
             image=loyality(image,eventcount)                          #loyality edit for image
 

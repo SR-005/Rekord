@@ -37,7 +37,6 @@ def metadata(event,imagecid,organization):
             {"trait_type": "Prestige", "value": event.eventprestige},
         ]
     }
-    metadatajson=json.dumps(metadata)
 
     #header of API Request
     headers = {
@@ -52,7 +51,7 @@ def metadata(event,imagecid,organization):
          "pinataMetadata": {
             "name": filename
         },
-        "pinataContent": metadatajson
+        "pinataContent": metadata
     }
 
     response = requests.post(

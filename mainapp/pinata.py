@@ -24,7 +24,7 @@ def upload(file_bytes,file):
 
 
 #function to upload metadata
-def metadata(event,imagecid):
+def metadata(event,imagecid,organization):
     #metadata format
     metadata = {
         "name": f"Rekord – {event.eventname}",
@@ -46,10 +46,19 @@ def metadata(event,imagecid):
         "pinata_secret_api_key": PINATAKEY,
     }
 
+    eventid=str(event.eventid)
+    filename=str(organization.name+eventid)
+    payload={
+         "pinataMetadata": {
+            "name": filename
+        },
+        "pinataContent": metadatajson
+    }
+
     response = requests.post(
         "https://api.pinata.cloud/pinning/pinJSONToIPFS",
         headers=headers,
-        data=metadatajson
+        data=payload
     )
 
     if response.status_code != 200:

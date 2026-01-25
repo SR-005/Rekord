@@ -49,7 +49,7 @@
 
         <form id="walletConnectForm" method="POST">
             {% csrf_token %}
-            <input type="hidden" name="action" value="connect-wallet">
+            <input type="hidden" name="action" value="connect-wallet" id="connectwalletbutton">
             <input type="hidden" name="walletaddress" id="walletInput">
         </form>
         {% comment %}
@@ -92,16 +92,61 @@
 
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
     <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const csrftoken = getCookie('csrftoken');
         const walletBtn = document.getElementById("connectwalletbutton");
         const walletText = document.getElementById("walletAddress");
         const walletInput = document.getElementById("walletInput");
         const mintBtn = document.getElementById("mintbadge");
         const imagepreview1 = document.getElementById("image-preview1")
         const imagepreview2 = document.getElementById("image-preview2")
+        const connectwalletbutton=document.getElementById("connectwalletbutton")
+
 
         let provider = null;
         let signer = null;
         let connectedAddress = null;
+
+        async function walletconnect(walletAddress) {
+            const formData = new FormData();
+            formData.append("walletaddress", walletAddress);
+            formData.append("action", "connect-wallet");
+
+            const response = await fetch(window.location.pathname, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrftoken
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (!data.image_cid) {
+                alert("Failed to generate NFT preview");
+                return;
+            }
+
+            // 4. Show Pinata image
+            imagepreview1.hidden = true;
+            imagepreview2.hidden = false;
+            imagepreview2.src =
+                `https://gateway.pinata.cloud/ipfs/${data.image_cid}`;
+        }
 
         async function connectWallet() {
             if (!window.ethereum) {
@@ -130,7 +175,7 @@
             walletBtn.classList.add("disconnect-btn");
 
             walletBtn.onclick = disconnectWallet;
-            document.getElementById("walletConnectForm").submit();
+            await walletconnect(connectedAddress);
         }
 
         function disconnectWallet() {

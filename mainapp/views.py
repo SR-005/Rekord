@@ -189,6 +189,7 @@ def claim(request,code):
     name=claimtokenobject.name
     print("Name: ",name)
     claimeventobject=claimtokenobject.eventid
+    organizationname=claimeventobject.organizationid
 
     if request.method=="POST":
         action=request.POST.get("action") #for pinpointing which button was clicked
@@ -208,14 +209,17 @@ def claim(request,code):
             imagebytes=buffer.getvalue()
 
             #call pinata upload function
-            eventid=str(claimeventobject.eventid)
-            imagecid=upload(imagebytes,eventid)
-            nftipfs=metadata(claimeventobject,imagecid)
+            eventid=str(claimeventobject.eventid)   #fetching current eventid
+            imagecid=upload(imagebytes,eventid)         #function call to upload image to pinata    
 
-            tokenuri="ipfs://"+nftipfs
+            nftipfs=metadata(claimeventobject,imagecid,organizationname) #function call to upload the nft metadata
+
+            tokenuri="ipfs://"+nftipfs              #generating ipfs link from metadata cid
             claimtokenobject.metadata=tokenuri      #update metadata to database
             claimtokenobject.save()
             print("NFT Token URI: ",tokenuri)
+
+            return JsonResponse({"image_cid": imagecid})
 
         if action=="mint-badge":
             walletaddress=request.POST.get("walletaddress")     #fetching wallet address from html form

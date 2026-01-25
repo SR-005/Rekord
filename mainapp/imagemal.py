@@ -51,7 +51,7 @@ def prestige(img,prestige):
 
     # --- Draw text ---
     draw=ImageDraw.Draw(canvas)
-    font=ImageFont.truetype("Roca_Two_Bold.ttf", 104)
+    font=ImageFont.truetype("fonts/Roca_Two_Bold.ttf", 104)
 
     text="TINK-HER-HACK"
     
@@ -67,7 +67,7 @@ def prestige(img,prestige):
     draw.text((mainx, mainy), text, fill=textcolor, font=font)
 
 
-    font = ImageFont.truetype("Roca_Two_Bold.ttf", 58)
+    font = ImageFont.truetype("fonts/Roca_Two_Bold.ttf", 58)
     organizationname = "by tinkerhub"
     # Measure text size
     bbox = draw.textbbox((0, 0), organizationname, font=font)
@@ -146,7 +146,7 @@ def loyality(image,loyality):
 
         image_height = y2 - y1
         headertext1 = "REKORD FLAGSHIP NFT"
-        font = ImageFont.truetype("Roca_Two_Bold.ttf", 22)
+        font = ImageFont.truetype("fonts/Roca_Two_Bold.ttf", 22)
 
         # Measure text
         bbox = draw.textbbox((0, 0), headertext1, font=font)
@@ -164,7 +164,7 @@ def loyality(image,loyality):
         draw.text((text_x, text_y), headertext1, fill=headercolor1, font=font)
 
         headertext2 = "0xDFDa8340978B38d93114FAE615144e895A75ebb2"
-        font = ImageFont.truetype("Roca_Two_Bold.ttf", 16)
+        font = ImageFont.truetype("fonts/Roca_Two_Bold.ttf", 16)
 
         # Measure text
         bbox = draw.textbbox((0, 0), headertext2, font=font)

@@ -27,7 +27,9 @@ class eventtoken(models.Model):
     email=models.EmailField()
     claimurl=models.CharField(max_length=100)
     claimpass=models.CharField(max_length=100)
+    metadata=models.CharField(max_length=100)
     status=models.BooleanField(default=False)
+
     
     def __str__(self):
         return self.claimurl

@@ -213,6 +213,8 @@ def claim(request,code):
             nftipfs=metadata(claimeventobject,imagecid)
 
             tokenuri="ipfs://"+nftipfs
+            claimtokenobject.metadata=tokenuri      #update metadata to database
+            claimtokenobject.save()
             print("NFT Token URI: ",tokenuri)
 
         if action=="mint-badge":

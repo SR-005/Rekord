@@ -10,7 +10,7 @@ from .models import event,eventtoken
 from .forms import createeventForm,generatelinksForm
 from .imagemal import imagemanipulation,loyality
 from .reporthandler import main as reporthandler
-from .pinata import upload
+from .pinata import upload, metadata
 from .contractdeploy import contractcall 
 import secrets
 import string
@@ -209,7 +209,11 @@ def claim(request,code):
 
             #call pinata upload function
             eventid=str(claimeventobject.eventid)
-            upload(imagebytes,eventid)
+            imagecid=upload(imagebytes,eventid)
+            nftipfs=metadata(claimeventobject,imagecid)
+
+            tokenuri="ipfs://"+nftipfs
+            print("NFT Token URI: ",tokenuri)
 
         if action=="mint-badge":
             walletaddress=request.POST.get("walletaddress")     #fetching wallet address from html form

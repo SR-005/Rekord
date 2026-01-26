@@ -304,6 +304,20 @@
 .claim-eventname{
   font-size: 40px;
 }
+.claim-eventdesc{
+  font-size: 22px;
+  margin-left: 16px;
+}
+.claim-eventtype{
+  font-size: 20px;  
+  margin-left: 16px;
+}
+.claim-eventcity, .claim-eventdate{
+  font-size: 20px;
+}
+.codelabel{
+  font-size: 19px;
+}
 
 
 

@@ -38,7 +38,7 @@ compiledsol = compile_standard(
 with open("mainapp/contracts/compiled.json", "w") as file:
     json.dump(compiledsol, file, indent=2)
 
-print("Compiled successfully!")
+'''print("Compiled successfully!")'''
 
 #fetching bytecode from the compiled Smart Contract
 bytecode=compiledsol["contracts"]["mainapp/contracts/simplenft.sol"]["SimpleNFT"]["evm"]["bytecode"]["object"]
@@ -60,7 +60,7 @@ print([f["name"] for f in abi if f["type"] == "function"])
 #-----------------------------------------------------------------DEPLOYMENT------------------------------------------------------------------
 
 SimpleNFT=w3.eth.contract(abi=abi,bytecode=bytecode)
-print("Contract Created")
+'''print("Contract Created")'''
 
 MYADDRESS=Web3.to_checksum_address(os.getenv("METAMASK_ADDRESS"))
 SECRETCODE=os.getenv("METAMASK_KEY")
@@ -82,9 +82,9 @@ transactionreceipt=w3.eth.wait_for_transaction_receipt(transactionhash)
 contractaddress=transactionreceipt.contractAddress'''
 
 contractaddress="0x67839A1002036F8a7db0B0F3c17765c534cE6c4F"
-print("Contract Address: ",contractaddress)
+'''print("Contract Address: ",contractaddress)'''
 contractinstance=w3.eth.contract(address=contractaddress,abi=abi)
-print("Contract Instacnce: ",contractinstance)
+'''print("Contract Instacnce: ",contractinstance)'''
 
 
 #get count of badges minted by particular organization
@@ -119,5 +119,5 @@ def mintbadge(walletaddress,orgid,tokenuri):
 
 
 if __name__ == "__main__":
-    mintbadge(MYADDRESS,1,"ipfs://QmS7j5njH1B6kCAhqNC1feQo9zw8U6Wco9a7sQyjJ1b75t")
+    mintbadge(MYADDRESS,1,"ipfs://QmUGZhJcFaRh1ggRJYsjsvVxoMU2UYvDVsNr9ZRmyBj3Ej")
     #getcount("walletaddress")

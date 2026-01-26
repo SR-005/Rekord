@@ -11,7 +11,7 @@ from .forms import createeventForm,generatelinksForm
 from .imagemal import imagemanipulation,loyality
 from .reporthandler import main as reporthandler
 from .pinata import upload, metadata
-from .contractdeploy import getcount 
+from .contractdeploy import getcount,mintbadge
 import secrets
 import string
 import uuid
@@ -82,7 +82,6 @@ def create(request):
     lasteventid=None            
     eventtype=None              #virtual or physical
     vparticipants=None
-    count=None
     
     #fetching organization details
     organizationid=request.session.get("currentorganizationid")
@@ -190,6 +189,7 @@ def claim(request,code):
     print("Name: ",name)
     claimeventobject=claimtokenobject.eventid
     organizationname=claimeventobject.organizationid
+    
 
     if request.method=="POST":
         action=request.POST.get("action") #for pinpointing which button was clicked
@@ -225,11 +225,26 @@ def claim(request,code):
             walletaddress=request.POST.get("walletaddress")     #fetching wallet address from html form
 
             if not walletaddress:
-                messages.error(request, "Please connect the wallet before claiming")
+                print("No Wallet Found")
+                #messages.error(request, "Please connect the wallet before claiming")
                 return redirect(request.path)
             
             messages.success(request, "Wallet Connected Successfully")
             print("Connected Wallet Address: ",walletaddress)
+            
+            #passcode verification
+            usercode=request.POST.get("passcode")
+            print("Usercode: ",usercode)
+            print("Passcode: ",claimtokenobject.claimpass)
+
+            if usercode!=claimtokenobject.claimpass:
+                pass
+            else:
+                organizationobject=organization.objects.get(name=organizationname)
+                organizationid=organizationobject.id
+                tokenuri=claimtokenobject.metadata
+
+                mintbadge(walletaddress,organizationid,tokenuri)
 
 
     return render(request,"claim.html",{"event":claimeventobject,"claimtoken":claimtokenobject})

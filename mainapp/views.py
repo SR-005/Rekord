@@ -12,6 +12,7 @@ from .imagemal import imagemanipulation,loyality
 from .reporthandler import main as reporthandler
 from .pinata import upload, metadata
 from .contractdeploy import getcount,mintbadge
+from .sendmail import sendemail
 import secrets
 import string
 import uuid
@@ -62,6 +63,7 @@ def generatetokens(request,lasteventobject,name,email):
     uniquetoken=str(uuid.uuid4())               #generate unique tokens for each participants
     claimurl = request.build_absolute_uri(reverse("claim", kwargs={"code": uniquetoken}))   #building claim urls with token
     password=generatepassword() #call function to generate password
+    sendemail(name,email,lasteventobject,claimurl,password)
 
     eventtoken.objects.create(eventid=lasteventobject,name=name,email=email,claimurl=claimurl,claimpass=password)        #adding tokens in association with emails and event
 

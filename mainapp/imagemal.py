@@ -1,4 +1,5 @@
 from PIL import Image,ImageDraw, ImageFilter, ImageFont
+from django.db.models.fields.files import ImageFieldFile
 
 def prestige(img,prestige):
     img=img.convert("RGB")
@@ -104,10 +105,13 @@ def imagemanipulation(image,prestigelevel):
     image=prestige(nftimage,prestigelevel)
     return image
 
-def loyality(image,loyality):
+def loyality(editimage,loyality):
 
     #Open Image, Draw and Canvas
-    img=Image.open(image).convert("RGB")
+    if isinstance(editimage, ImageFieldFile):
+        canvas = Image.open(editimage.path).convert("RGB")
+    else:
+        raise TypeError("loyality() expects a Django ImageFieldFile")
     imagesize=1024
 
     # Borders
@@ -120,8 +124,6 @@ def loyality(image,loyality):
     cropped_imagewidth=imagesize-(borderleft+ borderright)
     cropped_imageheight=imagesize-(bordertop+ borderbottom)
 
-    canvas = Image.new("RGB", (imagesize, imagesize), (0, 0, 0))
-    canvas.paste(img)
     draw = ImageDraw.Draw(canvas)
 
     #draw bounding box for the image inside border
@@ -136,7 +138,7 @@ def loyality(image,loyality):
         gray_region = image_region.convert("L").convert("RGB")
         canvas.paste(gray_region, (x1, y1))
 
-    elif loyality=="medium":
+    elif loyality=="sad":
         pass
 
     elif loyality>0:

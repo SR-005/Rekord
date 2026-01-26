@@ -217,7 +217,7 @@ def claim(request,code):
             tokenuri="ipfs://"+nftipfs              #generating ipfs link from metadata cid
             claimtokenobject.metadata=tokenuri      #update metadata to database
             claimtokenobject.save()
-            print("NFT Token URI: ",tokenuri)
+            print("NFT Token URI: ","https://gateway.pinata.cloud/ipfs/"+nftipfs)
 
             return JsonResponse({"image_cid": imagecid})
 

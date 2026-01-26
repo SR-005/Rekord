@@ -119,5 +119,5 @@ def mintbadge(walletaddress,orgid,tokenuri):
 
 
 if __name__ == "__main__":
-    mintbadge(MYADDRESS,1,"ipfs://QmfZxRfR3cZhzxXqBd6XNYjb75AYNEYYqsC5hpLuxGikab")
+    mintbadge(MYADDRESS,1,"ipfs://QmS7j5njH1B6kCAhqNC1feQo9zw8U6Wco9a7sQyjJ1b75t")
     #getcount("walletaddress")

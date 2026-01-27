@@ -207,8 +207,10 @@ def claim(request,code):
             image=loyality(image,eventcount,walletaddress)                          #loyality edit for image
 
             #convert images into bytes: for pinata upload via API
+            image=image.convert("RGB")              #convert image to RGB- (just to be safe)
+            print("IMAGE MODE:", image.mode, "SIZE:", image.size)       #image debug statement
             buffer = BytesIO()
-            image.save(buffer, format="PNG")
+            image.save(buffer, format="PNG",optimize=True)
             buffer.seek(0)
             imagebytes=buffer.getvalue()
 
@@ -218,10 +220,10 @@ def claim(request,code):
 
             nftipfs=metadata(claimeventobject,imagecid,organizationname) #function call to upload the nft metadata
 
-            tokenuri="ipfs://"+nftipfs              #generating ipfs link from metadata cid
+            tokenuri="https://gateway.pinata.cloud/ipfs/"+nftipfs              #generating ipfs link from metadata cid
             claimtokenobject.metadata=tokenuri      #update metadata to database
             claimtokenobject.save()
-            print("NFT Token URI: ","https://gateway.pinata.cloud/ipfs/"+nftipfs)
+            print("NFT Token URI: ",tokenuri)
 
             return JsonResponse({"image_cid": imagecid})
 

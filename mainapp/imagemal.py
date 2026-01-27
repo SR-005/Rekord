@@ -1,6 +1,7 @@
 from PIL import Image,ImageDraw, ImageFilter, ImageFont
 from django.db.models.fields.files import ImageFieldFile
-import string
+from django.core.files.storage import default_storage
+
 
 def prestige(img,prestige,eventname,organizationname):
     img=img.convert("RGB")
@@ -111,10 +112,8 @@ def imagemanipulation(image,prestigelevel,eventname,organizationname):
 def loyality(editimage,loyality,walletaddress):
 
     #Open Image, Draw and Canvas
-    if isinstance(editimage, ImageFieldFile):
-        canvas = Image.open(editimage.path).convert("RGB")
-    else:
-        raise TypeError("loyality() expects a Django ImageFieldFile")
+    with default_storage.open(editimage.name, "rb") as f:
+        canvas = Image.open(f).convert("RGB")
     imagesize=1024
 
     # Borders

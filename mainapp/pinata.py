@@ -12,7 +12,13 @@ PINATAURL = "https://api.pinata.cloud/pinning/pinFileToIPFS"
 #function to upload image to pinata
 def upload(file_bytes,file):
     headers={"pinata_api_key": PINATAAPI, "pinata_secret_api_key": PINATAKEY}
-    files={"file": (file, file_bytes)}
+    files = {
+        "file": (
+            f"{file}.png",  # filename with extension
+            file_bytes,
+            "image/png"                  # MIME TYPE (MOST IMPORTANT)
+        )
+    }
 
     response=requests.post(PINATAURL,headers=headers,files=files)
     if response.status_code != 200:
@@ -29,7 +35,7 @@ def metadata(event,imagecid,organization):
     metadata = {
         "name": f"Rekord – {event.eventname}",
         "description": f"Proof of attendance for {event.eventname}",
-        "image": f"ipfs://{imagecid}",
+        "image": f"https://gateway.pinata.cloud/ipfs/{imagecid}",
         "attributes": [
             {"trait_type": "Event Type", "value": event.eventtype},
             {"trait_type": "City", "value": event.city},

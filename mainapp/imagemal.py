@@ -1,7 +1,8 @@
 from PIL import Image,ImageDraw, ImageFilter, ImageFont
 from django.db.models.fields.files import ImageFieldFile
+import string
 
-def prestige(img,prestige):
+def prestige(img,prestige,eventname,organizationname):
     img=img.convert("RGB")
     imagesize=1024
     
@@ -54,10 +55,10 @@ def prestige(img,prestige):
     draw=ImageDraw.Draw(canvas)
     font=ImageFont.truetype("fonts/Roca_Two_Bold.ttf", 104)
 
-    text="TINK-HER-HACK"
+    eventtext=eventname
     
     # Measure text size
-    bbox = draw.textbbox((0, 0), text, font=font)
+    bbox = draw.textbbox((0, 0), eventtext, font=font)
     text_w = bbox[2] - bbox[0]
     text_h = bbox[3] - bbox[1]
 
@@ -65,13 +66,15 @@ def prestige(img,prestige):
     mainx = (imagesize - text_w) // 2
     mainy =imagesize - borderbottom+ (borderbottom- text_h) // 2
     mainy-=36
-    draw.text((mainx, mainy), text, fill=textcolor, font=font)
+    draw.text((mainx, mainy), eventtext, fill=textcolor, font=font)
 
 
     font = ImageFont.truetype("fonts/Roca_Two_Bold.ttf", 58)
-    organizationname = "by tinkerhub"
+    organizationtext = "by "+organizationname
+    organizationtext = str(organizationtext).lower()
+
     # Measure text size
-    bbox = draw.textbbox((0, 0), organizationname, font=font)
+    bbox = draw.textbbox((0, 0), organizationtext, font=font)
     text_w = bbox[2] - bbox[0]
     text_h = bbox[3] - bbox[1]
 
@@ -79,12 +82,12 @@ def prestige(img,prestige):
     mainx = (imagesize - text_w) //1.03
     mainy =imagesize - borderbottom+ (borderbottom- text_h) // 2
     mainy+=40
-    draw.text((mainx, mainy), organizationname, fill=organizationnamecolor, font=font)
+    draw.text((mainx, mainy), organizationtext, fill=organizationnamecolor, font=font)
 
     return canvas
     #canvas.save("prestigeimage.png")
 
-def imagemanipulation(image,prestigelevel):
+def imagemanipulation(image,prestigelevel,eventname,organizationname):
     img=Image.open(image).convert("RGBA")                   #load the image
     nftsize=1024
 
@@ -102,10 +105,10 @@ def imagemanipulation(image,prestigelevel):
     nftimage=croppedimage.resize((nftsize,nftsize),Image.LANCZOS)   #resizing the cropped img to fit as nft
 
     #nftimage.save("nftimage.png")
-    image=prestige(nftimage,prestigelevel)
+    image=prestige(nftimage,prestigelevel,eventname,organizationname)
     return image
 
-def loyality(editimage,loyality):
+def loyality(editimage,loyality,walletaddress):
 
     #Open Image, Draw and Canvas
     if isinstance(editimage, ImageFieldFile):
@@ -133,15 +136,15 @@ def loyality(editimage,loyality):
     y2=bordertop+ cropped_imageheight
 
     #loyality levels
-    if loyality==0:
+    if loyality==0:                 #LEVEL 1
         image_region = canvas.crop((x1, y1, x2, y2))     # crop image area
         gray_region = image_region.convert("L").convert("RGB")
         canvas.paste(gray_region, (x1, y1))
 
-    elif loyality=="sad":
+    elif loyality=="hello":         #LEVEL 2
         pass
 
-    elif loyality>0:
+    elif loyality>0:                #LEVEL 3
 
         headercolor1=(143,56,197)        #header color: purple
         headercolor2=(0,0,0)        #header color: purple
@@ -165,7 +168,7 @@ def loyality(editimage,loyality):
 
         draw.text((text_x, text_y), headertext1, fill=headercolor1, font=font)
 
-        headertext2 = "0xDFDa8340978B38d93114FAE615144e895A75ebb2"
+        headertext2 = str(walletaddress)
         font = ImageFont.truetype("fonts/Roca_Two_Bold.ttf", 16)
 
         # Measure text

@@ -23,7 +23,7 @@ from io import BytesIO
 #---------------------------------------------------------------USER DEFINED----------------------------------------------------------------
 
 #to rename file and saving them and editing image for nft 
-def filemanipulate(file,trigger,organizationname,lasteventid,prestige):
+def filemanipulate(file,trigger,organizationname,lasteventid,eventname,prestige):
 
     if trigger==0:                          #trigger=0: csv, rename file and specify path accordingly
         defaultpath="reports/"
@@ -42,7 +42,7 @@ def filemanipulate(file,trigger,organizationname,lasteventid,prestige):
         return filesavedpath
 
     else:                   #save image to path
-        image=imagemanipulation(file,prestige)              #function call for image manipulation
+        image=imagemanipulation(file,prestige,eventname,organizationname)              #function call for image manipulation
 
         #getting img from pil return type
         buffer=io.BytesIO()         
@@ -119,21 +119,23 @@ def create(request):
                 except:
                     print("No Event Participants Found: Not a Physical Event")
                 
-                #csv and img fetching: from create event form
-                eventtype=request.POST.get("eventtype")
-                prestige=request.POST.get("eventprestige")
-                print("Current Event Type: ", eventtype)
+                eventname=request.POST.get("eventname")
+                eventtype=request.POST.get("eventtype")             #fetching event type
+                print("Current Event Type: ", eventtype)            
+                prestige=request.POST.get("eventprestige")          #fetching event prestige
                 print("Current Event Prestige: ", prestige)
+
+                #csv and img fetching: from create event form
                 file=request.FILES.get("eventreport")
                 image=request.FILES.get("eventicon")
 
                 if image:
                     #file renaming: if virtual (if not physical)
                     if eventtype=="virtual":
-                        filepath=filemanipulate(file,0,organizationdetails.name,lasteventid,0)       #if trigger=0: file
+                        filepath=filemanipulate(file,0,organizationdetails.name,lasteventid,eventname,0)       #if trigger=0: file
                         eventobject.eventreport=filepath
 
-                    imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid,prestige)      #if trigger=1: image
+                    imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid,eventname,prestige)      #if trigger=1: image
                     eventobject.eventicon=imagepath          
                     eventobject.save()
                 messages.success(request, "Event Added successfully!")
@@ -202,7 +204,7 @@ def claim(request,code):
 
             eventcount=getcount(walletaddress)              #sm function call for event count
             image=claimeventobject.eventicon                    #fetching event icon 
-            image=loyality(image,eventcount)                          #loyality edit for image
+            image=loyality(image,eventcount,walletaddress)                          #loyality edit for image
 
             #convert images into bytes: for pinata upload via API
             buffer = BytesIO()

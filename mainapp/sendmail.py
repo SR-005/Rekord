@@ -12,7 +12,7 @@ It is vital to entire the Passcode at the time of claiming to ensure safety.
 
 EVENT NAME: {event.eventname}
 EVENT ID: {event.eventid}
-EVENT CREATOR: {event.organziationid}
+EVENT CREATOR: {event.organizationid}
 DATE OF HOSTING: {event.eventdate}
 CITY: {event.city}
 

@@ -138,10 +138,6 @@ def create(request):
                     imagepath=filemanipulate(image,1,organizationdetails.name,lasteventid,eventname,prestige)      #if trigger=1: image
                     eventobject.eventicon=imagepath          
                     eventobject.save()
-                messages.success(request, "Event Added successfully!")
-
-            else:
-                print("BUTTON WORKS BUT SOME FORM ERROR")
 
             if eventtype=="virtual":
                 vparticipants,count=reporthandler(filepath)
@@ -155,13 +151,13 @@ def create(request):
                     print("Email: ",vmail)
                     print("\n")
                     generatetokens(request,lasteventobject,vnames[i],vmail)           #calls token generating function
-
+                messages.success(request, "Event Added successfully!")
+                return redirect("homepage")
             
             lasteventdetails=event.objects.last()   #used for fetching last created row(in order to get the eventid)
             lasteventid=lasteventdetails.eventid        #event id of the previous event(+1 for the current event id)
             #lasteventid=lasteventid+1           #increment: added current event
             request.session["lasteventid"]=lasteventid  #saving latest event id in session
-            
 
         if action=="physical-generate":             #Participant Email Prompt: (as next step if event is physical event)
             print("ENTERED THE GENERATE TOKENS FUNCTION")
@@ -180,7 +176,7 @@ def create(request):
                 print("\n")
                 generatetokens(request,lasteventobject,pname[i],pmail)           #calls token generating function
 
-            messages.success(request, "Tokens generated successfully!")
+            messages.success(request, "Event Added successfully!")
             return redirect("homepage")
         
     return render(request, "create.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
@@ -232,10 +228,9 @@ def claim(request,code):
 
             if not walletaddress:
                 print("No Wallet Found")
-                #messages.error(request, "Please connect the wallet before claiming")
+                messages.error(request, "Please connect the wallet before claiming")
                 return redirect(request.path)
             
-            messages.success(request, "Wallet Connected Successfully")
             print("Connected Wallet Address: ",walletaddress)
             
             #passcode verification

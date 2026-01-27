@@ -10,6 +10,16 @@
     <title>Rekord-Create Event</title>
 </head>
 <body>
+
+    <!--Messages- Default-->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <!--NAVBAR-->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">

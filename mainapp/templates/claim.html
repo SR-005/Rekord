@@ -12,6 +12,15 @@
 </head>
 <body>
 
+    <!--Messages- Default-->
+    {% if messages %}
+        {% for message in messages %}
+            <script>
+            alert("{{ message|escapejs }}");
+            </script>
+        {% endfor %}
+    {% endif %}
+
     <!-- navbar section -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">

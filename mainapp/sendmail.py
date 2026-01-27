@@ -2,20 +2,27 @@ from django.core.mail import EmailMessage, get_connection
 from django.conf import settings
 
 def sendemail(name, email, event,claimurl, passcode):
-    subject = "Your Rekord Event Details"
+    subject = f"You have a Rekord to Claim - from {event.organizationid}"
 
     body = f"""
 Hello {name},
 
-Your event has been created successfully!
+You have become eligible to claim an NFT of {event.eventname} from {event.organizationid}. The NFT details are given below, DO NOT under any circumstamces share your PASSCODE with anyone.
+It is vital to entire the Passcode at the time of claiming to ensure safety.
 
-Event: {event.eventname}
-Claim URL: {claimurl}
-Secret Code: {passcode}
+EVENT NAME: {event.eventname}
+EVENT ID: {event.eventid}
+EVENT CREATOR: {event.organziationid}
+DATE OF HOSTING: {event.eventdate}
+CITY: {event.city}
 
-Do not share this code.
+To Claim this NFT, visit the link provided and enter the PASSCODE to verify yourself.
+URL : {claimurl}
+PASSCODE: {passcode}
+Do not share this code with anyone.
 
-– Rekord Team
+– With best regards,
+  Rekord Team
 """
 
     # 🔥 REUSE SMTP CONNECTION

@@ -12,7 +12,7 @@ from .imagemal import imagemanipulation,loyality
 from .reporthandler import main as reporthandler
 from .pinata import upload, metadata
 from .contractdeploy import getcount,mintbadge
-from .sendmail import sendemail
+from .sendmail import sendemail,sendreciept
 import secrets
 import string
 import uuid
@@ -245,7 +245,9 @@ def claim(request,code):
                 organizationid=organizationobject.id
                 tokenuri=claimtokenobject.metadata
 
-                mintbadge(walletaddress,organizationid,tokenuri)
+                reciept=mintbadge(walletaddress,organizationid,tokenuri)
+                blockexplorer="https://amoy.polygonscan.com/tx/"+reciept
+                sendreciept(claimtokenobject,blockexplorer)
 
 
     return render(request,"claim.html",{"event":claimeventobject,"claimtoken":claimtokenobject})

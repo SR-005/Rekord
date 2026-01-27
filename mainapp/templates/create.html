@@ -14,9 +14,9 @@
     <!--Messages- Default-->
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-            {{ message }}
-            </div>
+            <script>
+            alert("{{ message|escapejs }}");
+            </script>
         {% endfor %}
     {% endif %}
 

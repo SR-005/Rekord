@@ -38,7 +38,7 @@ compiledsol = compile_standard(
 with open("mainapp/contracts/compiled.json", "w") as file:
     json.dump(compiledsol, file, indent=2)
 
-'''print("Compiled successfully!")'''
+#print("Compiled successfully!")
 
 #fetching bytecode from the compiled Smart Contract
 bytecode=compiledsol["contracts"]["mainapp/contracts/simplenft.sol"]["SimpleNFT"]["evm"]["bytecode"]["object"]
@@ -60,13 +60,14 @@ print([f["name"] for f in abi if f["type"] == "function"])
 #-----------------------------------------------------------------DEPLOYMENT------------------------------------------------------------------
 
 SimpleNFT=w3.eth.contract(abi=abi,bytecode=bytecode)
-'''print("Contract Created")'''
+#print("Contract Created")
 
 MYADDRESS=Web3.to_checksum_address(os.getenv("METAMASK_ADDRESS"))
 SECRETCODE=os.getenv("METAMASK_KEY")
 
 #un-comment to re deploy the contract
-'''nonce=w3.eth.get_transaction_count(MYADDRESS)
+'''nonce = w3.eth.get_transaction_count(MYADDRESS, 'pending')
+print("Nonce used:", nonce)
 transaction=SimpleNFT.constructor().build_transaction({
     "from": MYADDRESS,
     "nonce": nonce,
@@ -81,7 +82,7 @@ transactionhash=w3.eth.send_raw_transaction(signedtransaction.raw_transaction)
 transactionreceipt=w3.eth.wait_for_transaction_receipt(transactionhash)
 contractaddress=transactionreceipt.contractAddress'''
 
-contractaddress="0x67839A1002036F8a7db0B0F3c17765c534cE6c4F"
+contractaddress="0x893E73C035FA9057eC3A0324718FD447B3fBaF0B"
 '''print("Contract Address: ",contractaddress)'''
 contractinstance=w3.eth.contract(address=contractaddress,abi=abi)
 '''print("Contract Instacnce: ",contractinstance)'''

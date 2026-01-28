@@ -38,9 +38,9 @@ def metadata(event,imagecid,organization):
         "image": f"https://gateway.pinata.cloud/ipfs/{imagecid}",
         "attributes": [
             {"trait_type": "Event Type", "value": event.eventtype},
-            {"trait_type": "City", "value": event.city},
             {"trait_type": "Date", "value": event.eventdate},
             {"trait_type": "Prestige", "value": event.eventprestige},
+            {"trait_type": "Transferability", "value": "Soul Bound"}
         ]
     }
 

@@ -29,4 +29,19 @@ contract SimpleNFT is ERC721URIStorage, Ownable {
 
         return tokenId;
     }
+
+    //Soul Bound:
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId,
+        uint256 batchSize
+    ) internal override {
+        super._beforeTokenTransfer(from, to, tokenId, batchSize);
+
+        // Allow minting (from == address(0))
+        if (from != address(0)) {
+            revert("Rekord: This badge is soul-bound and non-transferable");
+        }
+    }
 }

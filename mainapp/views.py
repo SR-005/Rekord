@@ -189,14 +189,16 @@ def claim(request,code):
     print("Name: ",name)
     claimeventobject=claimtokenobject.eventid
     organizationname=claimeventobject.organizationid
-    
 
+    if claimtokenobject.status==True:
+        return render(request,"create.html")
+    
     if request.method=="POST":
         action=request.POST.get("action") #for pinpointing which button was clicked
 
         if action=="connect-wallet":                    #automatically executes after connecting wallet
             walletaddress = request.POST.get("walletaddress")
-            print("Wallet connected:", walletaddress)
+            print("Wallets connected:", walletaddress)
 
             eventcount=getcount(walletaddress)              #sm function call for event count
             image=claimeventobject.eventicon                    #fetching event icon 
@@ -204,7 +206,7 @@ def claim(request,code):
 
             #convert images into bytes: for pinata upload via API
             image=image.convert("RGB")              #convert image to RGB- (just to be safe)
-            print("IMAGE MODE:", image.mode, "SIZE:", image.size)       #image debug statement
+            #print("IMAGE MODE:", image.mode, "SIZE:", image.size)       image debug statement
             buffer = BytesIO()
             image.save(buffer, format="PNG",optimize=True)
             buffer.seek(0)
@@ -239,15 +241,20 @@ def claim(request,code):
             print("Passcode: ",claimtokenobject.claimpass)
 
             if usercode!=claimtokenobject.claimpass:
-                pass
+                messages.error(request, "Claim Passcode Mismatch! Please Try Again")
+                return redirect(request.path)
             else:
                 organizationobject=organization.objects.get(name=organizationname)
                 organizationid=organizationobject.id
                 tokenuri=claimtokenobject.metadata
 
                 reciept=mintbadge(walletaddress,organizationid,tokenuri)
-                blockexplorer="https://amoy.polygonscan.com/tx/"+reciept
+                blockexplorer="https://amoy.polygonscan.com/tx/0x"+reciept
                 sendreciept(claimtokenobject,blockexplorer)
+
+                claimtokenobject.status=True
+                claimtokenobject.save()
+                return redirect(request.path)
 
 
     return render(request,"claim.html",{"event":claimeventobject,"claimtoken":claimtokenobject})

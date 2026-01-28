@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns=[path("homepage/",views.homepage,name="homepage"),
              path("create/",views.create,name="create"),
-            path("claim/<str:code>/", views.claim, name="claim")]
+            path("claim/<str:code>/", views.claim, name="claim"),
+            path("claimed", views.claimed, name="claimed")]

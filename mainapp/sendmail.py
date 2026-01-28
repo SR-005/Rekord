@@ -7,7 +7,7 @@ def sendemail(name, email, event,claimurl, passcode):
     body = f"""
         Hello {name},
 
-        You have become eligible to claim an NFT of {event.eventname} from {event.organizationid}. The NFT details are given below, DO NOT under any circumstamces share your PASSCODE with anyone.
+        You have become eligible to claim an NFT of the event '{event.eventname}' organized by {event.organizationid}. The NFT details are given below, DO NOT under any circumstamces share your PASSCODE with anyone.
         It is vital to entire the Passcode at the time of claiming to ensure safety.
 
         EVENT NAME: {event.eventname}

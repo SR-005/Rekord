@@ -160,7 +160,8 @@
                 alert("Failed to generate NFT preview");
                 return;
             }
-
+            
+            mintBtn.disabled = false;
             imagepreview2.src =
                 `https://gateway.pinata.cloud/ipfs/${data.image_cid}`;
         }
@@ -183,7 +184,7 @@
             walletInput.value = connectedAddress;
             walletInput2.value = connectedAddress;
             console.log("Hidden input set to:", walletInput.value);
-            mintBtn.disabled = false;
+            
             imagepreview1.hidden=true;
             imagepreview2.hidden=false;
 

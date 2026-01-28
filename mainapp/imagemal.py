@@ -140,10 +140,10 @@ def loyality(editimage,loyality,walletaddress):
         gray_region = image_region.convert("L").convert("RGB")
         canvas.paste(gray_region, (x1, y1))
 
-    elif loyality=="hello":         #LEVEL 2
+    elif loyality>0 and loyality<=3:         #LEVEL 2
         pass
 
-    elif loyality>0:                #LEVEL 3
+    elif loyality>3:                #LEVEL 3
 
         headercolor1=(143,56,197)        #header color: purple
         headercolor2=(0,0,0)        #header color: purple

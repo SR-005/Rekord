@@ -332,3 +332,18 @@
   border-color: #0e9d06;
   color: #fff;
 }
+
+
+
+
+
+
+.claimed-main{
+  font-family: "BaseNeueRegular";
+  font-size: 60px;
+  margin-top: 280px;
+}
+.claimed{
+  font-family: "BaseNeueBold";
+  color: #7d41ed;
+}

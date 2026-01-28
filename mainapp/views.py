@@ -181,6 +181,9 @@ def create(request):
         
     return render(request, "create.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
 
+def claimed(request):
+    return render(request, "claimed.html")
+
 def claim(request,code):
     url="http://127.0.0.1:8000/claim/"+code+"/"
 
@@ -191,7 +194,7 @@ def claim(request,code):
     organizationname=claimeventobject.organizationid
 
     if claimtokenobject.status==True:
-        return render(request,"create.html")
+        return render(request,"claimed.html")
     
     if request.method=="POST":
         action=request.POST.get("action") #for pinpointing which button was clicked

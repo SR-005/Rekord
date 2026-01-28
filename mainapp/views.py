@@ -153,14 +153,12 @@ def create(request):
                     generatetokens(request,lasteventobject,vnames[i],vmail)           #calls token generating function
                 messages.success(request, "Event Added successfully!")
                 return redirect("homepage")
-            
             lasteventdetails=event.objects.last()   #used for fetching last created row(in order to get the eventid)
             lasteventid=lasteventdetails.eventid        #event id of the previous event(+1 for the current event id)
             #lasteventid=lasteventid+1           #increment: added current event
             request.session["lasteventid"]=lasteventid  #saving latest event id in session
 
         if action=="physical-generate":             #Participant Email Prompt: (as next step if event is physical event)
-            
             lasteventid=request.session.get("lasteventid")          
             print("Current Event ID: ",lasteventid)
             lasteventobject=event.objects.get(eventid=lasteventid)
@@ -177,8 +175,8 @@ def create(request):
 
             messages.success(request, "Event Added successfully!")
             return redirect("homepage")
-        
-    return render(request, "create.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber})
+    
+    return render(request, "create.html",{"orgdetails":organizationdetails,"events":eventdetails,"formnumber":formnumber,"scroll": "participants-physical"})
 
 def claimed(request):
     return render(request, "claimed.html")

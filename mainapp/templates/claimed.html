@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- import css file -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'mainapp/css/style.css'%}?v=5">
+    <link rel="stylesheet" href="{% static 'mainapp/css/style.css'%}?v=6">
 
     <title>Claim Your Rekord</title>
 </head>
@@ -30,6 +30,6 @@
     </nav>
 
     <h1 class="claimed-main text-center">This NFT has already been <span class="claimed">claimed</span>!!</h1>
-
+    <p class="createnew text-center">Create a <a href="{% url 'login' %}"><span class="visitrekord" >Rekord</span></a> for the future here</p>
 </body>
 </html>

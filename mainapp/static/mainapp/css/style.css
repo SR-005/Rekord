@@ -341,9 +341,16 @@
 .claimed-main{
   font-family: "BaseNeueRegular";
   font-size: 60px;
-  margin-top: 280px;
+  margin-top: 300px;
 }
 .claimed{
   font-family: "BaseNeueBold";
+  color: #7d41ed;
+}
+.createnew{
+  margin-top: 313px;
+  font-family: "BaseNeueRegular";
+}
+.visitrekord{
   color: #7d41ed;
 }

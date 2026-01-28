@@ -160,8 +160,7 @@ def create(request):
             request.session["lasteventid"]=lasteventid  #saving latest event id in session
 
         if action=="physical-generate":             #Participant Email Prompt: (as next step if event is physical event)
-            print("ENTERED THE GENERATE TOKENS FUNCTION")
-
+            
             lasteventid=request.session.get("lasteventid")          
             print("Current Event ID: ",lasteventid)
             lasteventobject=event.objects.get(eventid=lasteventid)

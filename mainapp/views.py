@@ -69,6 +69,9 @@ def generatetokens(request,lasteventobject,name,email):
 
 #---------------------------------------------------------------HTML FUNCTIONS----------------------------------------------------------------
 
+def help(request):
+    return render(request,"help.html")
+
 def homepage(request):
     #fetching organization details
     organizationid=request.session.get("currentorganizationid")

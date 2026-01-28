@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- import css file -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'mainapp/css/style.css'%}?v=4">
+    <title>Rekord-Help</title>
+</head>
+
+<body>
+
+    <!--NAVBAR-->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand">REKORD</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Help</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+
+    <!-- GETTING STARTED -->
+    <section class="mb-5">
+        <h1 class=" help-title text-center mb-3">Rekord Help Center</h1>
+        <p class="help-subtitle text-center text-muted">
+            On-chain proof of attendance, made simple.
+        </p>
+
+        <div class="mt-4">
+            <p>
+                <strong>Rekord</strong> allows organizations to issue verifiable,
+                blockchain-based badges as NFTs. These badges act as permanent proof
+                that a participant attended or contributed to an event.
+            </p>
+
+            <p>
+                Unlike traditional certificates, Rekord badges:
+            </p>
+            <ul>
+                <li>Are minted directly to the participant’s wallet</li>
+                <li>Cannot be duplicated or forged</li>
+                <li>Exist permanently on the blockchain</li>
+                <li>Require zero crypto knowledge from users</li>
+            </ul>
+
+            <p class="mt-3">
+                Think of Rekord as <strong>certificates upgraded for Web3</strong>.
+            </p>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- HOW REKORD WORKS -->
+    <section class="mb-5">
+        <h2 class="fw-semibold mb-3">How Rekord Works</h2>
+
+        <ol class="ps-3">
+            <li>Organization creates an event</li>
+            <li>Rekord generates secure claim links</li>
+            <li>Participants receive links via email</li>
+            <li>Participants connect wallet and mint badge</li>
+            <li>Badge is stored permanently on-chain</li>
+        </ol>
+
+        <p class="text-muted mt-3">
+            Rekord automatically handles NFT generation, metadata creation,
+            IPFS uploads, gas fees, and mint security.
+        </p>
+    </section>
+
+    <hr>
+
+    <!-- CREATE EVENT -->
+    <section class="mb-5">
+        <h2 class="fw-semibold mb-3">Creating an Event</h2>
+
+        <p>
+            Creating an event defines how your badge behaves, how it looks,
+            and who can claim it.
+        </p>
+
+        <h5 class="mt-4">Basic Event Information</h5>
+        <ul>
+            <li><strong>Event Name</strong> – Displayed on the NFT</li>
+            <li><strong>Description</strong> – Explains what the badge represents</li>
+            <li><strong>City & Date</strong> – Stored in metadata</li>
+            <li><strong>Event Image</strong> – Base image used for NFT generation</li>
+        </ul>
+
+        <p class="text-muted">
+            Tip: Use a high-quality square image (1024*1024 for non cropped images) for best results.
+        </p>
+    </section>
+
+    <hr>
+
+    <!-- EVENT TYPES -->
+    <section class="mb-5">
+        <h2 class="fw-semibold mb-3">Event Types</h2>
+
+        <h5 class="mt-3">Physical Events</h5>
+        <p>
+            Use physical events for real-world gatherings such as meetups,
+            hackathons, and conferences.
+        </p>
+        <ul>
+            <li>Organizer defines participant count</li>
+            <li>One claim link per participant</li>
+            <li>Each link is single-use</li>
+        </ul>
+
+        <h5 class="mt-4">Virtual Events</h5>
+        <p>
+            Virtual events are ideal for online sessions such as webinars
+            and live streams.
+        </p>
+        <ul>
+            <li>Links may be shared more freely</li>
+            <li>Each wallet can mint only once</li>
+        </ul>
+    </section>
+
+    <hr>
+
+    <!-- PRESTIGE -->
+    <section class="mb-5">
+        <h2 class="fw-semibold mb-3">Event Prestige Levels</h2>
+
+        <p>
+            Prestige defines the visual identity and importance of your badge.
+        </p>
+
+        <h6 class="mt-3">Standard</h6>
+        <p class="text-muted">
+            Clean, minimal design for regular events.
+        </p>
+
+        <h6>Signature</h6>
+        <p class="text-muted">
+            Premium styling for important or sponsored events.
+        </p>
+
+        <h6>Flagship</h6>
+        <p class="text-muted">
+            Highest prestige tier for major conferences or annual events.
+        </p>
+    </section>
+
+    <hr>
+
+    <!-- LOYALTY -->
+    <section class="mb-5">
+        <h2 class="fw-semibold mb-3">Loyality System</h2>
+
+        <p>
+            Rekord dynamically upgrades NFTs based on participant history.
+        </p>
+
+        <ul>
+            <li><strong>First-time participants</strong> receive muted or grayscale badges</li>
+            <li><strong>Returning participants</strong> unlock visual enhancements</li>
+            <li><strong>Loyal participants</strong> receive full-color badges with wallet imprint</li>
+        </ul>
+
+        <p class="text-muted">
+            Loyalty is wallet-based, not email-based.
+        </p>
+    </section>
+
+    <hr>
+
+    <!-- CLAIM FLOW -->
+    <section class="mb-5">
+        <h2 class="fw-semibold mb-3">Claiming a Rekord Badge</h2>
+
+        <ol class="ps-3">
+            <li>Open your claim link</li>
+            <li>Connect wallet</li>
+            <li>Preview your NFT</li>
+            <li>Enter secret code (if required)</li>
+            <li>Mint badge</li>
+        </ol>
+
+        <p class="text-muted">
+            No gas fees are required from participants.
+        </p>
+    </section>
+
+    <hr>
+
+    <!-- TROUBLESHOOTING -->
+    <section class="mb-5">
+        <h2 class="fw-semibold mb-3">Troubleshooting</h2>
+
+        <ul>
+            <li>NFT not visible immediately? Wait and refresh wallet</li>
+            <li>Placeholder image? IPFS sync may take a moment</li>
+            <li>Claim link not working? Links are single-use</li>
+        </ul>
+    </section>
+
+    <!-- FOOTER NOTE -->
+    <section class="text-center mt-5">
+        <p class="text-muted">
+            You focus on the event. Rekord handles the proof.
+        </p>
+    </section>
+
+</div>
+
+</body>
+</html>

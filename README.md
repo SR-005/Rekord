@@ -90,7 +90,8 @@ Even if a wallet UI exposes a “Send” button, all transfer attempts revert on
 ### Backend
 - Python
 - Django
-- Pillow (image processing)
+- Pillow (dynamic NFT image processing)
+- Pandas & NumPy (attendance data parsing and verification)
 - Web3.py
 - Pinata IPFS API
 

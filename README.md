@@ -21,11 +21,27 @@ Once minted, the badge cannot be transferred, sold, or approved.
 ## Key Features
 
 - Soul-bound ERC-721 NFTs (non-transferable)
+- Automated attendance validation for virtual events using session duration analysis
 - Backend-paid gas (users never pay gas)
 - Dynamic NFT image generation
 - IPFS-hosted images and metadata
 - Physical and virtual event support
 - Organization-based attendance tracking
+
+---
+
+## Attendance Verification (Virtual Events)
+
+For virtual events, Rekord includes a server-side attendance verification system to ensure badges are issued only to genuine participants.
+Organizers upload session data in CSV format containing participant join times, leave times, and session duration details. The backend processes this data to:
+
+-Normalize and parse session timestamps
+-Calculate total event duration
+-Compute individual participant presence duration
+-Apply a minimum attendance threshold (default: 75%)
+-Automatically classify participants as Present or Absent
+
+Only participants who meet the required presence criteria are marked eligible and receive claim links. This verification step is fully automated and runs before any badge minting occurs, preventing manual errors and fraudulent claims.
 
 ---
 
